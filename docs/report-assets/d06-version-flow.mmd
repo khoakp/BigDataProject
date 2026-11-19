@@ -1,0 +1,10 @@
+flowchart LR
+    A[Canonical graph and batch ledger] --> B[Transaction: capture current version]
+    B --> C[Validate registry, edges and degree]
+    C --> D[Sparse symmetric normalization, float64]
+    D --> E[Immutable model graph snapshot: COO, node map, manifest]
+    E --> F[Export Parquet; publish manifest last]
+    A --> G[Apply next batch: canonical version advances]
+    G --> H[Freshness: current canonical version versus snapshot source version]
+    E --> H
+    H --> I[Explicit refresh produces a new snapshot]

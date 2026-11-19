@@ -1,0 +1,14 @@
+flowchart TD
+    A[Canonical Parquet batch] --> B[Validate fields and order; hash payload]
+    B --> C[Begin transaction; check applied_batches]
+    C --> D{Existing batch ID?}
+    D -->|Same hash| E[Commit read transaction; NO_OP]
+    D -->|Different hash| F[Rollback; reject conflict]
+    D -->|New| G[Check watermark and batch boundary]
+    G --> H[Filter positive; dedup; anti-join existing edges]
+    H --> I[Allocate unseen nodes; insert new edges]
+    I --> J[Increment degree from inserted edges]
+    J --> K[Write ledger; commit; APPLIED]
+    G -->|Invalid boundary| F
+    I -->|Exception| F
+    J -->|Exception| F

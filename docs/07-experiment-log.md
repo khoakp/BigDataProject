@@ -4,7 +4,21 @@
 > Đây là nơi ghi **kết quả đo thực** và failures. Không điền số hoặc đồ thị suy đoán.  
 > Nguồn số liệu: `results/raw/*.csv` và `results/logs/*`; plots sinh từ CSV, không vẽ thủ công.
 
+**Kiểm tra dữ liệu đầu vào, không phải benchmark (19/11/2026):** MD5 của `../ml-32m/ratings.csv` và `movies.csv` khớp `checksums.txt` đi kèm. Lệnh, kích thước và hash được ghi tại [09, E-003](09-report-evidence.md). Chưa profile dữ liệu hay chạy EXP-01/02/03; trạng thái protocol bên dưới không thay đổi.
+
+**D01 feasibility (19/11/2026):** CPU autograd smoke PASS; `torch 2.8.0+cpu` không có CUDA, nên CUDA smoke `UNAVAILABLE`, không phải GPU benchmark. Máy nhận RTX 4050 qua `nvidia-smi`. Cấu hình và lệnh ở [environment.md](environment.md).
+
+**D02 data profile (19/11/2026, không phải EXP-01/02):** profile và deterministic replay kiểm chứng trên MovieLens ratings; 32,000,204 rows, 0 null ở bốn cột, 0 duplicate user–movie pairs, 6,023,681 rows vượt số timestamp phân biệt; hai prefix 100k/1M có hash giống nhau qua hai runs. Raw profile, hash, config và lệnh ở [d02-data-profile.md](d02-data-profile.md). Chưa đo hiệu năng Full/Incremental.
+
+**D03 graph correctness (19/11/2026, không phải speed benchmark):** full reference trên 100k canonical events tạo 57.925 positive edges; degree sum mỗi phía bằng 57.925. Toy dedup test và 100k state validation PASS; [d03-full-reference.md](d03-full-reference.md) có input/output hashes, phiên bản phần mềm, code và lệnh. EXP-01 vẫn CHƯA CHẠY vì chưa có Incremental path/equivalence.
+
 ## 1. Quy định áp dụng chung
+
+**D06 normalization/version correctness (19/11/2026):** run `D06-20261119T163958346261Z` PASS, 100k prefix / 10 batches; Full SQL reference tại v1/v5/v10 có cùng normalized shape/coordinates và max_abs_diff=0 (float64 atol 1e-12). Stale snapshots, export/reopen và metadata isolation PASS; unit suite 15 tests PASS. Full catalog validation: 87.585 movie IDs unique/non-null. Raw report ở `data/processed/d06_probe/report.json`; setup/hashes và run FAIL ban đầu được ghi ở [D06](d06-normalization.md). Chưa chạy EXP-02 cost/freshness hoặc LightGCN.
+
+**D05 exact equivalence (19/11/2026):** run `D05-equivalence` PASS trên toy và prefix 100k, mỗi dataset 4 segmentation. Registry/edge/degree bằng nhau tại 35 boundary checks; 70 immediate/historical replays giữ nguyên snapshot. Unit suite 7 tests PASS sau khi sửa Full Rebuild empty-positive SUM; raw report ở `data/processed/d05_probe/report.json`, input/code hashes và setup ở [D05](d05-equivalence.md). G1 PASS trong phạm vi đã kiểm tra; EXP-01/02 vẫn chưa chạy.
+
+**D04 correctness (19/11/2026):** run `D04-100k-10k` đạt với 57.925 edges, 2.819 nodes; degree sum mỗi phía 57.925; 10/10 batch replay NO_OP; stable IDs, degree recount và reopen PASS. Unit suite 5 tests PASS gồm hash conflict và rollback injection. Cấu hình, lệnh, state fingerprint, lỗi ban đầu và giới hạn ở [d04-incremental.md](d04-incremental.md); report thô tại `data/processed/d04_probe/report.json`. Đây chưa phải EXP-01 hay kết quả Full/Incremental equivalence D05.
 
 **Dataset:** MovieLens 32M là nguồn chính. `ratings.csv` tạo graph/benchmark; `movies.csv` là metadata dùng hậu xử lý. Bản ghi EXP-01/02 không được bao gồm metadata JOIN trong thời gian đo graph core, trừ khi tạo một phép đo enrichment riêng có nhãn.
 
@@ -51,14 +65,17 @@ print('reserved_MB', torch.cuda.max_memory_reserved()/2**20)
 
 | Size / thử nghiệm | CUDA forward | Backward | Short train | Peak allocated | Peak reserved | Kết luận |
 |---|---|---|---|---|---|---|
-| Toy / 100k | CHƯA CHẠY | — | — | — | — | — |
-| 1M | CHƯA CHẠY | — | — | — | — | — |
+| Toy | PASS | PASS | 4 bước | 10,20 MiB | 24 MiB | Dense reference đạt |
+| 100k | PASS | PASS | 4 bước | 23,65 MiB | 34 MiB | Snapshot D06 v10 |
+| 1M | PASS | PASS | 4 bước | 126,26 MiB | 148 MiB | Full Rebuild + normalization D06 |
 | 5M | CHƯA CHẠY | — | — | — | — | — |
 | 10M | CHƯA CHẠY | — | — | — | — | — |
 | 20M | CHƯA CHẠY | — | — | — | — | — |
 | 32M | **STRETCH ONLY** | — | — | — | — | Không là tiêu chí hoàn thành |
 
 **Lưu ý:** 1M rating events != 1M positive graph edges; phải ghi cả nodes, edges, embedding dim/layers, graph representation. Chọn model scale có **headroom**, không chọn size chạy đúng một lần sát ngưỡng OOM.
+
+Run `D07-20261119T172548657263Z` ngày 20/11/2026 dùng RTX 4050, PyTorch 2.8.0+cu126, COO float32, 64 chiều, 3 lớp và 2.048 bộ ba mỗi bước. Có một bước warm-up và ba bước đo. Setup, CUDA timings, memory theo phase và T-09 có trong [hồ sơ D07](d07-lightgcn-smoke.md). EXP-01/02/03 vẫn chưa chạy.
 
 ## 3. EXP-01 — Full Rebuild vs Stateful Incremental Update
 

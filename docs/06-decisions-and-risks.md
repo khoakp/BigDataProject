@@ -11,7 +11,7 @@
 | **DEC-002** | ML32M làm DE scale, LightGCN bắt đầu 100k/1M rồi scale sau GPU probe | ACCEPTED (scale lớn chưa chốt) | RTX 4050 6GB; Kaggle GPU tùy chọn; phải đo VRAM để xác định safe scale | D01/D07 |
 | **DEC-003** | Canonical edge+registry+degree khác normalized model graph | ACCEPTED | Cơ chế LightGCN degree normalization | T-05/EXP-02 |
 | **DEC-004** | Dùng event-time historical replay, không gọi production streaming | ACCEPTED | Dữ liệu MovieLens là lịch sử có timestamp | P-003 |
-| **DEC-005** | Positive graph = unique pair có ít nhất một rating >= 4.0 | PROPOSED | Policy nghiên cứu, inspect duplicates và freeze D03 | D03 |
+| **DEC-005** | Positive graph = unique pair có ít nhất một rating >= 4.0 | ACCEPTED cho D03, 19/11/2026 | Profile rating toàn bộ nguồn; rule nghiên cứu, chưa chứng minh tối ưu Recall/NDCG. Nếu đổi phải chạy lại graph/benchmark | [D03](d03-full-reference.md) |
 | **DEC-006** | So sánh stale/propagation-only/trained refresh trên warm nodes | PROPOSED | Tránh vấn đề strict cold-start embedding; đo EXP-03 | P-036 |
 | **DEC-007** | Một máy cho DE benchmark, DuckDB/Parquet/PyTorch; Kaggle GPU tùy chọn | ACCEPTED | 21 ngày, không mặc định Spark/Kafka/Neo4j; DE benchmark phải cùng phần cứng | D01/D07 |
 | **DEC-008** | Chỉ công bố lợi ích deferred normalization nếu EXP-02 chứng minh | ACCEPTED | Tránh confirmation bias; âm tính vẫn hợp lệ | EXP-02 |
@@ -21,6 +21,15 @@
 | **DEC-012** | `movies.csv` enrichment **sau** Top-K; không dùng genre/title trong LightGCN MVP | ACCEPTED | Giữ bipartite graph semantics và benchmark comparability; cho demo/genre profiling không đổi metric | Design 2.4, T-10/11/12 |
 | **DEC-013** | Rebaseline còn ~21 ngày: D10 MVP, D16 feature freeze; EXP-01 P0, EXP-02 P1, EXP-03 stretch | ACCEPTED (deadline thật chưa xác nhận) | Phải ưu tiên tính đúng đắn và sản phẩm nộp trước scope mở rộng | Plan 21 ngày |
 | **DEC-014** | Kaggle GPU được phép dùng LightGCN, benchmark CPU Full/Incremental vẫn cùng môi trường | ACCEPTED (tùy tài nguyên) | Tránh so sánh thời gian giữa hai loại máy; log software/hardware/config riêng | D07–D14 |
+
+### DEC-015 — Representation và version contract của normalized snapshot D06
+
+- **Ngày / trạng thái:** 19/11/2026, ACCEPTED trong phạm vi triển khai D06 theo thiết kế mục 6–7.
+- **Lựa chọn:** materialize sparse COO float64, int64 node indices, không self loops; normalize một lần tại graph materializer. Tolerance kiểm chứng absolute `1e-12`, relative 0. Không thêm dependency tensor nặng cho kiểm tra CPU D06.
+- **Version:** `model_graph_version` là canonical source version của snapshot, không phải số thứ tự lần refresh. Current canonical version được báo riêng; node map/shape/weights snapshot cũ giữ nguyên. `model_checkpoint_version` là null đến khi thực sự có checkpoint.
+- **Persistence:** manifest/node map/COO trong cùng DuckDB transaction; export file dùng manifest cuối cùng làm completion marker. Không nhận là checkpoint recovery hoặc publish atomic xuyên DB/filesystem.
+- **Phương án khác:** normalize on-the-fly lúc propagation có chi phí khác và chưa được đo ở đây. Chuyển sang float32/tensor ở D07 phải kiểm tra tolerance và tránh normalize hai lần.
+- **Bằng chứng / hạn chế:** [D06](d06-normalization.md), dense toy reference, snapshot/version tests và integration probe. Không kết luận về speedup hoặc GPU compatibility từ lựa chọn này.
 
 ### Mẫu ADR mới
 

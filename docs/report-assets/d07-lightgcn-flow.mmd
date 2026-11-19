@@ -1,0 +1,9 @@
+flowchart LR
+    A["D06 normalized COO and node map"] --> B["float32 COO on GPU"]
+    C["Trainable embedding E0"] --> D["Sparse propagation for layers 1 to K"]
+    B --> D
+    C --> E["Average embeddings from layers 0 to K"]
+    D --> E
+    E --> F["Dot product scores for BPR triples"]
+    F --> G["Loss and backward"]
+    G --> H["Adam updates E0"]

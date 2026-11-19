@@ -1,10 +1,12 @@
 # 04 — Kế hoạch triển khai BigDataProject trong 21 ngày
 
 > **Phiên bản kế hoạch:** 0.2 · **Cập nhật:** 10/11/2026 · **Trạng thái:** kế hoạch dự kiến, **không phải nhật ký đã hoàn thành**.  
-> **Thời gian còn lại:** khoảng 3 tuần. D01 là **ngày thực sự bắt đầu triển khai**, cần ghi chính xác; hạn nộp/giờ nộp chính thức **CHƯA XÁC NHẬN**. Không mặc định 21 ngày có đủ 21 buổi rảnh.  
+> **D01 bắt đầu:** 19/11/2026; hạn nộp/giờ nộp chính thức **CHƯA XÁC NHẬN**. D01–D21 là thứ tự công việc, không mặc định 21 buổi rảnh.
 > **Bản cũ:** [Kế hoạch 7 tuần (archived)](archive/04-project-plan-7weeks-archived.md). Tài liệu này là kế hoạch **đang hiệu lực**; các W1D1…W7D7 trong file khác là lịch sử, cần quy đổi theo mốc D01…D21 tại đây.
 
 ## 1. Đích 21 ngày và phạm vi
+
+**Tiến độ thực tế 20/11/2026:** D01–D07 DONE. G1 đạt trên toy/100k. G2 đạt sau D06 normalization và D07 LightGCN CUDA smoke trên toy, 100k và 1M. Chi tiết ở [D05](d05-equivalence.md), [D06](d06-normalization.md) và [D07](d07-lightgcn-smoke.md). Bảng bên dưới giữ tiêu chí kế hoạch.
 
 **Critical path:** Verify MovieLens 32M → deterministic canonical events → Full/Incremental graph state correctness → sparse normalization correctness → LightGCN MVP → EXP-01 → EXP-02 (nếu đủ thời gian) → báo cáo/demo.
 

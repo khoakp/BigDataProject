@@ -1,0 +1,10 @@
+flowchart TD
+    A[Same canonical event prefix] --> B[Split into batches]
+    B --> C[Incremental apply_batch]
+    A --> D[Full rebuild at matching cutoff]
+    C --> E[Project registry, edges, degrees]
+    D --> E
+    E --> F[Sort complete rows and compare exactly]
+    F --> G[Record component checksums and PASS or FAIL]
+    C --> H[Replay batch and compare full snapshot]
+    H --> G

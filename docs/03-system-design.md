@@ -1,6 +1,6 @@
 # 03 — Thiết kế kỹ thuật và kiến trúc hệ thống
 
-> **Trạng thái:** thiết kế dự kiến, chưa cài đặt/benchmark · **Phiên bản:** 0.2 · Cập nhật 10/11/2026  
+> Đã triển khai và kiểm chứng D01–D07. LightGCN sparse smoke đạt trên CUDA. Temporal evaluation và benchmark thuộc các milestone sau. Cập nhật 20/11/2026.
 > **Nguyên tắc:** correctness → reproducibility → performance. Mọi interface đều là đề xuất để kiểm thử và tinh chỉnh.
 
 ## 1. Kiến trúc logic
@@ -118,6 +118,8 @@ Unique constraints: `(node_type,raw_id)`, `node_id` unique. **Không** offset `m
 
 ## 4. Mutable state và giao dịch phiên bản
 
+**Implementation D04:** [incremental.py](../src/graph/incremental.py) hiện thực graph state và batch ledger trong một DuckDB transaction. Input, batch hash contract, watermark, hành vi NO_OP và giới hạn publish/recovery được ghi ở [D04](d04-incremental.md). Schema SQL dưới đây là thiết kế gốc; implementation bổ sung ledger event counts và last order key để kiểm tra boundary. DB ledger là nguồn version của D04, chưa xuất model snapshot manifest.
+
 ### 4.1 State schema gợi ý
 
 ```sql
@@ -171,6 +173,8 @@ Trình tự gợi ý: validate input → begin transaction → check batch ledge
 
 ## 5. Full vs Incremental algorithms
 
+**Kiểm chứng D05:** [equivalence.py](../src/graph/equivalence.py) đối chiếu exact logical registry/edge/degree, không dùng số lượng làm đại diện cho equality. Harness rebuild reference tại từng batch boundary và kiểm tra replay giữ nguyên full state. G1 PASS trên toy/100k, 4 segmentation mỗi dataset; setup, version projection và giới hạn ở [D05](d05-equivalence.md).
+
 ```python
 # Reference (conceptual pseudocode)
 def full_rebuild(events_through_watermark, config):
@@ -197,6 +201,8 @@ def apply_batch(prior_version, batch):
 **Thực thi:** có thể dùng SQL `INSERT ... ON CONFLICT DO NOTHING`/anti-join; cập nhật DegreeState dựa trên tập **đã insert thực tế**, không dựa số dòng positive trước dedup. Benchmark cả overhead giao dịch.
 
 ## 6. Materialize model-ready LightGCN operator
+
+**Implementation D06:** [normalize.py](../src/graph/normalize.py) materialize COO float64, kiểm tra degree/edges và normalize một lần. [snapshot.py](../src/graph/snapshot.py) lưu node map, weights và manifest theo source version; `freshness()` báo current canonical/model graph versions riêng. T-05 dense toy + SQL Full reference và T-06 stale/export/reopen đã PASS; [D06](d06-normalization.md) ghi scope/tolerance và DEC-015 ghi representation contract. GPU/framework operator chưa kiểm chứng đến D07.
 
 Trên canonical snapshot \(G_v\), tính degree \(d_j\), duyệt edges và tạo sparse adjacency **đối xứng**:
 
@@ -236,6 +242,8 @@ Nếu dùng factorized propagation \(D^{-1/2} A D^{-1/2}X\), ghi rõ liệu thí
 **Ví dụ schema, không phải dữ liệu đã đo.** `canonical_version`/`model_graph_version`/`model_checkpoint_version` khác nhau là hợp lệ nếu refresh được trì hoãn. Không dùng các trường version để ngụy trang graph sai.
 
 ## 8. Model integration, temporal evaluation và prevention of leakage
+
+[LightGCN D07](../src/models/lightgcn.py) nạp COO từ D06 dưới dạng float32 và dùng sparse matrix multiplication để lan truyền. Toy reference xác nhận kết quả sau khi chuyển dtype. Toy, 100k và 1M đều chạy CUDA forward/backward và Adam. Cấu hình và bộ nhớ đo được có trong [D07](d07-lightgcn-smoke.md).
 
 1. Tách lịch sử chronological thành train/validation/test **bằng thời gian**, ưu tiên cutoff nhất quán. Không random edge split vì sẽ leak future links.
 2. Tạo train graph và degree **chỉ từ train prefix** khi đánh giá tại cutoff. Registry cho train model không được dùng validation/test để tính degrees.
