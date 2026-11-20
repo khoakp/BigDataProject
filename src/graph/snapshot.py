@@ -65,15 +65,23 @@ def materialize_normalized(graph, *, expected_version: int, provenance: dict) ->
         else:
             con.execute("INSERT INTO model_graph_snapshots VALUES (?,?)",[expected_version,json.dumps(manifest,sort_keys=True)])
             if state["registry"]:
-                columns = list(zip(*state["registry"]))
                 con.execute("""INSERT INTO model_graph_nodes
-                    SELECT ?,unnest(?::BIGINT[]),unnest(?::VARCHAR[]),unnest(?::BIGINT[]),unnest(?::BIGINT[])""",
-                            [expected_version,*[list(c) for c in columns]])
+                    SELECT ?,node_id,node_type,raw_id,first_event_id FROM node_registry""",
+                            [expected_version])
             if adjacency.entries:
-                columns = list(zip(*adjacency.entries))
                 con.execute("""INSERT INTO model_graph_coo
-                    SELECT ?,unnest(?::BIGINT[]),unnest(?::BIGINT[]),unnest(?::DOUBLE[])""",
-                            [expected_version,*[list(c) for c in columns]])
+                    SELECT ?,e.user_node_id,e.movie_node_id,
+                           1.0/sqrt(CAST(du.degree AS DOUBLE)*dm.degree)
+                    FROM edge_state e
+                    JOIN degree_state du ON du.node_id=e.user_node_id
+                    JOIN degree_state dm ON dm.node_id=e.movie_node_id
+                    UNION ALL
+                    SELECT ?,e.movie_node_id,e.user_node_id,
+                           1.0/sqrt(CAST(du.degree AS DOUBLE)*dm.degree)
+                    FROM edge_state e
+                    JOIN degree_state du ON du.node_id=e.user_node_id
+                    JOIN degree_state dm ON dm.node_id=e.movie_node_id""",
+                            [expected_version,expected_version])
         con.execute("COMMIT")
         return manifest
     except Exception:
