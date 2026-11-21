@@ -1,6 +1,8 @@
 # 01 — Tổng quan và đặc tả đề tài
 
-> **Trạng thái:** kế hoạch cập nhật 0.2 · **Cập nhật:** 10/11/2026 · **Loại:** tài liệu định hướng (Project Charter)  
+> **Định hướng hiện hành từ 21/11/2026:** *Xây dựng hệ thống gợi ý phim cá nhân hóa sử dụng LightGCN kết hợp pipeline xử lý dữ liệu lớn và cập nhật đồ thị tăng dần* (*Building a Personalized Movie Recommendation System Using LightGCN and an Incremental Big Data Pipeline*). [Bản v1.0](10-direction-update-v1.md) và [sprint S01–S14](11-sprint14-plan.md) thay thế ưu tiên cũ trong tài liệu này; các đoạn bên dưới được giữ làm lịch sử D01–D13. Big Data Engineering và Graph-based Deep Recommender Systems đều là trụ cột bắt buộc; Popularity/Top-20 quality và Streamlit thuộc P0, EXP-02 là phần mở rộng đã chạy.
+
+> **Trạng thái:** charter lịch sử D01–D13, đã được [bản v1.0](10-direction-update-v1.md) thay thế từ 21/11/2026 · **Bản gốc:** 10/11/2026.
 > **Người thực hiện:** [Điền tên] · **Môn:** Introduction to Big Data · **Thời gian triển khai còn lại:** khoảng 3 tuần (21 ngày tương đối)  
 > **Ngày bắt đầu / hạn nộp chính thức:** CHƯA XÁC NHẬN — xem [04 — Kế hoạch](04-project-plan.md).
 

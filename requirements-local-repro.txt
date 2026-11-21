@@ -1,0 +1,9 @@
+# Local Python 3.10 app/evaluator environment observed on 2026-11-21.
+# Install PyTorch 2.8.0 with the appropriate official CPU/CUDA wheel first;
+# see docs/s12-reproducibility.md. Kaggle REC-01 used its own environment.
+duckdb==1.5.6
+numpy==2.2.6
+pandas==2.3.3
+pyarrow==25.0.1
+psutil==7.2.2
+streamlit==1.54.0

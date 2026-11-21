@@ -1,5 +1,7 @@
 # 08 — Khung báo cáo cuối kỳ, bằng chứng, tài liệu tham khảo và bảo vệ
 
+> **Cập nhật phạm vi 21/11/2026:** [Project Direction v1.0](10-direction-update-v1.md) và [sprint S01–S14](11-sprint14-plan.md) thay thế trọng tâm DE-only của dàn ý cũ. Báo cáo cuối phải có hai trụ cột DE và Graph-based Deep Recommender, REC-01 vs Popularity Top-20, cùng Streamlit demo; D13 EXP-02 là kết quả mở rộng. Nội dung bên dưới giữ làm cấu trúc lịch sử để biên tập, chưa phải bản cuối.
+
 > **Trạng thái:** đề cương cập nhật 10/11/2026; chưa điền kết quả. Cấu trúc phục vụ báo cáo môn Nhập môn Big Data, nhấn mạnh Data Engineering.  
 > **Nguyên tắc:** viết từ câu hỏi → quyết định kiến trúc → kiểm thử đúng đắn → thí nghiệm → kết luận; không xây dàn ý bằng danh sách công nghệ.
 
@@ -85,7 +87,7 @@
 |---|---|---|
 | Graph incremental đúng | Equal edge sets, degree/registry, idempotency tests | `tests/` — Chưa tạo |
 | Normalized graph đúng | Toy graph + full vs incremental same snapshot | `tests/` — Chưa tạo |
-| Incremental hiệu quả ở điều kiện X | EXP-01 raw repeated wall/RSS/I/O | `results/raw/exp01_...` — Chưa chạy |
+| Incremental hiệu quả ở điều kiện X | EXP-01 raw repeated wall/RSS/I/O | [S07 Engineering conclusions](s07-exp01-engineering-conclusions.md), [raw/figures D12](d12-exp01-results.md); chỉ quan sát thắng ổn định tại H=2M, Δ=1k trong các điểm đã đo |
 | Deferred policy đánh đổi cost/staleness | EXP-02 + common-version equality | `results/raw/exp02_...` — Chưa chạy |
 | Propagation-only có/không cải thiện chất lượng | EXP-03 temporal Recall/NDCG + GPU stats | `results/raw/exp03_...` — Chưa chạy |
 | Model scale phù hợp GPU | D07 GPU probe (RTX 4050 hoặc Kaggle, ghi rõ từng môi trường) | `results/raw/gpu_probe.csv` — Chưa chạy |

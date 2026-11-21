@@ -1,0 +1,12 @@
+flowchart LR
+    A[Canonical events] --> B[Event-time train cutoff]
+    B --> C[D04 incremental batches and ledger]
+    B --> R[Full Rebuild reference]
+    C --> E[Exact state equivalence]
+    R --> E
+    C --> N[D06 normalized train graph]
+    N --> M[LightGCN checkpoint]
+    M --> T[Raw movie ID Top-K and metrics]
+    V[movies.csv validate unique keys] --> J[Post-ranking LEFT lookup]
+    T --> J
+    J --> O[Enriched Top-K and coverage]

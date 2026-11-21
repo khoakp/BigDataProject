@@ -1,5 +1,7 @@
 # 03 — Thiết kế kỹ thuật và kiến trúc hệ thống
 
+> **Phạm vi sprint mới 21/11/2026:** sơ đồ dưới đây mô tả lõi graph/LightGCN đã xây. [Định hướng v1.0](10-direction-update-v1.md) bổ sung Streamlit, REC-01 Popularity/Top-20 và checkpoint selection vào MVP; [S01](s01-evaluation-spec.md) là giao thức đã duyệt, [S04](s04-rec01-results.md) ghi kết quả trên prefix 1M và [S09](s09-streamlit-mvp.md) ghi UI snapshot chỉ đọc.
+
 > Đã triển khai và kiểm chứng D01–D07. LightGCN sparse smoke đạt trên CUDA. Temporal evaluation và benchmark thuộc các milestone sau. Cập nhật 20/11/2026.
 > **Nguyên tắc:** correctness → reproducibility → performance. Mọi interface đều là đề xuất để kiểm thử và tinh chỉnh.
 

@@ -12,3 +12,4 @@ __pycache__/
 /results/raw/
 *.duckdb
 *.duckdb.wal
+~$*.docx

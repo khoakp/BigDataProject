@@ -1,0 +1,2 @@
+# Install into the existing Python 3.10 project venv (which already has PyTorch and DuckDB).
+streamlit==1.54.0

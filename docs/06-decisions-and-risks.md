@@ -1,6 +1,31 @@
 # 06 — Nhật ký quyết định kiến trúc (ADR) và quản lý rủi ro
 
-> **Ngày khởi tạo:** 20/10/2026 · **Cập nhật:** 10/11/2026. **Phân biệt:** `PROPOSED` = lựa chọn đề xuất, `ACCEPTED` = đã chốt, `SUPERSEDED` = đã thay thế, `REJECTED` = không chọn.  
+> **Hướng mới 21/11/2026:** DEC-016 ghi định hướng v1.0 đã thống nhất; DEC-017 ghi giao thức REC-01 đã được Project Owner duyệt. DEC-001/013/014 và risk cũ bên dưới được giữ như lịch sử, không còn quyết định ưu tiên sprint S01–S14. Xem [định hướng](10-direction-update-v1.md) và [sprint mới](11-sprint14-plan.md).
+
+### DEC-016 — Hai trụ cột và sprint S01–S14
+
+- **Ngày / trạng thái:** 21/11/2026, ACCEPTED theo Project Direction Update v1.0 do Project Owner cung cấp.
+- **Lựa chọn:** Big Data Engineering và LightGCN recommendation đều là P0; thêm Popularity, Recall/NDCG@20, checkpoint validation selection và Streamlit MVP. Kaggle GPU là môi trường training chính; laptop dùng ETL/benchmark/app và là fallback có ghi nhãn khi Kaggle không khả dụng. EXP-01 giữ là benchmark bắt buộc; D13 EXP-02 đã chạy được giữ làm phần mở rộng, không nằm trên critical path mới. Các milestone D01–D13 và số hiệu EXP cũ giữ nguyên; công việc mới dùng S01–S14, REC-01 và REC-02.
+- **Lý do:** hướng mới cần chứng minh cả correctness/chi phí dữ liệu lẫn chất lượng và trải nghiệm gợi ý, trong 14 ngày dự kiến.
+- **Hậu quả:** README, overview, plan, report outline cần dẫn kế hoạch mới; S01 audit trước khi thay code. Không khẳng định graph update làm thay đổi model parameters hay recommendations nếu chưa refresh thật.
+- **Bằng chứng:** [bản định hướng](10-direction-update-v1.md), [kế hoạch sprint](11-sprint14-plan.md), [S01 audit](s01-evaluation-spec.md).
+
+### DEC-017 — REC-01 evaluation protocol
+
+- **Ngày / trạng thái:** 21/11/2026, ACCEPTED; Project Owner duyệt trong chat trước final training/evaluation.
+- **Đề xuất:** primary canonical prefix 1M với cutoffs đã đo, warm train-catalog candidates, Recall/NDCG@20, Popularity cùng cohort, validation selection từ steps 100/300/500, test chỉ sau chọn. Chi tiết và giới hạn tại [S01](s01-evaluation-spec.md).
+- **Điều kiện khóa:** dataset/cutoffs/candidate/selection rule đã được Project Owner xác nhận. Lưu config/hash và không đổi theo test metric. Scale bổ sung có protocol/run ID riêng.
+
+### DEC-018 — Feedback graph branch và model freshness S10
+
+- **Ngày / trạng thái:** 21/11/2026, ACCEPTED trong phạm vi S10 Streamlit demo.
+- **Lựa chọn:** sao chép sealed REC-01 train graph sang state demo riêng; rating mới theo batch dùng D04 ledger, không sửa source/checkpoint gốc. Rating `>=4.0` tạo binary positive edge theo DEC-005; rating thấp hơn chỉ tạo event. Không ghi đè cặp đã rating trong train hoặc demo branch.
+- **Version:** `canonical_graph_version` là version hiện tại của branch; `model_graph_version` và checkpoint step luôn là version/step REC-01 đã train cho đến khi có refresh thực sự. Giao diện ghi `staleness_batches = canonical - model`; Top-20 vẫn từ checkpoint cũ.
+- **Lý do:** bảo toàn kết quả REC-01 đã seal, không để thao tác demo gây temporal leakage hoặc tạo claim sai rằng graph update đã train lại model. Intent JSON và batch ledger giúp retry/reopen idempotent trong demo một tiến trình.
+- **Giới hạn:** chưa có multi-process writer, power-loss durability, model refresh, quality/latency post-feedback hoặc deployment production. Nếu triển khai REC-02, phải có protocol và artifact riêng, không dùng nhánh demo làm test set.
+- **Bằng chứng:** [S10](s10-rating-graph-refresh.md), [store](../src/app/feedback.py), [integration/UI tests](../tests/test_s10_feedback.py).
+
+> **Ngày khởi tạo:** 20/10/2026 · **Cập nhật:** 21/11/2026. **Phân biệt:** `PROPOSED` = lựa chọn đề xuất, `ACCEPTED` = đã chốt, `SUPERSEDED` = đã thay thế, `REJECTED` = không chọn.
 > Mọi thay đổi lớn cần viết một ADR riêng, liên kết [01](01-project-overview.md), [03](03-system-design.md), [04](04-project-plan.md), [07](07-experiment-log.md).
 
 ## A. Decision Log ban đầu

@@ -1,7 +1,26 @@
 # 05 — Nhật ký làm việc hằng ngày
 
+### 21/11/2026 — S01: audit và đề xuất REC-01
+
+- Đọc và lưu [Project Direction Update v1.0](10-direction-update-v1.md), mở [kế hoạch S01–S14](11-sprint14-plan.md) mà không đổi lịch sử D01–D13. Đối chiếu code, D08/D10 reports, tests và artifacts với yêu cầu Top-20, Popularity, validation selection, Kaggle, Streamlit.
+- [Đặc tả S01](s01-evaluation-spec.md) xác định primary prefix 1M/cutoffs, train-only candidates, warm exclusions, Top-20 metrics, Popularity và rule chọn checkpoint. Project Owner đã duyệt trong chat; S03–S05 đã chạy theo giao thức này, UI chưa xây.
+- Ghi DEC-016 về hướng đã thống nhất và DEC-017 về protocol đề xuất. Giữ EXP-01/02 đã chạy theo tên cũ. Không commit/push trong phiên này.
+- S02 xây train-only Popularity, so Top-20 cùng cohort/candidates/seen mask với LightGCN và chọn checkpoint chỉ từ validation metrics. Toy tests kiểm ranking tie, exclusions, leak guard và selection; các thành phần này đã dùng trong REC-01 S04.
+- S02 validation-only probe trên D08 1M checkpoint cũ PASS: LightGCN Recall/NDCG@20 0,11949/0,08200; Popularity 0,12070/0,08534 trên cùng 482 warm users/773 candidates. [Phương pháp và giới hạn](s02-validation-smoke.md); không dùng test và không gọi đây là REC-01 final run.
+- S03 runner `src/models/rec01_train.py` khóa protocol 1M, lưu ba checkpoints, chọn validation rồi mới query test, xuất versioned model graph/ID map và raw results. Bundle canonical 1M + code đã kiểm hash tại `data/processed/rec01_kaggle_bundle_s03/`; Dataset private đã upload. Kaggle [Version 3](https://www.kaggle.com/code/khoakp/rec01-movielens-1m-gpu-validation?scriptVersionId=372012165) chạy `REC01_KAGGLE_PASS`, `seal-output PASS`; tải ZIP về và local `verify-output PASS`. [Workflow, hash và lỗi V1/V2](s03-kaggle-workflow.md).
+- S04 [REC-01](s04-rec01-results.md): chọn LightGCN checkpoint 300 bằng validation NDCG@20; test trên 403 warm users/773 train movies đạt Recall/NDCG@20 0,128000/0,085161, so Popularity 0,128099/0,086897. Popularity nhỉnh hơn; báo cáo rõ cold exclusions và chỉ prefix 1M.
+- S05 [loader và JSON CLI](s05-recommendation-pipeline.md) kiểm hash code/artifact, load checkpoint đã chọn, Top-20 LightGCN warm-user với train-seen mask, metadata enrichment sau xếp hạng, Popularity train-only cho cold user. Tám toy tests và 52 tests local PASS; CLI smoke trên artifact Kaggle thật: warm user `25062` và cold user `-1` đều có 20/20 metadata, route đúng method và graph version 81. S05 hoàn tất trong phạm vi inference hiện tại; Streamlit thuộc sprint sau.
+- S06 [audit EXP-01](s06-exp01-audit.md): tái dùng raw D12 thay vì chạy lại. Script kiểm 72+24 CSV rows, 36+12 paired repetitions, provenance, summary, logical hashes, từng Parquet SHA-256 và export byte count; cả hai run PASS. `events_per_s` có mẫu số khác nhau giữa Full và Incremental nên không dùng làm speedup trực tiếp.
+- S07 [Engineering conclusions](s07-exp01-engineering-conclusions.md): tổng hợp raw D12 và audit S06, đối chiếu 8 cases H/Δ với 5 repetitions/case. Core H≤1M Full nhanh hơn toàn bộ paired runs; run 2M riêng Δ=1k cho Incremental ratio 1,156 (5/5 wins), Δ=10k gần hòa (2/5). Tái sinh summary trùng SHA-256 và 5 PNG trùng byte với report assets; xem trực quan các hình. Gate DE PASS trong phạm vi benchmark H≤2M, không suy rộng 32M.
+- S09 [Streamlit MVP](s09-streamlit-mvp.md): cài Streamlit 1.54.0 cho venv Python 3.10, app đọc REC-01 artifact đã xác minh, chọn warm user hoặc new-user Popularity, hiển thị Top-20 title/genres, lịch sử rating trước train cutoff, train catalog và graph/checkpoint version. Hai tests mới và AppTest trên artifact thật PASS; 55 local tests PASS. HTTP health `200 ok`; trình duyệt xác nhận warm/cold UI và catalog. App vẫn là snapshot chỉ đọc, ghi rating/graph refresh thuộc S10.
+- S10 [rating và graph refresh demo](s10-rating-graph-refresh.md): thêm `FeedbackStore`, bản sao sealed graph tách riêng, intent JSON theo UUID, Parquet batch và D04 ledger; UI xếp tối đa 20 rating rồi áp dụng. Trên artifact thật batch gồm rating 5,0 và 2,5 tăng graph version 81→82, thêm một cạnh; retry `NO_OP`, phục hồi sau gián đoạn và checkpoint/Top-20 bất biến. AppTest xác nhận graph 82/model graph 81/checkpoint 300; 57 local tests PASS. DEC-018 ghi refresh policy stale model. Chưa commit/push.
+- S11 [integration và failure paths](s11-integration-scaling.md): probe mới trên canonical 1M + batch 20 ratings so từng dòng Full/Incremental; registry 14.388, edges 392.636, degrees 14.388 đều exact PASS. Graph 81→82, model graph 81/checkpoint 300; 10 cạnh positive mới và Top-20 giữ nguyên. Bổ sung tests gián đoạn sau intent, payload/timestamp sai, intent bị sửa và hai threads cùng tiến trình; toàn bộ 60 tests PASS. Một lượt apply 0,183 s chỉ là diagnostic, không phải benchmark. Raw report ngoài Git tại `data/processed/s11_integration/rec01_1m_batch20_v1/report.json`. Chưa commit/push.
+- S12 [báo cáo và freeze candidate](s12-reproducibility.md): viết [bản báo cáo kỹ thuật](final-report.md) gồm REC-01, EXP-01/02, app và limitations; pin môi trường, ghi manifest 71 source/report/figure files + 10 evidence artifacts. Từ mẫu IUH do Project Owner cung cấp, dựng [DOCX](Bao-cao-MovieGraph-IUH.docx) và [PDF 18 trang](Bao-cao-MovieGraph-IUH.pdf), cập nhật mục lục và rà hình từng trang. Các ô nhân thân/cam đoan/nhóm giữ trống để Project Owner tự điền. Worktree dirty, chưa commit/tag.
+- S13 [slide và Q&A](s13-defense-qa.md): deck Spaces 12 slide với chart REC-01/EXP-01 có thể sửa; render/rà từng slide 1280×720; xuất [PDF 12 trang](MovieGraph-defense.pdf) và PNG ngoại tuyến, chuẩn bị kịch bản demo và câu hỏi bảo vệ. Artifact session chưa tạo được PPTX cục bộ, nên không ghi nhận có file PPTX.
+- S14 [gói nộp và QA](s14-submission.md): ZIP private gồm source, docs, 1M canonical, REC-01 bundle/sealed run, metadata phim, raw EXP-01/02 CSV và S11 report. Manifest SHA-256 từng thành viên, ZIP verifier PASS. Giải nén riêng rồi chạy `verify-output PASS` và 60 tests PASS không skip với metadata path trong gói. Project Owner sẽ tự điền thông tin cá nhân trước khi nộp; không commit/push hoặc upload gói.
+
 > **Vai trò:** nhật ký thực thi, không phải nhật ký học thuật ([02](02-research-journal.md)), không thay sổ thực nghiệm ([07](07-experiment-log.md)).  
-> **Trạng thái:** D01–D07 hoàn thành tính đến 20/11/2026. G1 và G2 đạt.
+> **Trạng thái:** D01–D13 hoàn thành tính đến 21/11/2026. G1/G2/G3 đạt trong phạm vi đã ghi.
 
 ## 1. Quy tắc 5–10 phút mỗi buổi
 
@@ -124,6 +143,38 @@ Ngày mai: ____
 - **Lỗi đã sửa:** Full Rebuild trả NULL degree sum với graph rỗng, regression test ban đầu FAIL; đã dùng coalesce về 0, rerun unit và integration PASS. Đóng full-builder connection theo context để chạy nhiều cutoff.
 - **Trạng thái:** D05 DONE, G1 PASS trên toy/100k. Chưa có normalization, performance benchmark hoặc model results. Chưa commit/push. Bước kế tiếp D06 theo plan, chờ được giao.
 
+### 21/11/2026 — D13: EXP-02 cadence và staleness
+
+- Thêm harness chạy chung 10 batch × 10k events cho R=1/R=5, một warm-up và ba measured repetitions/process mới, log riêng canonical update/materialize/export, bytes/RSS/OS I/O và graph version. Tại v5/v10 so normalized exports.
+- Hai lượt chẩn đoán ban đầu bị dừng do ghi DuckDB snapshot bằng Python `unnest` mất ~75 giây ngay v1. Đổi sang `INSERT ... SELECT` trực tiếp từ canonical tables, chạy lại tests và thí nghiệm trong thư mục mới. Chỉ run `D13-100k-r1-r5-final` dùng làm kết quả.
+- Kết quả: 80/80 rows và 8/8 common-boundary checks PASS, median tổng 5,283 s (R=1) vs 1,648 s (R=5); R=5 cũ tối đa 4 batches/40k events. 29 unit tests PASS. [Hồ sơ D13](d13-exp02-results.md), raw `results/raw/exp02_normalization.csv`.
+- D13 DONE; D14 sẽ tổng hợp EXP-01/02 và AN-01 theo kế hoạch. Chưa commit/push.
+
+### 20/11/2026 — D12: EXP-01 repetitions và crossover
+
+- Mở rộng harness thành năm measured repetitions/cặp với thứ tự Full/Incremental shuffle và process riêng, giữ exact correctness ở từng lượt. Core grid 72/72 rows PASS; run H=2M riêng 24/24 PASS. CSV raw, bảng median/range và năm biểu đồ ở [D12](d12-exp01-results.md).
+- Đến H=1M, Incremental không thắng cặp nào; H=2M, Δ=1k thắng 5/5 và paired ratio median 1,156; Δ=10k gần hòa. Không xác định ngưỡng crossover chính xác hoặc suy rộng sang 32M. D13 tiếp tục EXP-02.
+
+### 20/11/2026 — D11: EXP-01 pilot harness
+
+- Thêm harness Full vs Incremental cùng canonical input và ba bảng output; tách prebuild H khỏi timer, chạy process riêng cho warm-up/measured, log wall/CPU/sampled RSS/app bytes/OS I/O. Pilot sáu cặp H={100k,500k,1M}, Δ={1k,10k}: 24/24 rows correctness PASS. Raw CSV và điều kiện đo ở [D11](d11-exp01-pilot.md).
+- D12 sẽ chạy repetitions và phân tích spread/speedup; không kết luận nhanh/chậm từ một lượt đo.
+
+### 20/11/2026 — D10: clean MVP rerun, G3
+
+- Từ `ratings.csv` gốc tạo lại canonical 100k trong thư mục mới, chạy D09 CUDA end-to-end, xuất manifest hashes/config/code provenance, checkpoint và 2.562 model IDs. Run `D10-clean-100k` PASS, graph version 9, 300/300 enriched Top-K rows; demo CLI xác minh 12 hashes và hiển thị gợi ý mẫu. 27 tests PASS. [Hồ sơ D10 và kịch bản demo 4 phút](d10-mvp.md).
+- G3 PASS trong phạm vi tối thiểu 100k. D11 sẽ bắt đầu EXP-01; không coi thời gian D10 là benchmark Full/Incremental.
+
+### 20/11/2026 — D09: versioned graph đến enriched Top-K
+
+- E2E script D09 apply train batches qua D04 ledger, kiểm chứng exact Full equivalence, normalize, train/evaluate LightGCN rồi enrich `movies.csv` theo raw movie ID. Runs CUDA 100k/1M PASS; 25 unit tests PASS. 1M graph version 81, 8.850/8.850 Top-K rows có metadata, ranking và metrics không đổi. [Hồ sơ D09](d09-end-to-end.md).
+- D10 tiếp tục clean rerun, đóng gói manifests/checkpoint/model IDs và demo.
+
+### 20/11/2026 — D08: temporal LightGCN baseline
+
+- Dựng train graph từ event-time cutoff, chỉ train positive edges và train negatives; đánh giá raw Top-10 trên warm cohort, lưu checkpoint và exclusion counts. 100k và 1M CUDA runs PASS; 22 unit tests PASS. Chi tiết và số liệu ở [D08](d08-temporal-baseline.md).
+- 1M valid/test Recall@10 = 0,06390/0,07154 trên 482/403 warm users; phần lớn future pairs thuộc cold users nên chưa đại diện toàn bộ dữ liệu. D09 tiếp nối integration và metadata enrichment.
+
 ### 20/11/2026 — D07: LightGCN sparse CUDA smoke
 
 - Cài PyTorch 2.8.0+cu126 vào venv. Thêm propagation LightGCN bằng PyTorch native, loss BPR và probe ghi peak CUDA allocated/reserved từng phase.
@@ -133,7 +184,7 @@ Ngày mai: ____
 | Tuần | Task DONE/plan | Giờ thực tế | Blocker chính | Milestone | Review link |
 |---|---:|---:|---|---|---|
 | W1 (D01–D07) | D01–D07 DONE (7/7) | Chưa ghi | — | G1/G2 PASS | [D07](d07-lightgcn-smoke.md) |
-| W2 (D08–D14) | Chưa xác nhận | — | — | D10 MVP; EXP-01/02: chờ | — |
+| W2 (D08–D14) | D08–D13 DONE (6/7) | Chưa ghi | Cold cohort lớn; AN-01 chờ | G3 PASS; EXP-01/02 correctness PASS | [D13](d13-exp02-results.md) |
 | W3 (D15–D21) | Chưa xác nhận | — | — | D16 freeze; submission: chờ | — |
 
 ## 6. Điều cần ghi trong commit/message

@@ -1,6 +1,32 @@
 # 07 — Sổ thực nghiệm, protocol và kết quả benchmark
 
-> **Trạng thái:** PRE-REGISTERED PROTOCOL / CHƯA CÓ BENCHMARK RESULTS · Cập nhật 10/11/2026 (MovieLens + metadata).  
+**S01/REC-01 (21/11/2026):** [giao thức Top-20 + Popularity](s01-evaluation-spec.md) đã được Project Owner duyệt và dùng trong [Kaggle run S03–S04](s04-rec01-results.md). Không đổi nhãn D08/D10 Top-10 thành REC-01. D11–D12 EXP-01 và D13 EXP-02 giữ đúng tên và số liệu lịch sử.
+
+**S03–S04 REC-01 (21/11/2026):** [Kaggle Notebook Version 3](https://www.kaggle.com/code/khoakp/rec01-movielens-1m-gpu-validation?scriptVersionId=372012165), run `REC01-Kaggle-1M`, Tesla T4, source canonical 1M SHA-256 `f17048bd7b12bea613387c169c65db6ce67442aa7341314f5e18fba39efcfbae`, config SHA-256 `8b8223681cf181d0ae9bd2b794d0e0f8159b3c01443622fabffff27820b8b8e8`. `seal-output PASS`, local `verify-output PASS`. Checkpoint bước 300 chọn theo validation NDCG@20 0,083543; test LightGCN Recall/NDCG@20 0,128000/0,085161 và Popularity 0,128099/0,086897 trên cùng 403 warm users, 2.069 warm pairs, 773 train movies. Popularity nhỉnh hơn; không có kiểm định thống kê. Raw `data/processed/rec01_kaggle_runs/version_3/rec01_project/REC01-Kaggle-1M/rec01_quality.csv`, report/manifest cùng thư mục, ZIP SHA-256 `25b3f97606aa330fc5892195e7afea7b825f48818c45b31b8b947d3f6172fe49`. [Bảng đầy đủ, exclusions và giới hạn](s04-rec01-results.md).
+
+**S06 EXP-01 audit (21/11/2026):** tái kiểm tra raw D12 `D12-repeat-grid` (72 rows/36 cặp) và `D12-scale-2m` (24 rows/12 cặp): CSV/report provenance, pairing, throughput denominator, summary, logical hashes, paired Parquet manifests, từng SHA-256 file và export bytes đều PASS. Không chạy benchmark mới hoặc sửa raw. [Hồ sơ audit và hash CSV](s06-exp01-audit.md). D11 vẫn chỉ là pilot.
+
+**S07 EXP-01 synthesis (21/11/2026):** [kết luận Engineering](s07-exp01-engineering-conclusions.md) dùng 8 cases đã audit. Core H≤1M: Incremental 0/5 wins ở mỗi case; run 2M riêng tại Δ=1k có ratio median 1,156 và 5/5 wins, Δ=10k ratio 0,999 và 2/5. Tái sinh summary SHA-256 `590ff3ec77cf2621de2f9b415c7d4fa06b9b75e695346b5dc0d1d76dd35ac973` và 5 PNG trùng byte; không có phép đo mới hoặc ngưỡng crossover chính xác.
+
+**S10 integration, không phải benchmark/REC-02 (21/11/2026):** test trên sealed run `REC01-Kaggle-1M` với bản sao train graph riêng. Hai feedback events (ratings 5,0 và 2,5) tăng graph version 81→82, positive edges 392.626→392.627; `model_graph_version=81`, checkpoint step 300 và Top-20 giữ nguyên. Replay cùng UUID `NO_OP`; phục hồi Parquet từ intent sau giả lập gián đoạn. AppTest xác nhận version hiển thị; 57 tests PASS. [S10 setup, code, giới hạn](s10-rating-graph-refresh.md). Đây là kiểm tra correctness, không phải thời gian xử lý, refresh quality hay phép đo trên dữ liệu 32M.
+
+**S11 1M+20 integration (21/11/2026):** run `rec01_1m_batch20_v1` từ sealed REC-01 Version 3, source SHA-256 `f17048bd7b12bea613387c169c65db6ce67442aa7341314f5e18fba39efcfbae`; combined train+feedback SHA-256 `eb8d2014a76e7acf2ddb135a82d8c4b124e50467a12da6e31cac88657067de70`. Một batch 20 ratings tăng edges 392.626→392.636, graph 81→82; Full Rebuild exact registry/edges/degrees 14.388/392.636/14.388, replay `NO_OP`, Top-20 không đổi. Diagnostic một lượt: load+copy 2,621 s; apply 0,183 s; full reference+compare 0,994 s. Không dùng làm benchmark speedup. Raw `data/processed/s11_integration/rec01_1m_batch20_v1/report.json`; [method và failure paths](s11-integration-scaling.md). 60 local tests PASS.
+
+**S02 validation-only smoke (21/11/2026):** dùng checkpoint D08 100 bước cũ trên 1M, so Top-20 LightGCN/Popularity cùng 482 warm users và 773 train movie candidates. Valid Recall@20 0,11949 vs 0,12070; NDCG@20 0,08200 vs 0,08534. Chỉ validation, không chọn checkpoint hoặc tính test; [log và giới hạn](s02-validation-smoke.md). Không phải REC-01 final result.
+
+**D13 EXP-02 (21/11/2026):** run `D13-100k-r1-r5-final` dùng cùng 10 batch × 10k events cho R=1/R=5; 80/80 rows PASS, 8/8 common-boundary comparisons v5/v10 PASS (`max_abs_diff=0`, float64 `atol=1e-12`). Ba measured repetitions cho median cumulative apply+materialize+export 5,283 s vs 1,648 s; R=5 cũ tối đa 4 batch/40k events, trước v5 dùng graph rỗng. Raw `results/raw/exp02_normalization.csv`; [phương pháp, kết quả và giới hạn](d13-exp02-results.md).
+
+**D12 EXP-01 repetitions (20/11/2026):** core run `D12-repeat-grid` có 72/72 rows PASS trên sáu cặp H/Δ, mỗi cặp một warm-up và năm measured repetitions/method; run H=2M riêng `D12-scale-2m` có 24/24 PASS. Raw `results/raw/exp01_full_vs_incremental.csv`, `results/raw/exp01_scale2m_d12.csv`; summary và biểu đồ sinh từ raw ở [D12](d12-exp01-results.md). Δ=1k tại H=2M có paired Full/Inc ratio median 1,156, 5/5 wins; Δ=10k gần hòa. Cache không kiểm soát, không suy rộng ngưỡng crossover chính xác.
+
+**D11 EXP-01 pilot (20/11/2026):** run `D11-pilot-grid` trên H={100k,500k,1M}, Δ={1k,10k}, một warm-up và một measured process/method/cặp; 24/24 rows exact correctness PASS. Raw `results/raw/exp01_pilot_d11.csv` có wall/CPU/sampled RSS/app bytes/OS I/O/prebuild cost, provenance và cache policy. [D11](d11-exp01-pilot.md) giữ bảng pilot và giới hạn. EXP-01 repetitions/spread và speedup chưa thực hiện.
+
+**D10 clean MVP rerun (20/11/2026):** run `D10-clean-100k` từ raw `ratings.csv` PASS trên CUDA; 100k canonical events, train graph version 9 với 2.562 nodes/52.014 edges, Full equivalence PASS, 300/300 enriched rows. Valid Recall@10/NDCG@10 0,03491/0,06418 trên 20 warm users. Raw manifest và 12 artifact hashes ở `data/processed/d10_mvp/D10-clean-100k/`; [D10](d10-mvp.md) ghi môi trường, source hashes, code hashes và giới hạn. Thời gian run ~56,5 giây không phải EXP-01 benchmark.
+
+**D09 E2E integration (20/11/2026):** CUDA runs 100k/1M PASS với D04 incremental graph, exact Full state equivalence và metadata enrichment sau raw ranking. 1M có 81 train batches, 8.850 raw/enriched Top-K rows, thiếu metadata 0, ranking/metrics giữ nguyên. Raw reports/checkpoint ở `data/processed/d09_incremental_1m/`; [D09](d09-end-to-end.md) ghi input hashes/config/giới hạn. Không phải EXP-01/02 cost benchmark.
+
+**D08 temporal baseline (20/11/2026):** CUDA train/eval 100k và 1M PASS, 100 bước BPR với seed 7, 64 chiều, 3 layers, Top-10 trên warm cohort. 1M valid/test Recall@10 0,06390/0,07154; NDCG@10 0,06567/0,07092. Raw report/checkpoint ở `data/processed/d08_baseline_1m/`; cấu hình, split, exclusions và giới hạn ở [D08](d08-temporal-baseline.md). Đây không phải EXP-01/02/03.
+
+> **Trạng thái:** EXP-01 repetitions và EXP-02 R=1/R=5 đã chạy · Cập nhật 21/11/2026.
 > Đây là nơi ghi **kết quả đo thực** và failures. Không điền số hoặc đồ thị suy đoán.  
 > Nguồn số liệu: `results/raw/*.csv` và `results/logs/*`; plots sinh từ CSV, không vẽ thủ công.
 
@@ -94,7 +120,7 @@ Run `D07-20261119T172548657263Z` ngày 20/11/2026 dùng RTX 4050, PyTorch 2.8.0+
 run_id,history_events,delta_events,method,wall_s,cpu_s,peak_rss_bytes,app_bytes_read,app_bytes_written,events_per_s,positive_edges_inserted,edge_checksum,degree_checksum,correctness_pass,status,git_commit,config_hash
 ```
 
-**Kết quả:** CHƯA CHẠY — `results/raw/exp01_full_vs_incremental.csv` chưa tồn tại. Grid rút gọn 21 ngày: H=100k/500k/1M, D=1k/10k; chỉ thử 5M+ khi correctness/resource budget pass.
+**Kết quả:** D11 pilot và D12 năm repetitions đã chạy. Core raw CSV `results/raw/exp01_full_vs_incremental.csv`, scale 2M riêng `results/raw/exp01_scale2m_d12.csv`; 96/96 rows correctness PASS. Ở Δ=1k, run H=2M cho thấy Incremental nhanh hơn tại điểm đo này; Δ=10k gần hòa. [Phương pháp, số liệu và giới hạn](d12-exp01-results.md).
 
 **Đồ thị phải vẽ:** latency vs H (fix D), peak RSS vs H, speedup vs D/H, bytes written, crossover conditions. Báo cả trường hợp incremental chậm hơn.
 
@@ -106,14 +132,14 @@ run_id,history_events,delta_events,method,wall_s,cpu_s,peak_rss_bytes,app_bytes_
 - **Treatments:** `R=5` là P1; `R=20` stretch; chỉ materialize ở refresh boundary, canonical state vẫn cập nhật sau mọi batch.
 - **Cost:** canonical update seconds, normalization seconds, cumulative pipeline seconds, bytes output, peak RSS, number of materializations.
 - **Freshness:** staleness in batches, event counts, event-time lag if meaningful; lag có thể khác wall-clock lag.
-- **Correctness:** tại `v` là common refresh boundary, normalized sparse matrices phải cùng shape/index ordering và values gần bằng theo tolerance float; ví dụ `max_abs_diff <= 1e-6` **phải xác nhận phù hợp dtype và phép tính trong W3**.
+- **Correctness:** tại `v` là common refresh boundary, normalized sparse matrices phải cùng shape/index ordering và values gần bằng theo tolerance float. D06 đã chốt float64 `atol=1e-12`; D13 còn kiểm COO hash exact.
 - **Cảnh báo:** nếu normalization on-the-fly rẻ và không materialize full weights, dự án phải nêu đúng dạng chi phí đã benchmark; so sánh một output mỗi batch với output mỗi 20 batch đương nhiên khác cadence/semantics, không tuyên bố công bằng về freshness nếu thiếu staleness chart.
 
 ```csv
 run_id,refresh_every_batches,canonical_version,model_graph_version,canonical_update_s,normalization_s,cumulative_s,app_bytes_written,peak_rss_bytes,staleness_batches,staleness_events,normalized_equivalence_pass,status,git_commit,config_hash
 ```
 
-**Kết quả:** CHƯA CHẠY — `results/raw/exp02_normalization.csv` chưa tồn tại. Ưu tiên `R=1` và `R=5`; `R=20` stretch.
+**Kết quả:** D13 đã chạy R=1/R=5 trên prefix 100k: 80/80 rows PASS, 8/8 equality checks ở v5/v10 PASS. Median cumulative cost 5,283 s vs 1,648 s, staleness tối đa 0 vs 4 batches. [D13](d13-exp02-results.md), raw `results/raw/exp02_normalization.csv`. `R=20` chưa chạy (stretch).
 
 **Đồ thị:** cumulative cost vs batch version, cost vs R, cost vs staleness, normalized snapshot equality summary.
 

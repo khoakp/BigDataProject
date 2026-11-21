@@ -1,12 +1,14 @@
 # 04 — Kế hoạch triển khai BigDataProject trong 21 ngày
 
-> **Phiên bản kế hoạch:** 0.2 · **Cập nhật:** 10/11/2026 · **Trạng thái:** kế hoạch dự kiến, **không phải nhật ký đã hoàn thành**.  
+> **Lưu lịch sử D01–D13:** Từ 21/11/2026, định hướng và thứ tự công việc mới nằm ở [Project Direction v1.0](10-direction-update-v1.md) và [sprint S01–S14](11-sprint14-plan.md). Các mốc D01–D21 bên dưới là kế hoạch cũ để đối chiếu bằng chứng, không còn là critical path đang thực hiện. Không đổi nhãn các EXP đã chạy.
+
+> **Phiên bản kế hoạch lịch sử:** 0.2 · **Bản gốc:** 10/11/2026 · **Trạng thái:** không còn là lịch hiện hành; xem [S01–S14](11-sprint14-plan.md).
 > **D01 bắt đầu:** 19/11/2026; hạn nộp/giờ nộp chính thức **CHƯA XÁC NHẬN**. D01–D21 là thứ tự công việc, không mặc định 21 buổi rảnh.
-> **Bản cũ:** [Kế hoạch 7 tuần (archived)](archive/04-project-plan-7weeks-archived.md). Tài liệu này là kế hoạch **đang hiệu lực**; các W1D1…W7D7 trong file khác là lịch sử, cần quy đổi theo mốc D01…D21 tại đây.
+> **Bản trước:** [Kế hoạch 7 tuần (archived)](archive/04-project-plan-7weeks-archived.md). Các W1D1…W7D7 và D01…D21 là các hệ nhãn lịch sử; công việc mới dùng S01…S14.
 
 ## 1. Đích 21 ngày và phạm vi
 
-**Tiến độ thực tế 20/11/2026:** D01–D07 DONE. G1 đạt trên toy/100k. G2 đạt sau D06 normalization và D07 LightGCN CUDA smoke trên toy, 100k và 1M. Chi tiết ở [D05](d05-equivalence.md), [D06](d06-normalization.md) và [D07](d07-lightgcn-smoke.md). Bảng bên dưới giữ tiêu chí kế hoạch.
+**Tiến độ thực tế 21/11/2026:** D01–D13 DONE. G1 đạt trên toy/100k; G2 đạt sau D07 CUDA smoke đến 1M; G3 MVP đạt sau clean rerun D10. D12 EXP-01 có năm repetitions trên sáu cặp H/Δ; D13 EXP-02 so R=1/R=5 trên cùng 100k events và common-boundary equality PASS. [D12](d12-exp01-results.md), [D13](d13-exp02-results.md). Bảng bên dưới giữ tiêu chí kế hoạch.
 
 **Critical path:** Verify MovieLens 32M → deterministic canonical events → Full/Incremental graph state correctness → sparse normalization correctness → LightGCN MVP → EXP-01 → EXP-02 (nếu đủ thời gian) → báo cáo/demo.
 
