@@ -1,4 +1,41 @@
-# 03 — Thiết kế kỹ thuật và kiến trúc hệ thống
+# 03 — Kiến trúc nghiên cứu v2.0
+
+> Phần v2.0 dưới đây là nguồn sự thật hiện hành về kiến trúc. Nội dung DXX/EXP-01/EXP-02 ở phía dưới được giữ làm lịch sử, bao gồm tên RQ cũ và kế hoạch cũ; không dùng chúng để xác định phạm vi v2.0. Xem [audit và migration record](architecture-audit-v2.md) để phân biệt code đã có và công việc còn thiếu.
+
+## Mục tiêu và luồng chính
+
+**RQ1:** Khi nào Incremental Graph Update đạt trạng thái tương đương Full Rebuild với chi phí thấp hơn? **RQ2:** Stale Model, Propagation-only và Fine-tuning/Retraining đánh đổi thế nào về chi phí, độ mới và chất lượng? Chu kỳ normalized snapshot là engineering study hỗ trợ. Graph là cumulative historical-positive, `rating >= 4.0`. Cutoff 01/01/2020 là giả thuyết, chưa chốt. Quy mô graph engineering và LightGCN training được quyết định riêng.
+
+```text
+MovieLens -> Canonical Events -> Base Graph -> Replay Batches
+          -> Graph Maintenance -> Graph Snapshot -> Model Refresh
+          -> Temporal Evaluation -> Research Dashboard
+```
+
+| Module | Trách nhiệm và public API hiện có | Input → output; dependency | Kiểm thử / trạng thái |
+| --- | --- | --- | --- |
+| Data ingestion & replay | `src/ingest/d02_profile.py:run` profile và canonicalize; replay slicing hiện ở `src/benchmarking/common.py:slice_events` | `ratings.csv` → ordered Parquet với `event_id,event_ts,user_raw_id,movie_raw_id,rating,source_row_id`; DuckDB | `test_d02`; historical cutoff profiling và API replay tổng quát **chưa có** |
+| Graph engine | `src/graph/full_builder.py:rebuild`, `incremental.py:IncrementalGraph.apply_batch`, `equivalence.py:compare_states` | Canonical Parquet → Full Parquet hoặc transactional DuckDB state; DuckDB | `test_full_builder`, `test_incremental`, `test_equivalence`; input validation gap ghi trong audit |
+| Snapshot manager | `src/graph/snapshot.py:materialize_normalized`, `export_snapshot`, `load_export`, `freshness`; `normalize.py:normalize_state` | Canonical state version `v` → immutable normalized COO snapshot `g=v`, manifest/hash; graph engine | `test_normalization`, `test_snapshots` |
+| LightGCN engine | `src/models/lightgcn.py:LightGCN`, `to_sparse_tensor`, `pairwise_loss`; `rec01_train.py:run` and `rec01_inference.py:load_rec01_inference` are fixed REC-01 workflows | Snapshot + checkpoint → propagated embeddings/Top-K; PyTorch, snapshot, evaluation | `test_lightgcn`, REC-01 tests; generic refresh engine **chưa có** |
+| Evaluation & benchmarking | `evaluation/temporal.py`, `evaluation/rec01.py`; `benchmarking/exp01.py`, `exp02.py` | Train-only graph/model + future labels → Recall/NDCG; same-watermark graph runs → cost/correctness CSV | temporal leakage and toy EXP tests; v2 refresh experiment **chưa chạy** |
+| Research dashboard | `src/app/streamlit_app.py:main`, `feedback.py:FeedbackStore` | Verified REC-01 bundle + local ratings → Top-20 and graph demo; loader and graph engine | S09–S11 tests; v2 research results view **chưa có** |
+
+### Version and artifact contract
+
+- **Canonical graph version `v`:** `applied_batches.graph_version` after a committed batch; watermark is last canonical `event_id`. Repeating the same batch is `NO_OP`; conflicting payload is rejected.
+- **Model graph version `g`:** immutable normalized snapshot of canonical state exactly at `v=g`, with its own registry, COO, watermark and checksums. `g` may lag current `v`.
+- **Checkpoint/source version `c`:** training checkpoint records model graph version, source/config hashes, train cutoff, parameters and selected step. REC-01 uses graph version 81 and a fixed 1M protocol; this is historical, not a v2 refresh result.
+- **Propagated embeddings version `p`:** proposed contract `(checkpoint hash, checkpoint graph version c, snapshot graph version g, node-map compatibility, propagation config/hash)`. No persisted v2 `p` artifact exists yet. For a stale result, `g=c`; propagation-only would use frozen parameters from `c` with a newer compatible `g`. New nodes need an explicit initialization/masking policy before this can be measured. Fine-tuning requires a new checkpoint and resource budget.
+
+### Next implementation gates
+
+1. Profile the full timestamp distribution and positive-edge growth; select cutoff and replay windows before benchmark. Preserve original data.
+2. Validate canonical event IDs, raw IDs, tie ordering and stable registry/degree/full-equivalence on toy and selected real prefixes. Preserve existing threshold and cumulative semantics.
+3. Measure a one-T4 16 GB GPU workload on a small increasing graph sample: peak VRAM, propagation/training time, checkpoint bytes and OOM boundary. Choose model scale from measurement.
+4. Define a versioned refresh interface: `stale(checkpoint, old_snapshot)`, `propagate(checkpoint, new_snapshot)`, and optional `fine_tune(checkpoint, new_snapshot, budget)`. Record `v,g,c,p`, cutoff, candidate universe and timing per result. Do not implement or claim freshness results before these gates pass.
+
+## Lịch sử thiết kế DXX/SXX (lưu để đối chiếu)
 
 > **Phạm vi sprint mới 21/11/2026:** sơ đồ dưới đây mô tả lõi graph/LightGCN đã xây. [Định hướng v1.0](10-direction-update-v1.md) bổ sung Streamlit, REC-01 Popularity/Top-20 và checkpoint selection vào MVP; [S01](s01-evaluation-spec.md) là giao thức đã duyệt, [S04](s04-rec01-results.md) ghi kết quả trên prefix 1M và [S09](s09-streamlit-mvp.md) ghi UI snapshot chỉ đọc.
 

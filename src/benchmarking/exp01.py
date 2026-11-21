@@ -10,7 +10,6 @@ import random
 import shutil
 import subprocess
 import sys
-import threading
 import time
 from datetime import datetime, timezone
 from pathlib import Path
@@ -22,9 +21,9 @@ from src.graph.equivalence import compare_states, full_state
 from src.graph.full_builder import file_sha256, rebuild
 from src.graph.incremental import IncrementalGraph
 from src.ingest.d02_profile import run as canonicalize
+from src.benchmarking.common import ROOT, RssSampler, slice_events, sql_path
 
 
-ROOT = Path(__file__).resolve().parents[2]
 TABLES = ("registry", "edges", "degrees")
 FIELDS = ("run_id", "timestamp_utc", "history_events", "delta_events", "method", "phase",
           "repetition", "status", "failure_reason", "wall_s", "cpu_s", "peak_rss_bytes",
@@ -35,10 +34,6 @@ FIELDS = ("run_id", "timestamp_utc", "history_events", "delta_events", "method",
           "cache_policy", "threads", "input_sha256", "history_sha256", "delta_sha256",
           "git_commit", "git_dirty", "config_sha256", "python_version", "duckdb_version",
           "cpu", "ram_bytes", "os", "source_sha256", "output_dir")
-
-
-def sql_path(path: Path) -> str:
-    return str(path.resolve()).replace("\\", "/").replace("'", "''")
 
 
 def export_incremental(graph: IncrementalGraph, output: Path) -> dict:
@@ -59,46 +54,6 @@ def export_incremental(graph: IncrementalGraph, output: Path) -> dict:
         hashes[name + "_sha256"] = file_sha256(output / (name + ".parquet"))
     (output / "manifest.json").write_text(json.dumps(hashes, indent=2), encoding="utf-8")
     return hashes
-
-
-def slice_events(source: Path, target: Path, start: int, end: int):
-    if start < 0 or end <= start:
-        raise ValueError("Invalid event range")
-    with duckdb.connect() as con:
-        con.execute("SET threads=1")
-        con.execute(f"COPY (SELECT * FROM read_parquet('{sql_path(source)}') WHERE event_id >= {start} "
-                    f"AND event_id < {end} ORDER BY event_id) TO '{sql_path(target)}' (FORMAT PARQUET)")
-        count, minimum, maximum = con.execute("SELECT count(*),min(event_id),max(event_id) FROM read_parquet(?)",
-                                               [str(target)]).fetchone()
-    if (count, minimum, maximum) != (end - start, start, end - 1):
-        raise AssertionError("Canonical slice does not cover requested event IDs")
-
-
-class RssSampler:
-    def __init__(self, interval=.005):
-        self.interval = interval
-        self.process = psutil.Process()
-        self.peak = 0
-        self.stop = threading.Event()
-        self.thread = threading.Thread(target=self._run, daemon=True)
-
-    def _run(self):
-        while not self.stop.is_set():
-            self.peak = max(self.peak, self.process.memory_info().rss)
-            self.stop.wait(self.interval)
-
-    def __enter__(self):
-        self._run_once()
-        self.thread.start()
-        return self
-
-    def _run_once(self):
-        self.peak = max(self.peak, self.process.memory_info().rss)
-
-    def __exit__(self, *_):
-        self.stop.set()
-        self.thread.join()
-        self._run_once()
 
 
 def worker(method: str, combined: Path, delta: Path, prebuilt_db: Path, output: Path) -> dict:

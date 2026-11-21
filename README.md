@@ -1,57 +1,32 @@
-# BigDataProject
+# BigDataProject v2.0
 
-**Định hướng hiện hành (21/11/2026):** [Project Direction v1.0](docs/10-direction-update-v1.md), [kế hoạch sprint S01–S14](docs/11-sprint14-plan.md), [giao thức S01/REC-01](docs/s01-evaluation-spec.md) và [kết quả REC-01 Kaggle](docs/s04-rec01-results.md). README và mô tả D01–D13 bên dưới phản ánh các mốc lịch sử.
+Đề tài: **Thiết kế và đánh giá hệ thống cập nhật đồ thị tương tác tăng dần và chiến lược làm mới mô hình LightGCN trên dữ liệu MovieLens 32M.**
 
-Đồ án Introduction to Big Data về hệ thống gợi ý phim cá nhân hóa trên MovieLens 32M. Hai trụ cột là pipeline dữ liệu/đồ thị tăng dần có kiểm chứng và mô hình LightGCN tạo gợi ý Top-K có đánh giá temporal. Popularity baseline và Top-20 REC-01 đã chạy trên canonical prefix 1M; [Streamlit S09–S10](docs/s10-rating-graph-refresh.md) phục vụ gợi ý, lịch sử train, rating mới và graph demo theo batch. [S04](docs/s04-rec01-results.md) ghi số đo và giới hạn.
+- **RQ1:** Điều kiện để Incremental Graph Update tương đương Full Rebuild nhưng có chi phí thấp hơn.
+- **RQ2:** Đánh đổi giữa Stale Model, Propagation-only và Fine-tuning/Retraining về chi phí, độ mới và chất lượng.
+- **Engineering study:** Chu kỳ tạo normalized graph snapshot ảnh hưởng thế nào đến chi phí và độ trễ dữ liệu.
 
-| Tài liệu | Nội dung |
-| --- | --- |
-| [Tổng quan](docs/01-project-overview.md) | Phạm vi, câu hỏi nghiên cứu và tiêu chí hoàn thành |
-| [Thiết kế](docs/03-system-design.md) | Schema, NodeRegistry, batch replay và snapshot |
-| [Kế hoạch 21 ngày](docs/04-project-plan.md) | Công việc D01–D21 và tiêu chí nghiệm thu |
-| [Quyết định và rủi ro](docs/06-decisions-and-risks.md) | ADR và phương án dự phòng |
-| [Nhật ký thực nghiệm](docs/07-experiment-log.md) | Protocol và mẫu ghi kết quả |
-| [Ghi chú báo cáo](docs/08-report-notes.md) | Bản nháp học thuật theo trạng thái bằng chứng |
-| [Ma trận bằng chứng](docs/09-report-evidence.md) | Claim gắn với tài liệu, dữ liệu, code và test |
-| [Dàn ý báo cáo](docs/08-final-report-outline.md) | Bố cục báo cáo và câu hỏi bảo vệ |
-| [Báo cáo IUH S12](docs/Bao-cao-MovieGraph-IUH.docx) | Bản DOCX theo mẫu đã cung cấp; Project Owner tự điền thông tin cá nhân và xác nhận nhóm |
-| [Báo cáo PDF](docs/Bao-cao-MovieGraph-IUH.pdf) | Bản xem trước 18 trang đã kiểm dàn trang |
-| [Báo cáo kỹ thuật](docs/final-report.md) | Bản nội dung kỹ thuật và links tới evidence |
-| [Reproducibility S12](docs/s12-reproducibility.md) | Môi trường local/Kaggle và hash manifest của source/artifacts |
-| [Slide và Q&A S13](docs/s13-defense-qa.md) | Deck Spaces, PDF 12 trang, câu hỏi bảo vệ và kịch bản demo |
-| [Gói nộp S14](docs/s14-submission.md) | ZIP private, manifest SHA-256 và kết quả kiểm tra từ bản giải nén |
-| [AGENTS.md](AGENTS.md) | Hướng dẫn làm việc với coding agent |
+Graph là cumulative historical-positive user–movie, ngưỡng `rating >= 4.0`. Dự kiến lấy dữ liệu trước 01/01/2020 làm base, nhưng cutoff chỉ được chốt sau temporal profiling. MovieLens 32M là dataset chính; quy mô graph benchmark và LightGCN training được quyết định riêng. Streamlit là Research Dashboard. Chưa có measured v2 Model Freshness result.
 
-## Bắt đầu
+## Tài liệu hiện hành
 
-Để mở giao diện local sau khi đã [tải và xác minh REC-01 artifact](docs/s03-kaggle-workflow.md):
+- [Kiến trúc, API, version contract và bước tiếp theo](docs/03-system-design.md)
+- [Audit, dependency map, baseline tests và migration plan](docs/architecture-audit-v2.md)
+- [Experiment protocol và raw evidence log](docs/07-experiment-log.md) — các số đo DXX/EXP hiện có là lịch sử, không thay thế thí nghiệm v2.
+- [AGENTS.md](AGENTS.md) — quy tắc triển khai hiện hành.
+
+Các tài liệu `dXX-*`, `sXX-*`, `10-direction-update-v1.md`, `11-sprint14-plan.md`, báo cáo và raw logs được giữ làm lịch sử. Chúng không điều khiển mục tiêu v2.
+
+## Chạy pipeline nhỏ, có thể kiểm tra
+
+Từ root repo, dùng venv có sẵn. Hai toy tests dưới đây tạo dữ liệu trong thư mục tạm và chạy luồng canonical events → Full Rebuild / Incremental replay → equivalence → normalized snapshot/export; chúng không ghi đè dataset hay artifact. Lệnh Full Rebuild sau đó là ví dụ riêng trên canonical 100k, cần chọn thư mục `--out` mới.
 
 ```powershell
-..\venv\Scripts\python.exe -m pip install -r requirements-app.txt
-..\venv\Scripts\python.exe -m streamlit run src/app/streamlit_app.py --server.address 127.0.0.1 --server.port 8501
-```
-
-Mở `http://127.0.0.1:8501`; [hướng dẫn S10](docs/s10-rating-graph-refresh.md) ghi vị trí dữ liệu và biến môi trường. Rating mới chỉ cập nhật bản graph demo; checkpoint LightGCN vẫn ở version 81 cho đến khi có model refresh thực sự.
-
-Repo đã hoàn thành D01–D13. G1/G2/G3 đạt trong phạm vi đã ghi. D12 EXP-01 có năm repetitions trên sáu cặp H/Δ và run riêng H=2M; D13 EXP-02 so `R=1`/`R=5` có cost, staleness và normalized equality ở v5/v10. Venv dùng PyTorch 2.8.0+cu126; MovieLens 32M ở `../ml-32m/`. [D10 và demo](docs/d10-mvp.md), [D12 EXP-01](docs/d12-exp01-results.md), [D13 EXP-02](docs/d13-exp02-results.md).
-
-Chạy unit tests và các probe từ root repo.
-
-```powershell
+..\venv\Scripts\python.exe -m unittest tests.test_exp01 tests.test_exp02 -v
+..\venv\Scripts\python.exe -m src.graph.full_builder --events data/processed/canonical_events/canonical_100000.parquet --out data/processed/v2_toy_full
 ..\venv\Scripts\python.exe -m unittest discover -s tests -v
-..\venv\Scripts\python.exe -m src.graph.d04_probe
-..\venv\Scripts\python.exe -m src.graph.d05_probe
-..\venv\Scripts\python.exe -m src.graph.d06_probe
-..\venv\Scripts\python.exe -m src.models.d07_probe
-..\venv\Scripts\python.exe -m src.models.d08_baseline --steps 100 --device cuda
-..\venv\Scripts\python.exe -m src.models.d09_pipeline --device cuda --steps 100
-..\venv\Scripts\python.exe -m src.models.d10_mvp --device cuda --steps 100 --out data/processed/d10_mvp/my-clean-run
-..\venv\Scripts\python.exe -m src.models.d10_demo data/processed/d10_mvp/my-clean-run
-..\venv\Scripts\python.exe -m src.benchmarking.exp01 pilot --ratings ..\ml-32m\ratings.csv --out data/processed/d11_exp01/my-pilot --csv results/raw/my-exp01-pilot.csv
-..\venv\Scripts\python.exe -m src.benchmarking.exp01 repeat --out data/processed/d12_exp01/my-repeat --csv results/raw/my-exp01-repeat.csv
-..\venv\Scripts\python.exe -m src.benchmarking.exp02 run --out data/processed/d13_exp02/my-run --csv results/raw/my-exp02.csv
 ```
 
-Prompt mở đầu cho Codex:
+For a fresh canonical prefix from `../ml-32m/ratings.csv`, run `python -m src.ingest.d02_profile --source ... --out <fresh-directory>` only after choosing a fresh output directory; it scans the full CSV. Existing graph benchmark commands are `python -m src.benchmarking.exp01 --help` and `python -m src.benchmarking.exp02 --help`; both require explicit resource planning before large runs. Fixed REC-01 training is `python -m src.models.rec01_train --help`; the local demo is `python -m streamlit run src/app/streamlit_app.py`. These are current runnable entrypoints, while a unified v2 refresh pipeline remains planned.
 
-> Đọc AGENTS.md và milestone hiện hành trong docs/04-project-plan.md. Đối chiếu code, tài liệu và bằng chứng; triển khai trong phạm vi đã duyệt, kiểm thử, cập nhật docs/05, docs/07, docs/08 và docs/09, rồi giải thích kiến thức và giới hạn cho mình. Nếu cần ví dụ, dùng dữ liệu toy.
+The sealed REC-01 artifact at `data/processed/rec01_kaggle_runs/version_3/rec01_project/REC01-Kaggle-1M` uses a source-hash-verifying loader. Do not edit its report/checkpoint or bypass hash verification. The app shows stale model recommendations when feedback advances the graph.

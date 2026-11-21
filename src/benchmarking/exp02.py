@@ -16,7 +16,7 @@ from pathlib import Path
 import duckdb
 import psutil
 
-from src.benchmarking.exp01 import ROOT, RssSampler, slice_events
+from src.benchmarking.common import ROOT, RssSampler, slice_events
 from src.graph.full_builder import file_sha256
 from src.graph.incremental import IncrementalGraph
 from src.graph.normalize import ATOL, compare_adjacency
