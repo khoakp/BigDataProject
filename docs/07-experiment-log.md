@@ -165,6 +165,8 @@ run_id,cutoff,seed,regime,model_graph_version,checkpoint_version,warm_users,warm
 
 **Kết quả:** CHƯA CHẠY — `results/raw/exp03_refresh.csv` chưa tồn tại.
 
+**GPU feasibility preflight (21/11/2026):** Một run mỗi cohort user-recency 0,5M/2M/5M trên **RTX 4050 Laptop 6 GB**, PyTorch 2.8.0+cu126, dim 64, 3 layers, BPR batch 1.024, Adam LR 0,001, seed 7, 5 steps, rank 100 users. Source `ratings.csv` SHA-256 `91159850e41ee59c86231165a688709647e2726cab2e7ba9faf04001bd5261ee`; probe script SHA-256 `2359f7404e973215bfd4a426bc83dba1e7b63ab7772ef063c8e270b19e531cb5`; input graph SHA-256 có trong [cohort manifest](../results/model_cohort_v2_manifest.json). Các run đều PASS; CPU peak RSS lần lượt 1,38/2,11/3,61 GiB, GPU peak reserved 162/456/1.124 MiB. [Phase reports và summary](../results/gpu_feasibility_local/summary.csv), [phân tích và giới hạn](gpu-feasibility-v2.md). Đây là local resource smoke test, **không phải Kaggle T4** và chưa đo chất lượng hay full training.
+
 **Đồ thị:** Recall@20 vs refresh seconds; NDCG@20 vs lag; peak VRAM by regime; freshness quality trade-off.
 
 ## 5A. AN-01 — Metadata Enrichment & Genre Profiling (phân tích mô tả, không phải experiment causal)

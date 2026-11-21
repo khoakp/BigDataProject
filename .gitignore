@@ -10,6 +10,7 @@ __pycache__/
 /data/processed/
 /artifacts/checkpoints/
 /results/raw/
+/results/model_cohort_v2_final/
 *.duckdb
 *.duckdb.wal
 ~$*.docx

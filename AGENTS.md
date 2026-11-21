@@ -4,7 +4,7 @@
 
 The approved objective is RQ1 incremental graph maintenance and RQ2 LightGCN model freshness on MovieLens 32M. Snapshot cadence is a supporting engineering study. Keep cumulative historical-positive graph semantics and `rating >= 4.0`. The 01/01/2020 base cutoff is tentative until temporal profiling. Do not claim that v2 refresh experiments are complete without implementation and measured evidence.
 
-Read `README.md`, `docs/03-system-design.md` (current v2 section), and `docs/architecture-audit-v2.md` before architecture changes. Use `docs/07-experiment-log.md` for measured runs with data/config/hardware/source hashes. DXX/SXX documents, the old project plans and raw results are historical records; preserve them but do not treat them as current milestones. Do not create further DXX/SXX milestones or parallel pipeline variants.
+The Project Owner approved 01/01/2020 00:00 UTC as the base/replay cutoff after temporal profiling. Read `README.md`, `docs/03-system-design.md` (current v2 section), and `docs/architecture-audit-v2.md` before architecture changes. Use `docs/07-experiment-log.md` for measured runs with data/config/hardware/source hashes. DXX/SXX documents, the old project plans and raw results are historical records; preserve them but do not treat them as current milestones. Do not create further DXX/SXX milestones or parallel pipeline variants.
 
 ## Engineering rules
 

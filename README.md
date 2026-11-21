@@ -6,13 +6,14 @@
 - **RQ2:** Đánh đổi giữa Stale Model, Propagation-only và Fine-tuning/Retraining về chi phí, độ mới và chất lượng.
 - **Engineering study:** Chu kỳ tạo normalized graph snapshot ảnh hưởng thế nào đến chi phí và độ trễ dữ liệu.
 
-Graph là cumulative historical-positive user–movie, ngưỡng `rating >= 4.0`. Dự kiến lấy dữ liệu trước 01/01/2020 làm base, nhưng cutoff chỉ được chốt sau temporal profiling. MovieLens 32M là dataset chính; quy mô graph benchmark và LightGCN training được quyết định riêng. Streamlit là Research Dashboard. Chưa có measured v2 Model Freshness result.
+Graph là cumulative historical-positive user–movie, ngưỡng `rating >= 4.0`. Project Owner đã chốt **01/01/2020 00:00 UTC** làm cutoff sau temporal profiling: toàn bộ history trước mốc này là base, phần sau là replay. MovieLens 32M là dataset chính; quy mô graph benchmark và LightGCN training được quyết định riêng. Streamlit là Research Dashboard. Chưa có measured v2 Model Freshness result.
 
 ## Tài liệu hiện hành
 
 - [Kiến trúc, API, version contract và bước tiếp theo](docs/03-system-design.md)
 - [Audit, dependency map, baseline tests và migration plan](docs/architecture-audit-v2.md)
-- [Temporal profile MovieLens 32M và đề xuất cutoff](docs/temporal-profile-v2.md) — đề xuất 2020 đang chờ Project Owner review.
+- [Temporal profile MovieLens 32M](docs/temporal-profile-v2.md) — bằng chứng cho cutoff 2020 đã được duyệt.
+- [GPU feasibility, cohort selection và LightGCN workload](docs/gpu-feasibility-v2.md) — có số đo GPU local, đang chờ probe Kaggle T4.
 - [Experiment protocol và raw evidence log](docs/07-experiment-log.md) — các số đo DXX/EXP hiện có là lịch sử, không thay thế thí nghiệm v2.
 - [AGENTS.md](AGENTS.md) — quy tắc triển khai hiện hành.
 

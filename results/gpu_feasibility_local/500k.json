@@ -1,0 +1,192 @@
+{
+  "status": "PASS",
+  "started_utc": "2026-11-21T16:42:24.187805+00:00",
+  "cohort": "results/model_cohort_v2_final/edges_500000",
+  "input_sha256": {
+    "nodes.parquet": "3bec53fcce375389b6f6727d0f523d6eb2a13c06a226f4a397a17b4e97a7d8d0",
+    "edges.parquet": "164c5b84f3f0ce043e87b154eff33cd6e675482891b0b086c032f1013acbda95"
+  },
+  "cohort_manifest": {
+    "source_sha256": "91159850e41ee59c86231165a688709647e2726cab2e7ba9faf04001bd5261ee",
+    "cutoff_ts": 1577836800,
+    "positive_threshold": 4.0,
+    "selection": "user_recency",
+    "selection_basis": "pre-cutoff last positive user timestamp DESC, degree DESC, raw user ID ASC; all incident edges",
+    "graph_semantics": "complete_induced_pre_cutoff_positive",
+    "edge_budget": 500000,
+    "selected_rank_units": 1950,
+    "nodes": 26566,
+    "users": 1950,
+    "movies": 24616,
+    "positive_edges": 499694,
+    "sparse_entries": 999388,
+    "base_movie_catalog_coverage": 0.5929423100084307,
+    "future_positive_pairs": 2293342,
+    "outside_model_user_pairs": 2180336,
+    "outside_model_movie_pairs_after_user": 27822,
+    "train_seen_repeat_pairs": 0,
+    "evaluable_future_pairs": 85184,
+    "evaluable_fraction": 0.03714404567657157,
+    "future_pair_movie_catalog_coverage": 0.9376229101459791,
+    "evaluable_warm_users": 1622,
+    "evaluable_warm_movies": 12014,
+    "nodes_sha256": "3bec53fcce375389b6f6727d0f523d6eb2a13c06a226f4a397a17b4e97a7d8d0",
+    "edges_sha256": "164c5b84f3f0ce043e87b154eff33cd6e675482891b0b086c032f1013acbda95"
+  },
+  "config": {
+    "device": "cuda:0",
+    "dim": 64,
+    "layers": 3,
+    "batch_size": 1024,
+    "steps": 5,
+    "eval_users": 100,
+    "seed": 7
+  },
+  "environment": {
+    "python": "3.10.11",
+    "torch": "2.8.0+cu126",
+    "cuda_runtime": "12.6",
+    "physical_ram_bytes": 16780570624,
+    "cpu_rss_start_bytes": 572706816,
+    "gpu_name": "NVIDIA GeForce RTX 4050 Laptop GPU",
+    "gpu_total_bytes": 6438780928,
+    "gpu_free_start_bytes": 5321523200,
+    "gpu_count_visible": 1
+  },
+  "phases": {
+    "load_python_graph": {
+      "wall_s": 0.8624302999960491,
+      "cpu_rss_before_bytes": 572772352,
+      "cpu_rss_after_bytes": 754356224,
+      "cpu_peak_rss_bytes": 757747712,
+      "gpu_allocated_after_bytes": 0,
+      "gpu_reserved_after_bytes": 0,
+      "gpu_peak_allocated_bytes": 0,
+      "gpu_peak_reserved_bytes": 0,
+      "gpu_free_after_bytes": 5321523200
+    },
+    "normalize_python": {
+      "wall_s": 0.7211733000003733,
+      "cpu_rss_before_bytes": 754388992,
+      "cpu_rss_after_bytes": 813056000,
+      "cpu_peak_rss_bytes": 825032704,
+      "gpu_allocated_after_bytes": 0,
+      "gpu_reserved_after_bytes": 0,
+      "gpu_peak_allocated_bytes": 0,
+      "gpu_peak_reserved_bytes": 0,
+      "gpu_free_after_bytes": 5321523200
+    },
+    "prepare_sampler": {
+      "wall_s": 0.15395449999778066,
+      "cpu_rss_before_bytes": 813076480,
+      "cpu_rss_after_bytes": 833765376,
+      "cpu_peak_rss_bytes": 833765376,
+      "gpu_allocated_after_bytes": 0,
+      "gpu_reserved_after_bytes": 0,
+      "gpu_peak_allocated_bytes": 0,
+      "gpu_peak_reserved_bytes": 0,
+      "gpu_free_after_bytes": 5321523200
+    },
+    "to_sparse_coo": {
+      "wall_s": 0.9180631000053836,
+      "cpu_rss_before_bytes": 833753088,
+      "cpu_rss_after_bytes": 915714048,
+      "cpu_peak_rss_bytes": 922951680,
+      "gpu_allocated_after_bytes": 20774912,
+      "gpu_reserved_after_bytes": 77594624,
+      "gpu_peak_allocated_bytes": 66519040,
+      "gpu_peak_reserved_bytes": 77594624,
+      "gpu_free_after_bytes": 5231345664
+    },
+    "forward": {
+      "wall_s": 0.08610970000154339,
+      "cpu_rss_before_bytes": 971976704,
+      "cpu_rss_after_bytes": 1035894784,
+      "cpu_peak_rss_bytes": 1035894784,
+      "gpu_allocated_after_bytes": 34376704,
+      "gpu_reserved_after_bytes": 77594624,
+      "gpu_peak_allocated_bytes": 66586624,
+      "gpu_peak_reserved_bytes": 77594624,
+      "gpu_free_after_bytes": 5231345664
+    },
+    "first_backward_adam_step": {
+      "wall_s": 0.3258382000058191,
+      "cpu_rss_before_bytes": 1091252224,
+      "cpu_rss_after_bytes": 1358422016,
+      "cpu_peak_rss_bytes": 1358422016,
+      "gpu_allocated_after_bytes": 47978496,
+      "gpu_reserved_after_bytes": 153092096,
+      "gpu_peak_allocated_bytes": 121892864,
+      "gpu_peak_reserved_bytes": 153092096,
+      "gpu_free_after_bytes": 5155848192
+    },
+    "short_trajectory": {
+      "wall_s": 0.07523909999872558,
+      "cpu_rss_before_bytes": 1358454784,
+      "cpu_rss_after_bytes": 1358536704,
+      "cpu_peak_rss_bytes": 1358536704,
+      "gpu_allocated_after_bytes": 47978496,
+      "gpu_reserved_after_bytes": 169869312,
+      "gpu_peak_allocated_bytes": 135494656,
+      "gpu_peak_reserved_bytes": 169869312,
+      "gpu_free_after_bytes": 5139070976
+    },
+    "checkpoint": {
+      "wall_s": 0.0499400999979116,
+      "cpu_rss_before_bytes": 1358540800,
+      "cpu_rss_after_bytes": 1360453632,
+      "cpu_peak_rss_bytes": 1361989632,
+      "gpu_allocated_after_bytes": 47978496,
+      "gpu_reserved_after_bytes": 169869312,
+      "gpu_peak_allocated_bytes": 47978496,
+      "gpu_peak_reserved_bytes": 169869312,
+      "gpu_free_after_bytes": 5139070976
+    },
+    "evaluation_forward": {
+      "wall_s": 0.00967490000766702,
+      "cpu_rss_before_bytes": 1392726016,
+      "cpu_rss_after_bytes": 1393004544,
+      "cpu_peak_rss_bytes": 1393004544,
+      "gpu_allocated_after_bytes": 54779392,
+      "gpu_reserved_after_bytes": 169869312,
+      "gpu_peak_allocated_bytes": 86420480,
+      "gpu_peak_reserved_bytes": 169869312,
+      "gpu_free_after_bytes": 5139070976
+    },
+    "rank_train_catalog": {
+      "wall_s": 1.3647732000099495,
+      "cpu_rss_before_bytes": 1392992256,
+      "cpu_rss_after_bytes": 1476411392,
+      "cpu_peak_rss_bytes": 1476988928,
+      "gpu_allocated_after_bytes": 63299072,
+      "gpu_reserved_after_bytes": 169869312,
+      "gpu_peak_allocated_bytes": 63573504,
+      "gpu_peak_reserved_bytes": 169869312,
+      "gpu_free_after_bytes": 5128585216
+    }
+  },
+  "graph": {
+    "nodes": 26566,
+    "positive_edges": 499694,
+    "sparse_entries": 999388,
+    "sparse_tensor_nnz": 999388
+  },
+  "first_step_loss": 0.6926788091659546,
+  "remaining_step_losses": [
+    0.6926672458648682,
+    0.6925400495529175,
+    0.6925510168075562,
+    0.6923595070838928
+  ],
+  "checkpoint_bytes": 7628776,
+  "ranking": {
+    "users": 100,
+    "candidate_movies": 24616,
+    "returned_items": 2000
+  },
+  "gpu_peak_reserved_bytes": 169869312,
+  "gpu_total_headroom_fraction": 0.9736177835681133,
+  "gpu_free_end_bytes": 5128585216,
+  "gpu_effective_headroom_fraction": 0.7965149417799854,
+  "finished_utc": "2026-11-21T16:42:30.291080+00:00"
+}
