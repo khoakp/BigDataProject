@@ -1,0 +1,2 @@
+# Preserve exact bytes of the published profiling CSVs and their SHA-256 hashes.
+results/temporal_profile_v2/*.csv -text

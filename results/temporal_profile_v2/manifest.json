@@ -1,0 +1,27 @@
+{
+  "source": "D:\\IUH\\Nam4_K1\\BigData\\Project_CK\\ml-32m\\ratings.csv",
+  "source_bytes": 877076222,
+  "source_sha256": "91159850e41ee59c86231165a688709647e2726cab2e7ba9faf04001bd5261ee",
+  "rows": 32000204,
+  "positive_events": 15938231,
+  "unique_positive_edges": 15938231,
+  "distinct_users": 200948,
+  "distinct_movies": 84432,
+  "positive_graph_users": 200726,
+  "positive_graph_movies": 55174,
+  "min_event_ts": 789652004,
+  "max_event_ts": 1697164147,
+  "months_with_events": 334,
+  "positive_threshold": 4.0,
+  "timezone": "UTC",
+  "cutoff_rule": "base < cutoff; replay >= cutoff",
+  "entity_first_observed_rule": "minimum event_ts; ties do not affect period counts",
+  "edge_rule": "distinct (user_raw_id,movie_raw_id) with any rating >= 4.0; first positive timestamp",
+  "memory_limit": "1GB",
+  "threads": 2,
+  "outputs_sha256": {
+    "monthly.csv": "a707b4759d3bf720466f1836a221923d29a84d3e5395d7172c4cfc6536f50aa2",
+    "yearly.csv": "df08f4a1b7bddf40ffc6c37133ea78d0e1124b709e0d90bdf593ed4c3ce119c6",
+    "cutoffs.csv": "670e9991b11d8b468d0010f3b2f818b3619c58638dcf8e143b4ed7b32c489816"
+  }
+}

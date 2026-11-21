@@ -30,7 +30,7 @@ MovieLens -> Canonical Events -> Base Graph -> Replay Batches
 
 ### Next implementation gates
 
-1. Profile the full timestamp distribution and positive-edge growth; select cutoff and replay windows before benchmark. Preserve original data.
+1. [Full temporal profiling](temporal-profile-v2.md) đã hoàn thành; cutoff 2020 và replay windows đang chờ Project Owner review trước benchmark. Preserve original data.
 2. Validate canonical event IDs, raw IDs, tie ordering and stable registry/degree/full-equivalence on toy and selected real prefixes. Preserve existing threshold and cumulative semantics.
 3. Measure a one-T4 16 GB GPU workload on a small increasing graph sample: peak VRAM, propagation/training time, checkpoint bytes and OOM boundary. Choose model scale from measurement.
 4. Define a versioned refresh interface: `stale(checkpoint, old_snapshot)`, `propagate(checkpoint, new_snapshot)`, and optional `fine_tune(checkpoint, new_snapshot, budget)`. Record `v,g,c,p`, cutoff, candidate universe and timing per result. Do not implement or claim freshness results before these gates pass.
