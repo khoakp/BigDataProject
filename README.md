@@ -8,6 +8,8 @@
 
 Graph là cumulative historical-positive user–movie, ngưỡng `rating >= 4.0`. Project Owner đã chốt **01/01/2020 00:00 UTC** làm cutoff sau temporal profiling: toàn bộ history trước mốc này là base, phần sau là replay. MovieLens 32M là dataset chính; quy mô graph benchmark và LightGCN training được quyết định riêng. Streamlit là Research Dashboard. Chưa có measured v2 Model Freshness result.
 
+Luồng chính: MovieLens CSV → canonical events → Full Rebuild/Incremental Graph → normalized snapshot → LightGCN → temporal evaluation/inference → Research Dashboard.
+
 ## Tài liệu hiện hành
 
 - [Phạm vi và quyết định v2](docs/current/scope-and-decisions.md)
@@ -15,14 +17,12 @@ Graph là cumulative historical-positive user–movie, ngưỡng `rating >= 4.0`
 - [Protocol thực nghiệm](docs/current/experiment-protocol.md)
 - [Tiến độ và bằng chứng](docs/current/progress-and-evidence.md)
 - [Architecture Walkthrough tiếng Việt](docs/current/architecture-walkthrough-vi.md)
+- [Bảo trì tài liệu](docs/current/documentation-maintenance.md)
 - [Chỉ mục nghiên cứu](docs/research/README.md)
-- [GOAL 03.5 audit, dependency map, baseline tests và migration plan](docs/goal035-audit-plan.md)
-- [Temporal profile MovieLens 32M](docs/temporal-profile-v2.md) — bằng chứng cho cutoff 2020 đã được duyệt.
-- [GPU feasibility, cohort selection và LightGCN workload](docs/gpu-feasibility-v2.md) — đã đo private Kaggle T4 và trajectory 500 bước; chờ Project Owner review trước Model Refresh Engine.
-- [Experiment protocol và raw evidence log](docs/07-experiment-log.md) — các số đo DXX/EXP hiện có là lịch sử, không thay thế thí nghiệm v2.
+- [Hồ sơ lưu trữ](docs/archive/README.md)
 - [AGENTS.md](AGENTS.md) — quy tắc triển khai hiện hành.
 
-Các tài liệu `dXX-*`, `sXX-*`, `10-direction-update-v1.md`, `11-sprint14-plan.md`, báo cáo và raw logs được giữ làm lịch sử. Chúng không điều khiển mục tiêu v2.
+Measured reports và protocol đã khóa nằm trong research index. Kế hoạch, milestone và thiết kế cũ nằm trong archive; chúng không điều khiển mục tiêu v2.
 
 ## Chạy pipeline nhỏ, có thể kiểm tra
 

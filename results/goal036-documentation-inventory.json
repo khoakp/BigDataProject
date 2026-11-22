@@ -1,0 +1,973 @@
+{
+  "schema": "goal036-documentation-inventory-v1",
+  "baseline_branch": "refactor/v2-cleanup",
+  "baseline_head": "fb709c0164dd4490940dd1b2cb1320c4942258cf",
+  "baseline_markdown_files": 58,
+  "baseline_root_docs_markdown": 47,
+  "scan_scope": [
+    "Markdown links",
+    "non-Markdown tracked references",
+    "S12 frozen manifest",
+    "frozen final-report links"
+  ],
+  "entries": [
+    {
+      "original_path": "AGENTS.md",
+      "title": "BigDataProject v2 — working instructions",
+      "purpose": "Current v2 entrypoint or source of truth",
+      "status": "current",
+      "last_milestone": "v2-current",
+      "outgoing_local_links": 4,
+      "incoming_local_links": 3,
+      "source_references": [
+        "scripts/s14_package.py"
+      ],
+      "frozen_status": [
+        "hardcoded-caller"
+      ],
+      "unique_content": "unique",
+      "action": "KEEP_CURRENT",
+      "current_path": "AGENTS.md"
+    },
+    {
+      "original_path": "README.md",
+      "title": "BigDataProject v2.0",
+      "purpose": "Current v2 entrypoint or source of truth",
+      "status": "current",
+      "last_milestone": "v2-current",
+      "outgoing_local_links": 11,
+      "incoming_local_links": 2,
+      "source_references": [
+        "scripts/s12_build_report_docx.py",
+        "scripts/s14_package.py"
+      ],
+      "frozen_status": [
+        "hardcoded-caller"
+      ],
+      "unique_content": "unique",
+      "action": "KEEP_CURRENT",
+      "current_path": "README.md"
+    },
+    {
+      "original_path": "docs/01-project-overview.md",
+      "title": "01 — Tổng quan và đặc tả đề tài",
+      "purpose": "Historical plan, milestone, design, log, or refactor record",
+      "status": "historical",
+      "last_milestone": "cross-milestone",
+      "outgoing_local_links": 9,
+      "incoming_local_links": 5,
+      "source_references": [],
+      "frozen_status": [
+        "none"
+      ],
+      "unique_content": "unique",
+      "action": "MOVE_ARCHIVE",
+      "current_path": "docs/archive/plans/01-project-overview.md"
+    },
+    {
+      "original_path": "docs/02-research-journal.md",
+      "title": "02 — Nhật ký tìm hiểu và nghiên cứu",
+      "purpose": "Historical plan, milestone, design, log, or refactor record",
+      "status": "historical",
+      "last_milestone": "cross-milestone",
+      "outgoing_local_links": 4,
+      "incoming_local_links": 2,
+      "source_references": [],
+      "frozen_status": [
+        "none"
+      ],
+      "unique_content": "unique",
+      "action": "MOVE_ARCHIVE",
+      "current_path": "docs/archive/legacy-reports/02-research-journal.md"
+    },
+    {
+      "original_path": "docs/03-system-design.md",
+      "title": "03 — Kiến trúc nghiên cứu v2.0",
+      "purpose": "Historical plan, milestone, design, log, or refactor record",
+      "status": "historical",
+      "last_milestone": "cross-milestone",
+      "outgoing_local_links": 20,
+      "incoming_local_links": 12,
+      "source_references": [],
+      "frozen_status": [
+        "frozen-report-target"
+      ],
+      "unique_content": "unique",
+      "action": "MOVE_ARCHIVE",
+      "current_path": "docs/archive/legacy-reports/03-system-design.md"
+    },
+    {
+      "original_path": "docs/04-project-plan.md",
+      "title": "04 — Kế hoạch triển khai BigDataProject trong 21 ngày",
+      "purpose": "Historical plan, milestone, design, log, or refactor record",
+      "status": "historical",
+      "last_milestone": "cross-milestone",
+      "outgoing_local_links": 11,
+      "incoming_local_links": 12,
+      "source_references": [],
+      "frozen_status": [
+        "none"
+      ],
+      "unique_content": "unique",
+      "action": "MOVE_ARCHIVE",
+      "current_path": "docs/archive/plans/04-project-plan.md"
+    },
+    {
+      "original_path": "docs/05-work-log.md",
+      "title": "05 — Nhật ký làm việc hằng ngày",
+      "purpose": "Historical plan, milestone, design, log, or refactor record",
+      "status": "historical",
+      "last_milestone": "cross-milestone",
+      "outgoing_local_links": 46,
+      "incoming_local_links": 9,
+      "source_references": [],
+      "frozen_status": [
+        "none"
+      ],
+      "unique_content": "unique",
+      "action": "MOVE_ARCHIVE",
+      "current_path": "docs/archive/legacy-reports/05-work-log.md"
+    },
+    {
+      "original_path": "docs/06-decisions-and-risks.md",
+      "title": "06 — Nhật ký quyết định kiến trúc (ADR) và quản lý rủi ro",
+      "purpose": "Historical plan, milestone, design, log, or refactor record",
+      "status": "historical",
+      "last_milestone": "cross-milestone",
+      "outgoing_local_links": 16,
+      "incoming_local_links": 16,
+      "source_references": [],
+      "frozen_status": [
+        "frozen-report-target"
+      ],
+      "unique_content": "unique",
+      "action": "MOVE_ARCHIVE",
+      "current_path": "docs/archive/legacy-reports/06-decisions-and-risks.md"
+    },
+    {
+      "original_path": "docs/07-experiment-log.md",
+      "title": "07 — Sổ thực nghiệm, protocol và kết quả benchmark",
+      "purpose": "Measured research evidence, locked protocol, or provenance",
+      "status": "research",
+      "last_milestone": "cross-milestone",
+      "outgoing_local_links": 32,
+      "incoming_local_links": 14,
+      "source_references": [],
+      "frozen_status": [
+        "none"
+      ],
+      "unique_content": "unique",
+      "action": "KEEP_RESEARCH",
+      "current_path": "docs/research/experiment-log.md"
+    },
+    {
+      "original_path": "docs/08-final-report-outline.md",
+      "title": "08 — Khung báo cáo cuối kỳ, bằng chứng, tài liệu tham khảo và bảo vệ",
+      "purpose": "Historical plan, milestone, design, log, or refactor record",
+      "status": "historical",
+      "last_milestone": "cross-milestone",
+      "outgoing_local_links": 7,
+      "incoming_local_links": 1,
+      "source_references": [],
+      "frozen_status": [
+        "none"
+      ],
+      "unique_content": "unique",
+      "action": "MOVE_ARCHIVE",
+      "current_path": "docs/archive/plans/08-final-report-outline.md"
+    },
+    {
+      "original_path": "docs/08-report-notes.md",
+      "title": "08 — Ghi chú tích lũy cho báo cáo học phần",
+      "purpose": "Historical plan, milestone, design, log, or refactor record",
+      "status": "historical",
+      "last_milestone": "cross-milestone",
+      "outgoing_local_links": 58,
+      "incoming_local_links": 2,
+      "source_references": [],
+      "frozen_status": [
+        "none"
+      ],
+      "unique_content": "partial-duplicate-with-unique-notes",
+      "action": "MOVE_ARCHIVE",
+      "current_path": "docs/archive/legacy-reports/08-report-notes.md"
+    },
+    {
+      "original_path": "docs/09-report-evidence.md",
+      "title": "09 — Ma trận bằng chứng cho báo cáo",
+      "purpose": "Measured research evidence, locked protocol, or provenance",
+      "status": "research",
+      "last_milestone": "cross-milestone",
+      "outgoing_local_links": 118,
+      "incoming_local_links": 13,
+      "source_references": [],
+      "frozen_status": [
+        "frozen-report-target"
+      ],
+      "unique_content": "unique",
+      "action": "KEEP_RESEARCH",
+      "current_path": "docs/research/evidence-matrix.md"
+    },
+    {
+      "original_path": "docs/10-direction-update-v1.md",
+      "title": "BigDataProject — Project Direction Update v1.0",
+      "purpose": "Historical plan, milestone, design, log, or refactor record",
+      "status": "historical",
+      "last_milestone": "cross-milestone",
+      "outgoing_local_links": 2,
+      "incoming_local_links": 13,
+      "source_references": [],
+      "frozen_status": [
+        "frozen-report-target"
+      ],
+      "unique_content": "unique",
+      "action": "MOVE_ARCHIVE",
+      "current_path": "docs/archive/plans/10-direction-update-v1.md"
+    },
+    {
+      "original_path": "docs/11-sprint14-plan.md",
+      "title": "Kế hoạch S01–S14 theo định hướng v1.0",
+      "purpose": "Historical plan, milestone, design, log, or refactor record",
+      "status": "historical",
+      "last_milestone": "cross-milestone",
+      "outgoing_local_links": 19,
+      "incoming_local_links": 7,
+      "source_references": [],
+      "frozen_status": [
+        "none"
+      ],
+      "unique_content": "unique",
+      "action": "MOVE_ARCHIVE",
+      "current_path": "docs/archive/plans/11-sprint14-plan.md"
+    },
+    {
+      "original_path": "docs/CHANGELOG-2026-11-10.md",
+      "title": "BigDataProject — Tóm tắt cập nhật tài liệu (10/11/2026)",
+      "purpose": "Historical plan, milestone, design, log, or refactor record",
+      "status": "historical",
+      "last_milestone": "cross-milestone",
+      "outgoing_local_links": 0,
+      "incoming_local_links": 0,
+      "source_references": [],
+      "frozen_status": [
+        "none"
+      ],
+      "unique_content": "unique",
+      "action": "MOVE_ARCHIVE",
+      "current_path": "docs/archive/plans/CHANGELOG-2026-11-10.md"
+    },
+    {
+      "original_path": "docs/architecture-audit-v2.md",
+      "title": "v2.0 architecture audit and migration record",
+      "purpose": "Historical plan, milestone, design, log, or refactor record",
+      "status": "historical",
+      "last_milestone": "cross-milestone",
+      "outgoing_local_links": 1,
+      "incoming_local_links": 1,
+      "source_references": [],
+      "frozen_status": [
+        "none"
+      ],
+      "unique_content": "unique",
+      "action": "MOVE_ARCHIVE",
+      "current_path": "docs/archive/legacy-reports/architecture-audit-v2.md"
+    },
+    {
+      "original_path": "docs/archive/04-project-plan-7weeks-archived.md",
+      "title": "04 — Kế hoạch 7 tuần, deadline chi tiết và nghiệm thu",
+      "purpose": "Historical plan, milestone, design, log, or refactor record",
+      "status": "historical",
+      "last_milestone": "cross-milestone",
+      "outgoing_local_links": 5,
+      "incoming_local_links": 2,
+      "source_references": [],
+      "frozen_status": [
+        "none"
+      ],
+      "unique_content": "unique",
+      "action": "MOVE_ARCHIVE",
+      "current_path": "docs/archive/plans/04-project-plan-7weeks-archived.md"
+    },
+    {
+      "original_path": "docs/archive/README.md",
+      "title": "Kế hoạch lưu trữ",
+      "purpose": "Research evidence or provenance",
+      "status": "research",
+      "last_milestone": "cross-milestone",
+      "outgoing_local_links": 1,
+      "incoming_local_links": 1,
+      "source_references": [],
+      "frozen_status": [
+        "none"
+      ],
+      "unique_content": "navigation-only",
+      "action": "KEEP_RESEARCH",
+      "current_path": "docs/archive/README.md"
+    },
+    {
+      "original_path": "docs/current/architecture-walkthrough-vi.md",
+      "title": "Architecture Walkthrough — BigDataProject v2",
+      "purpose": "Current v2 entrypoint or source of truth",
+      "status": "current",
+      "last_milestone": "v2-current",
+      "outgoing_local_links": 4,
+      "incoming_local_links": 2,
+      "source_references": [],
+      "frozen_status": [
+        "none"
+      ],
+      "unique_content": "unique",
+      "action": "KEEP_CURRENT",
+      "current_path": "docs/current/architecture-walkthrough-vi.md"
+    },
+    {
+      "original_path": "docs/current/architecture.md",
+      "title": "Kiến trúc v2 hiện hành",
+      "purpose": "Current v2 entrypoint or source of truth",
+      "status": "current",
+      "last_milestone": "v2-current",
+      "outgoing_local_links": 2,
+      "incoming_local_links": 4,
+      "source_references": [],
+      "frozen_status": [
+        "none"
+      ],
+      "unique_content": "unique",
+      "action": "KEEP_CURRENT",
+      "current_path": "docs/current/architecture.md"
+    },
+    {
+      "original_path": "docs/current/experiment-protocol.md",
+      "title": "Protocol nghiên cứu v2",
+      "purpose": "Current v2 entrypoint or source of truth",
+      "status": "current",
+      "last_milestone": "v2-current",
+      "outgoing_local_links": 5,
+      "incoming_local_links": 4,
+      "source_references": [],
+      "frozen_status": [
+        "none"
+      ],
+      "unique_content": "unique",
+      "action": "KEEP_CURRENT",
+      "current_path": "docs/current/experiment-protocol.md"
+    },
+    {
+      "original_path": "docs/current/progress-and-evidence.md",
+      "title": "Tiến độ và bằng chứng v2",
+      "purpose": "Current v2 entrypoint or source of truth",
+      "status": "current",
+      "last_milestone": "v2-current",
+      "outgoing_local_links": 6,
+      "incoming_local_links": 34,
+      "source_references": [],
+      "frozen_status": [
+        "none"
+      ],
+      "unique_content": "unique",
+      "action": "KEEP_CURRENT",
+      "current_path": "docs/current/progress-and-evidence.md"
+    },
+    {
+      "original_path": "docs/current/scope-and-decisions.md",
+      "title": "Phạm vi và quyết định v2 hiện hành",
+      "purpose": "Current v2 entrypoint or source of truth",
+      "status": "current",
+      "last_milestone": "v2-current",
+      "outgoing_local_links": 4,
+      "incoming_local_links": 38,
+      "source_references": [],
+      "frozen_status": [
+        "none"
+      ],
+      "unique_content": "unique",
+      "action": "KEEP_CURRENT",
+      "current_path": "docs/current/scope-and-decisions.md"
+    },
+    {
+      "original_path": "docs/d02-data-profile.md",
+      "title": "D02 — Profile ratings và canonical prefix",
+      "purpose": "Historical plan, milestone, design, log, or refactor record",
+      "status": "historical",
+      "last_milestone": "D02",
+      "outgoing_local_links": 5,
+      "incoming_local_links": 7,
+      "source_references": [],
+      "frozen_status": [
+        "frozen-report-target"
+      ],
+      "unique_content": "unique",
+      "action": "MOVE_ARCHIVE",
+      "current_path": "docs/archive/milestones/dxx/d02-data-profile.md"
+    },
+    {
+      "original_path": "docs/d03-full-reference.md",
+      "title": "D03 — Positive rule và Full Rebuild reference",
+      "purpose": "Historical plan, milestone, design, log, or refactor record",
+      "status": "historical",
+      "last_milestone": "D03",
+      "outgoing_local_links": 5,
+      "incoming_local_links": 6,
+      "source_references": [],
+      "frozen_status": [
+        "none"
+      ],
+      "unique_content": "unique",
+      "action": "MOVE_ARCHIVE",
+      "current_path": "docs/archive/milestones/dxx/d03-full-reference.md"
+    },
+    {
+      "original_path": "docs/d04-incremental.md",
+      "title": "D04 — Stateful apply_batch và batch ledger",
+      "purpose": "Historical plan, milestone, design, log, or refactor record",
+      "status": "historical",
+      "last_milestone": "D04",
+      "outgoing_local_links": 7,
+      "incoming_local_links": 6,
+      "source_references": [],
+      "frozen_status": [
+        "frozen-report-target"
+      ],
+      "unique_content": "unique",
+      "action": "MOVE_ARCHIVE",
+      "current_path": "docs/archive/milestones/dxx/d04-incremental.md"
+    },
+    {
+      "original_path": "docs/d05-equivalence.md",
+      "title": "D05 — Exact Full/Incremental equivalence và G1",
+      "purpose": "Historical plan, milestone, design, log, or refactor record",
+      "status": "historical",
+      "last_milestone": "D05",
+      "outgoing_local_links": 9,
+      "incoming_local_links": 6,
+      "source_references": [],
+      "frozen_status": [
+        "frozen-report-target"
+      ],
+      "unique_content": "unique",
+      "action": "MOVE_ARCHIVE",
+      "current_path": "docs/archive/milestones/dxx/d05-equivalence.md"
+    },
+    {
+      "original_path": "docs/d06-normalization.md",
+      "title": "D06 — Sparse normalization, model graph versions và metadata validation",
+      "purpose": "Historical plan, milestone, design, log, or refactor record",
+      "status": "historical",
+      "last_milestone": "D06",
+      "outgoing_local_links": 15,
+      "incoming_local_links": 11,
+      "source_references": [],
+      "frozen_status": [
+        "frozen-report-target"
+      ],
+      "unique_content": "unique",
+      "action": "MOVE_ARCHIVE",
+      "current_path": "docs/archive/milestones/dxx/d06-normalization.md"
+    },
+    {
+      "original_path": "docs/d07-lightgcn-smoke.md",
+      "title": "D07 — LightGCN sparse CUDA smoke và hồ sơ bộ nhớ",
+      "purpose": "Historical plan, milestone, design, log, or refactor record",
+      "status": "historical",
+      "last_milestone": "D07",
+      "outgoing_local_links": 7,
+      "incoming_local_links": 10,
+      "source_references": [],
+      "frozen_status": [
+        "none"
+      ],
+      "unique_content": "unique",
+      "action": "MOVE_ARCHIVE",
+      "current_path": "docs/archive/milestones/dxx/d07-lightgcn-smoke.md"
+    },
+    {
+      "original_path": "docs/d08-temporal-baseline.md",
+      "title": "D08 — Temporal split và LightGCN baseline",
+      "purpose": "Historical plan, milestone, design, log, or refactor record",
+      "status": "historical",
+      "last_milestone": "D08",
+      "outgoing_local_links": 2,
+      "incoming_local_links": 5,
+      "source_references": [],
+      "frozen_status": [
+        "none"
+      ],
+      "unique_content": "unique",
+      "action": "MOVE_ARCHIVE",
+      "current_path": "docs/archive/milestones/dxx/d08-temporal-baseline.md"
+    },
+    {
+      "original_path": "docs/d09-end-to-end.md",
+      "title": "D09 — Incremental graph đến metadata Top-K",
+      "purpose": "Historical plan, milestone, design, log, or refactor record",
+      "status": "historical",
+      "last_milestone": "D09",
+      "outgoing_local_links": 3,
+      "incoming_local_links": 8,
+      "source_references": [],
+      "frozen_status": [
+        "none"
+      ],
+      "unique_content": "unique",
+      "action": "MOVE_ARCHIVE",
+      "current_path": "docs/archive/milestones/dxx/d09-end-to-end.md"
+    },
+    {
+      "original_path": "docs/d10-mvp.md",
+      "title": "D10 — Clean rerun và MVP gate G3",
+      "purpose": "Historical plan, milestone, design, log, or refactor record",
+      "status": "historical",
+      "last_milestone": "D10",
+      "outgoing_local_links": 2,
+      "incoming_local_links": 5,
+      "source_references": [],
+      "frozen_status": [
+        "none"
+      ],
+      "unique_content": "unique",
+      "action": "MOVE_ARCHIVE",
+      "current_path": "docs/archive/milestones/dxx/d10-mvp.md"
+    },
+    {
+      "original_path": "docs/d11-exp01-pilot.md",
+      "title": "D11 — EXP-01 pilot harness",
+      "purpose": "Historical plan, milestone, design, log, or refactor record",
+      "status": "historical",
+      "last_milestone": "D11",
+      "outgoing_local_links": 3,
+      "incoming_local_links": 3,
+      "source_references": [],
+      "frozen_status": [
+        "none"
+      ],
+      "unique_content": "unique",
+      "action": "MOVE_ARCHIVE",
+      "current_path": "docs/archive/milestones/dxx/d11-exp01-pilot.md"
+    },
+    {
+      "original_path": "docs/d12-exp01-results.md",
+      "title": "D12 — EXP-01 repetitions và phân tích crossover",
+      "purpose": "Measured research evidence, locked protocol, or provenance",
+      "status": "research",
+      "last_milestone": "D12",
+      "outgoing_local_links": 7,
+      "incoming_local_links": 15,
+      "source_references": [],
+      "frozen_status": [
+        "frozen-report-target"
+      ],
+      "unique_content": "unique",
+      "action": "KEEP_RESEARCH",
+      "current_path": "docs/research/d12-exp01-results.md"
+    },
+    {
+      "original_path": "docs/d13-exp02-results.md",
+      "title": "D13 — EXP-02: chu kỳ chuẩn hóa R=1 và R=5",
+      "purpose": "Measured research evidence, locked protocol, or provenance",
+      "status": "research",
+      "last_milestone": "D13",
+      "outgoing_local_links": 3,
+      "incoming_local_links": 13,
+      "source_references": [],
+      "frozen_status": [
+        "frozen-report-target"
+      ],
+      "unique_content": "unique",
+      "action": "KEEP_RESEARCH",
+      "current_path": "docs/research/d13-exp02-results.md"
+    },
+    {
+      "original_path": "docs/environment.md",
+      "title": "D01 — Môi trường và kiểm tra khả thi ban đầu",
+      "purpose": "Measured research evidence, locked protocol, or provenance",
+      "status": "research",
+      "last_milestone": "cross-milestone",
+      "outgoing_local_links": 2,
+      "incoming_local_links": 8,
+      "source_references": [],
+      "frozen_status": [
+        "none"
+      ],
+      "unique_content": "unique",
+      "action": "KEEP_RESEARCH",
+      "current_path": "docs/research/environment.md"
+    },
+    {
+      "original_path": "docs/final-report.md",
+      "title": "Xây dựng hệ thống gợi ý phim cá nhân hóa sử dụng LightGCN kết hợp pipeline xử lý dữ liệu lớn và cập nhật đồ thị tăng dần",
+      "purpose": "Frozen or path-bound research/submission evidence",
+      "status": "legacy-path",
+      "last_milestone": "cross-milestone",
+      "outgoing_local_links": 32,
+      "incoming_local_links": 6,
+      "source_references": [
+        "scripts/s12_freeze_manifest.py"
+      ],
+      "frozen_status": [
+        "s12-source-hash",
+        "hardcoded-caller"
+      ],
+      "unique_content": "unique",
+      "action": "KEEP_RESEARCH",
+      "current_path": "docs/final-report.md"
+    },
+    {
+      "original_path": "docs/goal035-audit-plan.md",
+      "title": "GOAL 03.5 — Ponytail audit và kiến trúc đề xuất",
+      "purpose": "Historical plan, milestone, design, log, or refactor record",
+      "status": "historical",
+      "last_milestone": "GOAL03.5",
+      "outgoing_local_links": 32,
+      "incoming_local_links": 4,
+      "source_references": [],
+      "frozen_status": [
+        "none"
+      ],
+      "unique_content": "unique",
+      "action": "MOVE_ARCHIVE",
+      "current_path": "docs/archive/legacy-reports/goal035-audit-plan.md"
+    },
+    {
+      "original_path": "docs/goal035-documentation-map.md",
+      "title": "GOAL 03.5 — Markdown inventory và migration map",
+      "purpose": "Historical plan, milestone, design, log, or refactor record",
+      "status": "historical",
+      "last_milestone": "GOAL03.5",
+      "outgoing_local_links": 2,
+      "incoming_local_links": 3,
+      "source_references": [],
+      "frozen_status": [
+        "none"
+      ],
+      "unique_content": "unique",
+      "action": "MOVE_ARCHIVE",
+      "current_path": "docs/archive/legacy-reports/goal035-documentation-map.md"
+    },
+    {
+      "original_path": "docs/goal035-implementation-report.md",
+      "title": "GOAL 03.5 — Implementation và review",
+      "purpose": "Historical plan, milestone, design, log, or refactor record",
+      "status": "historical",
+      "last_milestone": "GOAL03.5",
+      "outgoing_local_links": 7,
+      "incoming_local_links": 4,
+      "source_references": [],
+      "frozen_status": [
+        "none"
+      ],
+      "unique_content": "unique",
+      "action": "MOVE_ARCHIVE",
+      "current_path": "docs/archive/legacy-reports/goal035-implementation-report.md"
+    },
+    {
+      "original_path": "docs/gpu-feasibility-v2.md",
+      "title": "GPU feasibility và LightGCN workload selection (v2)",
+      "purpose": "Measured research evidence, locked protocol, or provenance",
+      "status": "research",
+      "last_milestone": "cross-milestone",
+      "outgoing_local_links": 17,
+      "incoming_local_links": 7,
+      "source_references": [],
+      "frozen_status": [
+        "none"
+      ],
+      "unique_content": "unique",
+      "action": "KEEP_RESEARCH",
+      "current_path": "docs/research/gpu-feasibility-v2.md"
+    },
+    {
+      "original_path": "docs/report-assets/README.md",
+      "title": "Report assets",
+      "purpose": "Frozen or path-bound research/submission evidence",
+      "status": "legacy-path",
+      "last_milestone": "cross-milestone",
+      "outgoing_local_links": 5,
+      "incoming_local_links": 2,
+      "source_references": [],
+      "frozen_status": [
+        "none"
+      ],
+      "unique_content": "unique",
+      "action": "KEEP_RESEARCH",
+      "current_path": "docs/report-assets/README.md"
+    },
+    {
+      "original_path": "docs/research/README.md",
+      "title": "Chỉ mục bằng chứng nghiên cứu",
+      "purpose": "Current v2 entrypoint or source of truth",
+      "status": "current",
+      "last_milestone": "v2-current",
+      "outgoing_local_links": 15,
+      "incoming_local_links": 5,
+      "source_references": [],
+      "frozen_status": [
+        "none"
+      ],
+      "unique_content": "navigation-only",
+      "action": "KEEP_CURRENT",
+      "current_path": "docs/research/README.md"
+    },
+    {
+      "original_path": "docs/s01-evaluation-spec.md",
+      "title": "S01 — Kiểm kê và giao thức đánh giá REC-01",
+      "purpose": "Measured research evidence, locked protocol, or provenance",
+      "status": "research",
+      "last_milestone": "S01",
+      "outgoing_local_links": 9,
+      "incoming_local_links": 14,
+      "source_references": [
+        "scripts/s12_build_report_docx.py"
+      ],
+      "frozen_status": [
+        "frozen-report-target",
+        "hardcoded-caller"
+      ],
+      "unique_content": "unique",
+      "action": "KEEP_RESEARCH",
+      "current_path": "docs/research/s01-evaluation-spec.md"
+    },
+    {
+      "original_path": "docs/s02-validation-smoke.md",
+      "title": "S02 — Evaluator Top-20 và validation-only smoke",
+      "purpose": "Historical plan, milestone, design, log, or refactor record",
+      "status": "historical",
+      "last_milestone": "S02",
+      "outgoing_local_links": 3,
+      "incoming_local_links": 4,
+      "source_references": [],
+      "frozen_status": [
+        "none"
+      ],
+      "unique_content": "unique",
+      "action": "MOVE_ARCHIVE",
+      "current_path": "docs/archive/milestones/sxx/s02-validation-smoke.md"
+    },
+    {
+      "original_path": "docs/s03-kaggle-workflow.md",
+      "title": "S03 — Chuyển REC-01 sang Kaggle GPU và kiểm chứng artifact",
+      "purpose": "Measured research evidence, locked protocol, or provenance",
+      "status": "research",
+      "last_milestone": "S03",
+      "outgoing_local_links": 5,
+      "incoming_local_links": 12,
+      "source_references": [
+        "scripts/s12_build_report_docx.py"
+      ],
+      "frozen_status": [
+        "frozen-report-target",
+        "hardcoded-caller"
+      ],
+      "unique_content": "unique",
+      "action": "KEEP_RESEARCH",
+      "current_path": "docs/research/s03-kaggle-workflow.md"
+    },
+    {
+      "original_path": "docs/s04-rec01-results.md",
+      "title": "S04 — REC-01: LightGCN và Popularity trên MovieLens 1M",
+      "purpose": "Measured research evidence, locked protocol, or provenance",
+      "status": "research",
+      "last_milestone": "S04",
+      "outgoing_local_links": 4,
+      "incoming_local_links": 22,
+      "source_references": [
+        "scripts/s12_build_report_docx.py"
+      ],
+      "frozen_status": [
+        "frozen-report-target",
+        "hardcoded-caller"
+      ],
+      "unique_content": "unique",
+      "action": "KEEP_RESEARCH",
+      "current_path": "docs/research/s04-rec01-results.md"
+    },
+    {
+      "original_path": "docs/s05-recommendation-pipeline.md",
+      "title": "S05 — Top-20 inference từ REC-01 checkpoint",
+      "purpose": "Historical plan, milestone, design, log, or refactor record",
+      "status": "historical",
+      "last_milestone": "S05",
+      "outgoing_local_links": 7,
+      "incoming_local_links": 3,
+      "source_references": [],
+      "frozen_status": [
+        "none"
+      ],
+      "unique_content": "unique",
+      "action": "MOVE_ARCHIVE",
+      "current_path": "docs/archive/milestones/sxx/s05-recommendation-pipeline.md"
+    },
+    {
+      "original_path": "docs/s06-exp01-audit.md",
+      "title": "S06 — Kiểm kê EXP-01 để tái dùng raw benchmark D12",
+      "purpose": "Measured research evidence, locked protocol, or provenance",
+      "status": "research",
+      "last_milestone": "S06",
+      "outgoing_local_links": 4,
+      "incoming_local_links": 10,
+      "source_references": [
+        "scripts/s12_build_report_docx.py"
+      ],
+      "frozen_status": [
+        "frozen-report-target",
+        "hardcoded-caller"
+      ],
+      "unique_content": "unique",
+      "action": "KEEP_RESEARCH",
+      "current_path": "docs/research/s06-exp01-audit.md"
+    },
+    {
+      "original_path": "docs/s07-exp01-engineering-conclusions.md",
+      "title": "S07 — Phân tích scalability EXP-01 và gate Engineering",
+      "purpose": "Measured research evidence, locked protocol, or provenance",
+      "status": "research",
+      "last_milestone": "S07",
+      "outgoing_local_links": 10,
+      "incoming_local_links": 9,
+      "source_references": [],
+      "frozen_status": [
+        "frozen-report-target"
+      ],
+      "unique_content": "unique",
+      "action": "KEEP_RESEARCH",
+      "current_path": "docs/research/s07-exp01-engineering-conclusions.md"
+    },
+    {
+      "original_path": "docs/s09-streamlit-mvp.md",
+      "title": "S09 — Streamlit recommendation MVP",
+      "purpose": "Historical plan, milestone, design, log, or refactor record",
+      "status": "historical",
+      "last_milestone": "S09",
+      "outgoing_local_links": 10,
+      "incoming_local_links": 7,
+      "source_references": [],
+      "frozen_status": [
+        "frozen-report-target"
+      ],
+      "unique_content": "unique",
+      "action": "MOVE_ARCHIVE",
+      "current_path": "docs/archive/milestones/sxx/s09-streamlit-mvp.md"
+    },
+    {
+      "original_path": "docs/s10-rating-graph-refresh.md",
+      "title": "S10 — Rating và cập nhật graph demo",
+      "purpose": "Historical plan, milestone, design, log, or refactor record",
+      "status": "historical",
+      "last_milestone": "S10",
+      "outgoing_local_links": 7,
+      "incoming_local_links": 10,
+      "source_references": [],
+      "frozen_status": [
+        "frozen-report-target"
+      ],
+      "unique_content": "unique",
+      "action": "MOVE_ARCHIVE",
+      "current_path": "docs/archive/milestones/sxx/s10-rating-graph-refresh.md"
+    },
+    {
+      "original_path": "docs/s11-integration-scaling.md",
+      "title": "S11 — Integration, failure paths và scale demo",
+      "purpose": "Measured research evidence, locked protocol, or provenance",
+      "status": "research",
+      "last_milestone": "S11",
+      "outgoing_local_links": 5,
+      "incoming_local_links": 12,
+      "source_references": [
+        "scripts/s12_build_report_docx.py"
+      ],
+      "frozen_status": [
+        "frozen-report-target",
+        "hardcoded-caller"
+      ],
+      "unique_content": "unique",
+      "action": "KEEP_RESEARCH",
+      "current_path": "docs/research/s11-integration-scaling.md"
+    },
+    {
+      "original_path": "docs/s12-reproducibility.md",
+      "title": "S12 — Báo cáo, environment và artifact freeze candidate",
+      "purpose": "Frozen or path-bound research/submission evidence",
+      "status": "legacy-path",
+      "last_milestone": "S12",
+      "outgoing_local_links": 14,
+      "incoming_local_links": 7,
+      "source_references": [
+        "requirements-local-repro.txt",
+        "scripts/s14_package.py"
+      ],
+      "frozen_status": [
+        "hardcoded-caller"
+      ],
+      "unique_content": "unique",
+      "action": "KEEP_RESEARCH",
+      "current_path": "docs/s12-reproducibility.md"
+    },
+    {
+      "original_path": "docs/s13-defense-qa.md",
+      "title": "S13 — Bảo vệ MovieGraph",
+      "purpose": "Frozen or path-bound research/submission evidence",
+      "status": "legacy-path",
+      "last_milestone": "S13",
+      "outgoing_local_links": 3,
+      "incoming_local_links": 3,
+      "source_references": [
+        "scripts/s14_package.py"
+      ],
+      "frozen_status": [
+        "hardcoded-caller"
+      ],
+      "unique_content": "unique",
+      "action": "KEEP_RESEARCH",
+      "current_path": "docs/s13-defense-qa.md"
+    },
+    {
+      "original_path": "docs/s14-submission.md",
+      "title": "S14 — Final QA và gói nộp",
+      "purpose": "Historical plan, milestone, design, log, or refactor record",
+      "status": "historical",
+      "last_milestone": "S14",
+      "outgoing_local_links": 2,
+      "incoming_local_links": 3,
+      "source_references": [],
+      "frozen_status": [
+        "none"
+      ],
+      "unique_content": "unique",
+      "action": "MOVE_ARCHIVE",
+      "current_path": "docs/archive/milestones/sxx/s14-submission.md"
+    },
+    {
+      "original_path": "docs/source-manifest.md",
+      "title": "D01 — MovieLens 32M source manifest",
+      "purpose": "Frozen or path-bound research/submission evidence",
+      "status": "legacy-path",
+      "last_milestone": "cross-milestone",
+      "outgoing_local_links": 0,
+      "incoming_local_links": 3,
+      "source_references": [
+        "src/graph/d06_probe.py"
+      ],
+      "frozen_status": [
+        "hardcoded-caller"
+      ],
+      "unique_content": "unique",
+      "action": "KEEP_RESEARCH",
+      "current_path": "docs/source-manifest.md"
+    },
+    {
+      "original_path": "docs/temporal-profile-v2.md",
+      "title": "MovieLens 32M temporal profile và cutoff feasibility (v2)",
+      "purpose": "Measured research evidence, locked protocol, or provenance",
+      "status": "research",
+      "last_milestone": "cross-milestone",
+      "outgoing_local_links": 5,
+      "incoming_local_links": 6,
+      "source_references": [],
+      "frozen_status": [
+        "none"
+      ],
+      "unique_content": "unique",
+      "action": "KEEP_RESEARCH",
+      "current_path": "docs/research/temporal-profile-v2.md"
+    }
+  ]
+}

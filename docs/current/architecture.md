@@ -21,4 +21,4 @@ flowchart LR
 
 Version `v` là canonical graph sau một batch; `g` là immutable normalized snapshot version; checkpoint `c` ghi graph/config đã dùng. `p` (propagated embeddings version) là contract **thiết kế cho GOAL 04**, chưa có artifact v2. `g` có thể chậm hơn `v`, nhưng snapshot không được gắn nhãn version cũ cho graph mới. Candidate mask chỉ dùng train events. Cần policy riêng cho node mới trước khi triển khai RQ2.
 
-`src/artifacts.py` cung cấp SHA-256 file bytes, tách khỏi graph builder. Historical probes và DXX/SXX runners vẫn là entrypoints để tái hiện kết quả; core không import chúng. [Audit và dependency graph](../goal035-audit-plan.md) ghi before và target; [walkthrough](architecture-walkthrough-vi.md) giải thích bằng ví dụ.
+`src/artifacts.py` cung cấp SHA-256 file bytes, tách khỏi graph builder. Historical probes và DXX/SXX runners vẫn là entrypoints để tái hiện kết quả; core không import chúng. [Audit và dependency graph](../archive/legacy-reports/goal035-audit-plan.md) ghi before và target; [walkthrough](architecture-walkthrough-vi.md) giải thích bằng ví dụ.

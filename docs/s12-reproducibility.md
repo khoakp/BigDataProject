@@ -24,7 +24,7 @@ python -m pip install -r requirements-local-repro.txt
 python -m unittest discover -s tests -q
 ```
 
-Nếu máy không có CUDA phù hợp, dùng wheel CPU chính thức; REC-01 inference và tests có thể chạy CPU. Training Kaggle cần môi trường riêng và [Notebook/bundle S03](s03-kaggle-workflow.md), không áp đặt PyTorch local lên Notebook.
+Nếu máy không có CUDA phù hợp, dùng wheel CPU chính thức; REC-01 inference và tests có thể chạy CPU. Training Kaggle cần môi trường riêng và [Notebook/bundle S03](research/s03-kaggle-workflow.md), không áp đặt PyTorch local lên Notebook.
 
 ## Freeze manifest và phạm vi kiểm
 
@@ -39,6 +39,6 @@ Script fail nếu thiếu một trong 10 artifact bắt buộc: canonical source
 ## Đã rà và phần cần hoàn tất
 
 - Báo cáo có đủ: câu hỏi nghiên cứu, nguồn, lý thuyết, architecture, temporal REC-01, EXP-01/02 methods, bảng kết quả, negative result Popularity, app S10/S11, validity threats và links tới raw evidence. 43 Markdown links đã kiểm; toàn bộ internal targets tồn tại tại thời điểm kiểm. Nội dung không nhận REC-02 là kết quả đã chạy.
-- Code/test S11 có 60 tests PASS; S11 probe exact Full/Incremental trên 1M+20 PASS. Những evidence này được dẫn trong [S11](s11-integration-scaling.md) và [ma trận 09](09-report-evidence.md).
+- Code/test S11 có 60 tests PASS; S11 probe exact Full/Incremental trên 1M+20 PASS. Những evidence này được dẫn trong [S11](research/s11-integration-scaling.md) và [ma trận 09](research/evidence-matrix.md).
 - DOCX đã được dựng trên mẫu `MauBaocaoBigData.docx`, giữ hai bìa/logo và các yêu cầu cấu trúc 1.1–1.6. Word đã cập nhật mục lục, xuất PDF 18 trang và rà hình mọi trang. Biểu đồ và bảng dùng số liệu thật; bảy tài liệu tham khảo đã kiểm. Cần Project Owner điền tên, MSSV, lớp, giảng viên, lời cảm ơn, cam đoan, thông tin nhóm và deadline thực nếu có.
-- [S13](s13-defense-qa.md) có slide, PDF ngoại tuyến và Q&A. [S14](s14-submission.md) kiểm package source, raw logs và checkpoint thực tế. Chưa có commit/tag vì [AGENTS.md](../AGENTS.md) cấm tự commit/push.
+- [S13](s13-defense-qa.md) có slide, PDF ngoại tuyến và Q&A. [S14](archive/milestones/sxx/s14-submission.md) kiểm package source, raw logs và checkpoint thực tế. Chưa có commit/tag vì [AGENTS.md](../AGENTS.md) cấm tự commit/push.
