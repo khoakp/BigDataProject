@@ -1,5 +1,7 @@
 # D02 — Profile ratings và canonical prefix
 
+> **Hồ sơ lịch sử GOAL 03.5:** giữ để truy nguồn quyết định/kết quả cũ. [Phạm vi v2 hiện hành](current/scope-and-decisions.md) · [Tiến độ v2](current/progress-and-evidence.md).
+
 Ngày chạy: 19/11/2026. Input: `../ml-32m/ratings.csv`, SHA-256 `91159850e41ee59c86231165a688709647e2726cab2e7ba9faf04001bd5261ee`; MD5 nguồn xem [source-manifest](source-manifest.md). Python 3.10.11, DuckDB 1.5.6 (`../venv`), một DuckDB thread. Code: [`src/ingest/d02_profile.py`](../src/ingest/d02_profile.py); test: [`tests/test_d02.py`](../tests/test_d02.py). HEAD trước thay đổi: `735fe20c6b8f1a508b1b2a4e40aa57400ae4230b`; chưa commit D02.
 
 ## Profile toàn bộ ratings.csv

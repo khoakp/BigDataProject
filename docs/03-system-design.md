@@ -1,5 +1,7 @@
 # 03 — Kiến trúc nghiên cứu v2.0
 
+> **Hồ sơ thiết kế lịch sử, chứa cả nội dung v1 và kế hoạch đã thay thế.** Kiến trúc và quyết định hiện hành nằm ở [architecture](current/architecture.md) và [scope](current/scope-and-decisions.md). Các đoạn bên dưới được giữ để truy nguồn thiết kế, không phải trạng thái implementation mới nhất.
+
 > Phần v2.0 dưới đây là nguồn sự thật hiện hành về kiến trúc. Nội dung DXX/EXP-01/EXP-02 ở phía dưới được giữ làm lịch sử, bao gồm tên RQ cũ và kế hoạch cũ; không dùng chúng để xác định phạm vi v2.0. Xem [audit và migration record](architecture-audit-v2.md) để phân biệt code đã có và công việc còn thiếu.
 
 ## Mục tiêu và luồng chính

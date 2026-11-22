@@ -1,5 +1,7 @@
 # 06 — Nhật ký quyết định kiến trúc (ADR) và quản lý rủi ro
 
+> Hồ sơ ADR lịch sử; quyết định v2 được chốt tại [scope hiện hành](current/scope-and-decisions.md).
+
 > **Hướng mới 21/11/2026:** DEC-016 ghi định hướng v1.0 đã thống nhất; DEC-017 ghi giao thức REC-01 đã được Project Owner duyệt. DEC-001/013/014 và risk cũ bên dưới được giữ như lịch sử, không còn quyết định ưu tiên sprint S01–S14. Xem [định hướng](10-direction-update-v1.md) và [sprint mới](11-sprint14-plan.md).
 
 ### DEC-016 — Hai trụ cột và sprint S01–S14

@@ -13,6 +13,8 @@ import zipfile
 from datetime import datetime, timezone
 from pathlib import Path
 
+from src.artifacts import file_sha256 as sha256
+
 import duckdb
 
 
@@ -30,14 +32,6 @@ EXPECTED = {
 }
 REQUIRED_COLUMNS = {"event_id", "event_ts", "user_raw_id", "movie_raw_id",
                     "rating", "source_row_id"}
-
-
-def sha256(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as stream:
-        for block in iter(lambda: stream.read(1024 * 1024), b""):
-            digest.update(block)
-    return digest.hexdigest()
 
 
 def inspect_source(source: Path, expected_hash: str = SOURCE_SHA256,

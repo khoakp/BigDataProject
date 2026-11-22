@@ -1,5 +1,7 @@
 # D13 — EXP-02: chu kỳ chuẩn hóa R=1 và R=5
 
+> **Hồ sơ lịch sử GOAL 03.5:** giữ để truy nguồn quyết định/kết quả cũ. [Phạm vi v2 hiện hành](current/scope-and-decisions.md) · [Tiến độ v2](current/progress-and-evidence.md).
+
 **Ngày:** 21/11/2026. **Run chính:** `D13-100k-r1-r5-final`, status PASS. Đây là chi phí tạo và export **normalized model graph snapshot**, không đo training/serving LightGCN.
 
 ## Phương pháp và ranh giới đo

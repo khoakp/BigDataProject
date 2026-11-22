@@ -7,12 +7,13 @@ from __future__ import annotations
 
 import argparse
 import calendar
-import hashlib
 import json
 from datetime import datetime, timezone
 from pathlib import Path
 
 import duckdb
+
+from src.artifacts import file_sha256
 
 
 CUTOFFS = ("2018-01-01", "2019-01-01", "2020-01-01", "2021-01-01")
@@ -21,14 +22,6 @@ FIELDS = "userId,movieId,rating,timestamp"
 
 def utc_second(day: str) -> int:
     return calendar.timegm(datetime.strptime(day, "%Y-%m-%d").timetuple())
-
-
-def file_sha256(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as stream:
-        for chunk in iter(lambda: stream.read(8 * 1024 * 1024), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
 
 
 def _csv(con, query: str, path: Path) -> None:

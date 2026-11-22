@@ -1,5 +1,7 @@
 # D03 — Positive rule và Full Rebuild reference
 
+> **Hồ sơ lịch sử GOAL 03.5:** giữ để truy nguồn quyết định/kết quả cũ. [Phạm vi v2 hiện hành](current/scope-and-decisions.md) · [Tiến độ v2](current/progress-and-evidence.md).
+
 Ngày chạy: 19/11/2026. Input: canonical 100k prefix của MovieLens 32M, SHA-256 `8a01bc6f132362f44ab5a206575fb16ab7f34ce44c6bd224b418ea076c7bf519` ([D02](d02-data-profile.md)). Python 3.10.11, DuckDB 1.5.6, 1 thread. Code [full_builder.py](../src/graph/full_builder.py), test [test_full_builder.py](../tests/test_full_builder.py). Repo HEAD trước thay đổi `735fe20c6b8f1a508b1b2a4e40aa57400ae4230b`; D03 chưa commit.
 
 ## Research Objective và phương pháp

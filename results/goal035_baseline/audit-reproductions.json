@@ -1,0 +1,27 @@
+{
+  "duplicate_interior_event_id": {
+    "input_ids": [
+      0,
+      1,
+      1,
+      3
+    ],
+    "full_accepted": {
+      "events": 4,
+      "positive_events": 4,
+      "edges": 4,
+      "users": 2,
+      "movies": 2,
+      "nodes": 4,
+      "sum_user_degree": 4,
+      "sum_movie_degree": 4,
+      "threshold": 4.0,
+      "input_sha256": "abe9d1d46dc4fb181e64bc8d069d7787d9263a02eaf51dc52ab0665c9237de4f"
+    },
+    "incremental_rejected": "Noncontiguous event IDs or noncanonical ordering"
+  },
+  "nonpositive_raw_user": {
+    "raw_user_id": 0,
+    "canonicalizer_accepted": true
+  }
+}

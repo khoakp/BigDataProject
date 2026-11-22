@@ -14,6 +14,26 @@ spec.loader.exec_module(builder)
 
 
 class FullBuilderTest(unittest.TestCase):
+    def test_rejects_duplicate_event_id_and_existing_output(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            base = Path(tmp)
+            events = base / "events.parquet"
+            with duckdb.connect() as db:
+                db.execute("CREATE TABLE e(event_id BIGINT,event_ts BIGINT,user_raw_id BIGINT,movie_raw_id BIGINT,rating FLOAT,source_row_id BIGINT)")
+                db.executemany("INSERT INTO e VALUES (?,?,?,?,?,?)", [
+                    (0, 1, 1, 10, 4., 0), (1, 2, 1, 11, 4., 1),
+                    (1, 3, 2, 10, 4., 2), (3, 4, 2, 11, 4., 3)])
+                db.execute("COPY e TO ? (FORMAT PARQUET)", [str(events)])
+                with self.assertRaisesRegex(ValueError, "Invalid canonical"):
+                    builder.rebuild(events)
+                db.execute("DELETE FROM e WHERE source_row_id=2")
+                db.execute("UPDATE e SET event_id=2 WHERE source_row_id=3")
+                db.execute("COPY e TO ? (FORMAT PARQUET)", [str(base / "valid.parquet")])
+            builder.rebuild(base / "valid.parquet", base / "graph")
+            before = (base / "graph/manifest.json").read_bytes()
+            with self.assertRaises(FileExistsError):
+                builder.rebuild(base / "valid.parquet", base / "graph")
+            self.assertEqual((base / "graph/manifest.json").read_bytes(), before)
     def test_positive_dedup_registry_and_degrees(self):
         with tempfile.TemporaryDirectory() as tmp:
             base = Path(tmp)

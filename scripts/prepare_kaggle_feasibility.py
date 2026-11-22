@@ -2,10 +2,11 @@
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 import zipfile
 from pathlib import Path
+
+from src.artifacts import file_sha256 as sha256
 
 from scripts.kaggle_feasibility_runner import load_probe_plan
 
@@ -13,14 +14,6 @@ from scripts.kaggle_feasibility_runner import load_probe_plan
 ROOT = Path(__file__).resolve().parents[1]
 DATASET_SLUG = "moviegraph-v2-feasibility-input"
 KERNEL_SLUG = "moviegraph-v2-gpu-feasibility"
-
-
-def sha256(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as stream:
-        for block in iter(lambda: stream.read(8 * 1024 * 1024), b""):
-            digest.update(block)
-    return digest.hexdigest()
 
 
 def _add(archive: zipfile.ZipFile, source: Path, member: str) -> None:

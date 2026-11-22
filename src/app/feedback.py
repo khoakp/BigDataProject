@@ -17,7 +17,7 @@ from pathlib import Path
 
 import duckdb
 
-from src.graph.full_builder import file_sha256
+from src.artifacts import file_sha256
 from src.graph.incremental import IncrementalGraph
 from src.graph.snapshot import canonical_status
 

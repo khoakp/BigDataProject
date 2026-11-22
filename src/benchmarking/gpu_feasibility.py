@@ -1,0 +1,348 @@
+"""Measure one LightGCN workload, one GPU at a time, without training a full run.
+
+Input is a pre-cutoff cohort directory prepared by src.evaluation.model_cohort.
+No result here is a quality metric or a substitute for a T4 measurement.
+"""
+from __future__ import annotations
+
+import argparse
+import json
+import platform
+import threading
+import time
+from collections import Counter
+from datetime import datetime, timezone
+from pathlib import Path
+
+import duckdb
+
+from src.artifacts import file_sha256
+import psutil
+import torch
+
+from src.benchmarking.common import RssSampler
+from src.evaluation.temporal import score_chunks
+from src.graph.normalize import normalize_state
+from src.models.lightgcn import LightGCN, to_sparse_tensor
+from src.models.training import bpr_step, sample_batches as _sample_batches
+
+
+def _read_memory_value(path: Path | None) -> int | None:
+    if path is None:
+        return None
+    try:
+        value = path.read_text(encoding="ascii").strip()
+        return None if value == "max" else int(value)
+    except (OSError, ValueError):
+        return None
+
+
+def _cgroup_memory_files() -> tuple[Path | None, Path | None]:
+    """Locate Linux cgroup v2 or v1 memory files, if this process has them."""
+    base = Path("/sys/fs/cgroup")
+    candidates = [(base / "memory.max", base / "memory.current"),
+                  (base / "memory/memory.limit_in_bytes",
+                   base / "memory/memory.usage_in_bytes")]
+    try:
+        lines = Path("/proc/self/cgroup").read_text(encoding="ascii").splitlines()
+    except OSError:
+        lines = []
+    for line in lines:
+        fields = line.split(":", 2)
+        if len(fields) != 3:
+            continue
+        hierarchy, controllers, relative = fields
+        relative = relative.lstrip("/")
+        if hierarchy == "0":
+            candidates.append((base / relative / "memory.max",
+                               base / relative / "memory.current"))
+        elif "memory" in controllers.split(","):
+            candidates.append((base / "memory" / relative / "memory.limit_in_bytes",
+                               base / "memory" / relative / "memory.usage_in_bytes"))
+    for limit_path, current_path in candidates:
+        if limit_path.is_file() and current_path.is_file():
+            return limit_path, current_path
+    return None, None
+
+
+def _cpu_memory_snapshot(cgroup_limit: int | None,
+                         current_path: Path | None) -> dict:
+    host_available = psutil.virtual_memory().available
+    cgroup_current = _read_memory_value(current_path)
+    cgroup_available = (max(0, cgroup_limit - cgroup_current)
+                        if cgroup_limit is not None and cgroup_current is not None
+                        else None)
+    return {"host_available_bytes": host_available,
+            "cgroup_current_bytes": cgroup_current,
+            "effective_available_bytes": min(host_available, cgroup_available)
+            if cgroup_available is not None else host_available}
+
+
+class AvailableMemorySampler:
+    """Sample host and cgroup headroom during a phase at 10 ms intervals."""
+
+    def __init__(self, cgroup_limit: int | None, current_path: Path | None):
+        self.cgroup_limit = cgroup_limit
+        self.current_path = current_path
+        self.min_host_available_bytes: int | None = None
+        self.max_cgroup_current_bytes: int | None = None
+        self.min_effective_available_bytes: int | None = None
+        self.stop = threading.Event()
+        self.thread = threading.Thread(target=self._run, daemon=True)
+
+    def _sample(self) -> None:
+        sample = _cpu_memory_snapshot(self.cgroup_limit, self.current_path)
+        host = sample["host_available_bytes"]
+        effective = sample["effective_available_bytes"]
+        current = sample["cgroup_current_bytes"]
+        self.min_host_available_bytes = min(self.min_host_available_bytes, host) if self.min_host_available_bytes is not None else host
+        self.min_effective_available_bytes = min(self.min_effective_available_bytes, effective) if self.min_effective_available_bytes is not None else effective
+        if current is not None:
+            self.max_cgroup_current_bytes = max(self.max_cgroup_current_bytes, current) if self.max_cgroup_current_bytes is not None else current
+
+    def _run(self) -> None:
+        while not self.stop.is_set():
+            self._sample()
+            self.stop.wait(.01)
+
+    def __enter__(self):
+        self._sample()
+        self.thread.start()
+        return self
+
+    def __exit__(self, *_):
+        self.stop.set()
+        self.thread.join()
+        self._sample()
+
+
+def load_cohort(directory: Path) -> dict:
+    """Return the existing graph API's state shape; reject malformed node mapping."""
+    directory = Path(directory)
+    manifest_path = directory / "manifest.json"
+    if manifest_path.is_file():
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        if (manifest.get("graph_semantics") not in (None, "complete_induced_pre_cutoff_positive") or
+                file_sha256(directory / "nodes.parquet") != manifest["nodes_sha256"] or
+                file_sha256(directory / "edges.parquet") != manifest["edges_sha256"]):
+            raise ValueError("Cohort manifest or graph semantics mismatch")
+    with duckdb.connect() as con:
+        nodes = con.execute("SELECT node_id,node_type,raw_id FROM read_parquet(?) ORDER BY node_id",
+                            [str(directory / "nodes.parquet")]).fetchall()
+        edges = con.execute("SELECT user_node_id,movie_node_id,first_event_ts FROM read_parquet(?) "
+                            "ORDER BY user_node_id,movie_node_id",
+                            [str(directory / "edges.parquet")]).fetchall()
+    registry = [(int(node), kind, int(raw), 0) for node, kind, raw in nodes]
+    edge_rows = [(int(user), int(movie), int(first_ts)) for user, movie, first_ts in edges]
+    degree = Counter()
+    for user, movie, _ in edge_rows:
+        degree.update((user, movie))
+    return {"registry": registry, "edges": edge_rows,
+            "degrees": sorted(degree.items())}
+
+
+def run(cohort: Path, output: Path, *, device_name: str = "cuda:0", dim: int = 64,
+        layers: int = 3, batch_size: int = 1024, steps: int = 5,
+        eval_users: int = 100, seed: int = 7) -> dict:
+    if min(dim, batch_size, steps) <= 0 or layers < 0 or eval_users < 0:
+        raise ValueError("Invalid probe configuration")
+    if device_name != "cpu" and not device_name.startswith("cuda:"):
+        raise ValueError("Choose one device, for example cuda:0")
+    if device_name.startswith("cuda:") and not torch.cuda.is_available():
+        raise RuntimeError("CUDA unavailable; T4 result requires a CUDA run")
+    cohort = Path(cohort).resolve()
+    output = Path(output).resolve()
+    output.mkdir(parents=True, exist_ok=False)
+    device = torch.device(device_name)
+    if device.type == "cuda":
+        torch.cuda.set_device(device)
+    torch.manual_seed(seed)
+    torch.set_num_threads(1)
+    process = psutil.Process()
+    cgroup_limit_path, cgroup_current_path = _cgroup_memory_files()
+    cgroup_limit = _read_memory_value(cgroup_limit_path)
+    memory_start = _cpu_memory_snapshot(cgroup_limit, cgroup_current_path)
+    report = {
+        "status": "RUNNING", "started_utc": datetime.now(timezone.utc).isoformat(),
+        "cohort": str(cohort),
+        "input_sha256": {name: file_sha256(cohort / name) for name in
+                         ("nodes.parquet", "edges.parquet")},
+        "cohort_manifest": json.loads((cohort / "manifest.json").read_text(encoding="utf-8"))
+            if (cohort / "manifest.json").is_file() else None,
+        "config": {"device": device_name, "dim": dim, "layers": layers,
+                   "batch_size": batch_size, "steps": steps,
+                   "eval_users": eval_users, "seed": seed},
+        "environment": {"python": platform.python_version(), "torch": torch.__version__,
+                        "cuda_runtime": torch.version.cuda,
+                        "physical_ram_bytes": psutil.virtual_memory().total,
+                        "cpu_rss_start_bytes": process.memory_info().rss,
+                        "cpu_host_available_start_bytes": memory_start["host_available_bytes"],
+                        "cgroup_memory_limit_bytes": cgroup_limit,
+                        "cgroup_memory_current_start_bytes": memory_start["cgroup_current_bytes"],
+                        "cpu_effective_available_start_bytes": memory_start["effective_available_bytes"]},
+        "phases": {},
+    }
+    if device.type == "cuda":
+        props = torch.cuda.get_device_properties(device)
+        free, total = torch.cuda.mem_get_info(device)
+        report["environment"].update(gpu_name=props.name, gpu_total_bytes=total,
+                                     gpu_free_start_bytes=free,
+                                     gpu_count_visible=torch.cuda.device_count())
+
+    def write() -> None:
+        (output / "report.json").write_text(json.dumps(report, indent=2, default=str),
+                                            encoding="utf-8")
+
+    def measure(name: str, operation):
+        if device.type == "cuda":
+            torch.cuda.synchronize(device)
+            torch.cuda.reset_peak_memory_stats(device)
+        before = process.memory_info().rss
+        memory_before = _cpu_memory_snapshot(cgroup_limit, cgroup_current_path)
+        gpu_free_before = torch.cuda.mem_get_info(device)[0] if device.type == "cuda" else None
+        started = time.perf_counter()
+        with RssSampler(interval=.01) as sampler, AvailableMemorySampler(
+                cgroup_limit, cgroup_current_path) as memory_sampler:
+            value = operation()
+            if device.type == "cuda":
+                torch.cuda.synchronize(device)
+        memory_after = _cpu_memory_snapshot(cgroup_limit, cgroup_current_path)
+        row = {"wall_s": time.perf_counter() - started,
+               "cpu_rss_before_bytes": before,
+               "cpu_rss_after_bytes": process.memory_info().rss,
+               "cpu_peak_rss_bytes": sampler.peak,
+               "cpu_host_available_before_bytes": memory_before["host_available_bytes"],
+               "cpu_host_available_after_bytes": memory_after["host_available_bytes"],
+               "cpu_host_available_min_bytes": min(memory_sampler.min_host_available_bytes,
+                                                   memory_before["host_available_bytes"],
+                                                   memory_after["host_available_bytes"]),
+               "cgroup_memory_current_before_bytes": memory_before["cgroup_current_bytes"],
+               "cgroup_memory_current_after_bytes": memory_after["cgroup_current_bytes"],
+               "cgroup_memory_current_peak_bytes": memory_sampler.max_cgroup_current_bytes,
+               "cpu_effective_available_min_bytes": min(
+                   memory_sampler.min_effective_available_bytes,
+                   memory_before["effective_available_bytes"],
+                   memory_after["effective_available_bytes"])}
+        if device.type == "cuda":
+            row.update(gpu_allocated_after_bytes=torch.cuda.memory_allocated(device),
+                       gpu_reserved_after_bytes=torch.cuda.memory_reserved(device),
+                       gpu_peak_allocated_bytes=torch.cuda.max_memory_allocated(device),
+                       gpu_peak_reserved_bytes=torch.cuda.max_memory_reserved(device),
+                       gpu_free_before_bytes=gpu_free_before,
+                       gpu_free_after_bytes=torch.cuda.mem_get_info(device)[0])
+        report["phases"][name] = row
+        write()
+        return value
+
+    write()
+    try:
+        state = measure("load_python_graph", lambda: load_cohort(cohort))
+        report["graph"] = {"nodes": len(state["registry"]),
+                           "positive_edges": len(state["edges"]),
+                           "sparse_entries": 2 * len(state["edges"])}
+        adjacency = measure("normalize_python", lambda: normalize_state(state))
+        generator = _sample_batches(state, batch_size, steps, seed)
+        first_batch = measure("prepare_sampler", lambda: next(generator))
+        sparse = measure("to_sparse_coo", lambda: to_sparse_tensor(adjacency, device))
+        model = LightGCN(len(state["registry"]), dim, layers).to(device)
+        optimizer = torch.optim.Adam(model.parameters(), lr=.001)
+        report["graph"]["sparse_tensor_nnz"] = sparse._nnz()
+        embeddings = measure("forward", lambda: model(sparse))
+        if not bool(torch.isfinite(embeddings).all()):
+            raise ValueError("Nonfinite forward embeddings")
+        del embeddings
+
+        def step(batch):
+            loss = bpr_step(model, sparse, optimizer, batch, device)
+            return float(loss.detach().cpu())
+
+        report["first_step_loss"] = measure("first_backward_adam_step",
+                                           lambda: step(first_batch))
+        if steps > 1:
+            report["remaining_step_losses"] = measure(
+                "short_trajectory", lambda: [step(next(generator)) for _ in range(steps - 1)])
+
+        checkpoint = output / "probe_checkpoint.pt"
+        def save_checkpoint():
+            torch.save({"state_dict": model.state_dict(), "registry": state["registry"],
+                        "config": report["config"]}, checkpoint)
+            return checkpoint.stat().st_size
+        report["checkpoint_bytes"] = measure("checkpoint", save_checkpoint)
+
+        if eval_users:
+            seen = {}
+            for user, movie, _ in state["edges"]:
+                seen.setdefault(user, set()).add(movie)
+            users = {raw: node for node, kind, raw, _ in state["registry"] if kind == "user"}
+            movies = {raw: node for node, kind, raw, _ in state["registry"] if kind == "movie"}
+            inverse_users = {node: raw for raw, node in users.items()}
+            inverse_movies = {node: raw for raw, node in movies.items()}
+            selected_nodes = sorted(seen)[:eval_users]
+            selected_users = {inverse_users[node]: node for node in selected_nodes}
+            selected_seen = {inverse_users[node]: {inverse_movies[movie_node]
+                                                   for movie_node in seen[node]}
+                             for node in selected_nodes}
+            model.eval()
+            with torch.inference_mode():
+                final_embeddings = measure("evaluation_forward", lambda: model(sparse))
+                rankings = measure("rank_train_catalog", lambda: score_chunks(
+                    final_embeddings, final_embeddings, selected_users, movies,
+                    selected_seen, k=20, chunk_size=1024))
+            report["ranking"] = {"users": len(rankings), "candidate_movies": len(movies),
+                                 "returned_items": sum(map(len, rankings.values()))}
+
+        report["cpu_effective_available_min_bytes"] = min(
+            row["cpu_effective_available_min_bytes"] for row in report["phases"].values())
+        cpu_capacity = min(report["environment"]["physical_ram_bytes"], cgroup_limit) \
+            if cgroup_limit is not None else report["environment"]["physical_ram_bytes"]
+        report["cpu_effective_headroom_fraction"] = (
+            report["cpu_effective_available_min_bytes"] / cpu_capacity)
+        if device.type == "cuda":
+            total = report["environment"]["gpu_total_bytes"]
+            peak = max(row.get("gpu_peak_reserved_bytes", 0)
+                       for row in report["phases"].values())
+            report["gpu_peak_reserved_bytes"] = peak
+            report["gpu_total_headroom_fraction"] = (total - peak) / total
+            report["gpu_free_end_bytes"] = torch.cuda.mem_get_info(device)[0]
+            report["gpu_phase_min_observed_free_bytes"] = min(
+                min(row["gpu_free_before_bytes"], row["gpu_free_after_bytes"])
+                for row in report["phases"].values())
+            report["gpu_phase_min_observed_free_headroom_fraction"] = (
+                report["gpu_phase_min_observed_free_bytes"] / total)
+            report["gpu_effective_headroom_fraction"] = min(
+                report["gpu_total_headroom_fraction"],
+                report["gpu_phase_min_observed_free_headroom_fraction"],
+                report["gpu_free_end_bytes"] / total)
+        report["status"] = "PASS"
+    except Exception as exc:
+        report["status"] = "ERROR"
+        report["error"] = f"{type(exc).__name__}: {exc}"
+        raise
+    finally:
+        report["finished_utc"] = datetime.now(timezone.utc).isoformat()
+        write()
+    return report
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--cohort", type=Path, required=True)
+    parser.add_argument("--out", type=Path, required=True)
+    parser.add_argument("--device", default="cuda:0")
+    parser.add_argument("--dim", type=int, default=64)
+    parser.add_argument("--layers", type=int, default=3)
+    parser.add_argument("--batch-size", type=int, default=1024)
+    parser.add_argument("--steps", type=int, default=5)
+    parser.add_argument("--eval-users", type=int, default=100)
+    parser.add_argument("--seed", type=int, default=7)
+    args = parser.parse_args()
+    result = run(args.cohort, args.out, device_name=args.device, dim=args.dim,
+                 layers=args.layers, batch_size=args.batch_size, steps=args.steps,
+                 eval_users=args.eval_users, seed=args.seed)
+    print(json.dumps({"status": result["status"], "graph": result["graph"],
+                      "gpu_peak_reserved_bytes": result.get("gpu_peak_reserved_bytes"),
+                      "report": str(args.out / "report.json")}, indent=2))
+
+
+if __name__ == "__main__":
+    main()

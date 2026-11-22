@@ -1,5 +1,7 @@
 # S01 — Kiểm kê và giao thức đánh giá REC-01
 
+> **Hồ sơ lịch sử GOAL 03.5:** giữ để truy nguồn quyết định/kết quả cũ. [Phạm vi v2 hiện hành](current/scope-and-decisions.md) · [Tiến độ v2](current/progress-and-evidence.md).
+
 **Ngày khóa:** 21/11/2026. **Trạng thái tại thời điểm khóa:** Project Owner đã duyệt giao thức REC-01 trong chat; khi đó chưa có kết quả REC-01. [Định hướng v1.0](10-direction-update-v1.md) là nguồn phạm vi. Các run D08–D10 là kiểm chứng MVP cũ, không được đổi nhãn thành REC-01. **Cập nhật thực thi:** [S03 Kaggle](s03-kaggle-workflow.md) và [S04 REC-01](s04-rec01-results.md) đã hoàn tất theo giao thức này; các mục “chưa có” bên dưới là kiểm kê lịch sử trước run.
 
 ## 1. Kiểm kê code và bằng chứng tại thời điểm khóa S01

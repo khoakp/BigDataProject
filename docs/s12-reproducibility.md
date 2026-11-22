@@ -1,5 +1,7 @@
 # S12 — Báo cáo, environment và artifact freeze candidate
 
+> **Hồ sơ lịch sử GOAL 03.5:** giữ để truy nguồn quyết định/kết quả cũ. [Phạm vi v2 hiện hành](current/scope-and-decisions.md) · [Tiến độ v2](current/progress-and-evidence.md).
+
 **Trạng thái 21/11/2026:** [bản báo cáo kỹ thuật](final-report.md) và [báo cáo theo mẫu IUH](Bao-cao-MovieGraph-IUH.docx) ([PDF](Bao-cao-MovieGraph-IUH.pdf)) đã được viết từ logs thật. [`s12-freeze-manifest.json`](s12-freeze-manifest.json) ghi SHA-256/byte size của source/report/figure files và 10 evidence artifacts hiện có. Đây là **freeze candidate của worktree local**: Git HEAD `9cc6d69e6386358b12f0a6b620d8b9d10eb41ba6` chưa chứa các thay đổi S01–S14 (`git_worktree_dirty=true`). Chưa có commit/tag/release. Mẫu đã được cung cấp; họ tên/MSSV/lớp, giảng viên, cam đoan và thông tin nhóm thực tế còn phải được người thực hiện điền.
 
 ## Môi trường đã dùng

@@ -1,5 +1,7 @@
 # D11 — EXP-01 pilot harness
 
+> **Hồ sơ lịch sử GOAL 03.5:** giữ để truy nguồn quyết định/kết quả cũ. [Phạm vi v2 hiện hành](current/scope-and-decisions.md) · [Tiến độ v2](current/progress-and-evidence.md).
+
 ## Protocol triển khai
 
 Entry point: `src/benchmarking/exp01.py`. Grid đã đăng ký trong [kế hoạch](04-project-plan.md): `H={100k,500k,1M}`, `Δ={1k,10k}`. Input cho mọi cặp là cùng canonical prefix từ `ratings.csv` MovieLens 32M, đã sort theo D02. Trước khi đo, harness cắt history `H`, delta `(H,H+Δ]` và combined `H+Δ`; dựng DuckDB state chứa history bằng một batch D04. Chi phí và kích thước prebuild ghi riêng từng `H`.

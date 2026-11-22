@@ -1,0 +1,906 @@
+{
+  "status": "PASS",
+  "users": [
+    2,
+    25062,
+    101198,
+    200939,
+    200940
+  ],
+  "graph_version": 81,
+  "checkpoint_step": 300,
+  "ordered_ids_exact": true,
+  "max_score_abs_diff": 0.0,
+  "recommendations": [
+    {
+      "run_id": "REC01-Kaggle-1M",
+      "user_raw_id": 2,
+      "method": "lightgcn",
+      "checkpoint_step": 300,
+      "model_graph_version": 81,
+      "candidate_movies": 773,
+      "train_seen_movies": 42,
+      "items": [
+        {
+          "rank": 1,
+          "movie_raw_id": 150,
+          "score": 8.706053733825684,
+          "title": "Apollo 13 (1995)",
+          "genres": "Adventure|Drama|IMAX",
+          "metadata_found": true
+        },
+        {
+          "rank": 2,
+          "movie_raw_id": 593,
+          "score": 8.507054328918457,
+          "title": "Silence of the Lambs, The (1991)",
+          "genres": "Crime|Horror|Thriller",
+          "metadata_found": true
+        },
+        {
+          "rank": 3,
+          "movie_raw_id": 296,
+          "score": 8.424592971801758,
+          "title": "Pulp Fiction (1994)",
+          "genres": "Comedy|Crime|Drama|Thriller",
+          "metadata_found": true
+        },
+        {
+          "rank": 4,
+          "movie_raw_id": 590,
+          "score": 7.900001525878906,
+          "title": "Dances with Wolves (1990)",
+          "genres": "Adventure|Drama|Western",
+          "metadata_found": true
+        },
+        {
+          "rank": 5,
+          "movie_raw_id": 110,
+          "score": 7.374738693237305,
+          "title": "Braveheart (1995)",
+          "genres": "Action|Drama|War",
+          "metadata_found": true
+        },
+        {
+          "rank": 6,
+          "movie_raw_id": 349,
+          "score": 7.065402507781982,
+          "title": "Clear and Present Danger (1994)",
+          "genres": "Action|Crime|Drama|Thriller",
+          "metadata_found": true
+        },
+        {
+          "rank": 7,
+          "movie_raw_id": 161,
+          "score": 6.954326629638672,
+          "title": "Crimson Tide (1995)",
+          "genres": "Drama|Thriller|War",
+          "metadata_found": true
+        },
+        {
+          "rank": 8,
+          "movie_raw_id": 480,
+          "score": 6.487716197967529,
+          "title": "Jurassic Park (1993)",
+          "genres": "Action|Adventure|Sci-Fi|Thriller",
+          "metadata_found": true
+        },
+        {
+          "rank": 9,
+          "movie_raw_id": 47,
+          "score": 6.470005989074707,
+          "title": "Seven (a.k.a. Se7en) (1995)",
+          "genres": "Mystery|Thriller",
+          "metadata_found": true
+        },
+        {
+          "rank": 10,
+          "movie_raw_id": 589,
+          "score": 6.312436580657959,
+          "title": "Terminator 2: Judgment Day (1991)",
+          "genres": "Action|Sci-Fi",
+          "metadata_found": true
+        },
+        {
+          "rank": 11,
+          "movie_raw_id": 50,
+          "score": 6.298243522644043,
+          "title": "Usual Suspects, The (1995)",
+          "genres": "Crime|Mystery|Thriller",
+          "metadata_found": true
+        },
+        {
+          "rank": 12,
+          "movie_raw_id": 165,
+          "score": 6.192416191101074,
+          "title": "Die Hard: With a Vengeance (1995)",
+          "genres": "Action|Crime|Thriller",
+          "metadata_found": true
+        },
+        {
+          "rank": 13,
+          "movie_raw_id": 292,
+          "score": 6.1330366134643555,
+          "title": "Outbreak (1995)",
+          "genres": "Action|Drama|Sci-Fi|Thriller",
+          "metadata_found": true
+        },
+        {
+          "rank": 14,
+          "movie_raw_id": 527,
+          "score": 6.0121541023254395,
+          "title": "Schindler's List (1993)",
+          "genres": "Drama|War",
+          "metadata_found": true
+        },
+        {
+          "rank": 15,
+          "movie_raw_id": 300,
+          "score": 5.896452903747559,
+          "title": "Quiz Show (1994)",
+          "genres": "Drama",
+          "metadata_found": true
+        },
+        {
+          "rank": 16,
+          "movie_raw_id": 329,
+          "score": 5.69765567779541,
+          "title": "Star Trek: Generations (1994)",
+          "genres": "Adventure|Drama|Sci-Fi",
+          "metadata_found": true
+        },
+        {
+          "rank": 17,
+          "movie_raw_id": 316,
+          "score": 5.617441177368164,
+          "title": "Stargate (1994)",
+          "genres": "Action|Adventure|Sci-Fi",
+          "metadata_found": true
+        },
+        {
+          "rank": 18,
+          "movie_raw_id": 10,
+          "score": 5.467473030090332,
+          "title": "GoldenEye (1995)",
+          "genres": "Action|Adventure|Thriller",
+          "metadata_found": true
+        },
+        {
+          "rank": 19,
+          "movie_raw_id": 1,
+          "score": 5.464165687561035,
+          "title": "Toy Story (1995)",
+          "genres": "Adventure|Animation|Children|Comedy|Fantasy",
+          "metadata_found": true
+        },
+        {
+          "rank": 20,
+          "movie_raw_id": 253,
+          "score": 5.457139015197754,
+          "title": "Interview with the Vampire: The Vampire Chronicles (1994)",
+          "genres": "Drama|Horror",
+          "metadata_found": true
+        }
+      ],
+      "metadata_coverage": {
+        "rows": 20,
+        "metadata_found": 20,
+        "missing_movie_ids": 0,
+        "missing_titles": 0,
+        "missing_genres": 0
+      }
+    },
+    {
+      "run_id": "REC01-Kaggle-1M",
+      "user_raw_id": 25062,
+      "method": "lightgcn",
+      "checkpoint_step": 300,
+      "model_graph_version": 81,
+      "candidate_movies": 773,
+      "train_seen_movies": 1,
+      "items": [
+        {
+          "rank": 1,
+          "movie_raw_id": 823,
+          "score": 0.33878636360168457,
+          "title": "Collector, The (La collectionneuse) (1967)",
+          "genres": "Drama",
+          "metadata_found": true
+        },
+        {
+          "rank": 2,
+          "movie_raw_id": 867,
+          "score": 0.3238242268562317,
+          "title": "Carpool (1996)",
+          "genres": "Comedy|Crime",
+          "metadata_found": true
+        },
+        {
+          "rank": 3,
+          "movie_raw_id": 400,
+          "score": 0.30844295024871826,
+          "title": "Homage (1995)",
+          "genres": "Drama",
+          "metadata_found": true
+        },
+        {
+          "rank": 4,
+          "movie_raw_id": 859,
+          "score": 0.30359506607055664,
+          "title": "Hippie Revolution, The (1996)",
+          "genres": "Documentary",
+          "metadata_found": true
+        },
+        {
+          "rank": 5,
+          "movie_raw_id": 870,
+          "score": 0.29955369234085083,
+          "title": "Gone Fishin' (1997)",
+          "genres": "Comedy",
+          "metadata_found": true
+        },
+        {
+          "rank": 6,
+          "movie_raw_id": 654,
+          "score": 0.2938816547393799,
+          "title": "And Nobody Weeps for Me (Und keiner weint mir nach) (1996)",
+          "genres": "Drama|Romance",
+          "metadata_found": true
+        },
+        {
+          "rank": 7,
+          "movie_raw_id": 424,
+          "score": 0.28619757294654846,
+          "title": "Blue Chips (1994)",
+          "genres": "Drama",
+          "metadata_found": true
+        },
+        {
+          "rank": 8,
+          "movie_raw_id": 642,
+          "score": 0.28064242005348206,
+          "title": "Roula (1995)",
+          "genres": "Drama",
+          "metadata_found": true
+        },
+        {
+          "rank": 9,
+          "movie_raw_id": 655,
+          "score": 0.27904877066612244,
+          "title": "My Mother's Courage (Mutters Courage) (1995)",
+          "genres": "Comedy",
+          "metadata_found": true
+        },
+        {
+          "rank": 10,
+          "movie_raw_id": 109,
+          "score": 0.2757885456085205,
+          "title": "Headless Body in Topless Bar (1995)",
+          "genres": "Comedy|Drama|Thriller",
+          "metadata_found": true
+        },
+        {
+          "rank": 11,
+          "movie_raw_id": 844,
+          "score": 0.2754729986190796,
+          "title": "Story of Xinghua, The (Xinghua san yue tian) (1994)",
+          "genres": "Drama",
+          "metadata_found": true
+        },
+        {
+          "rank": 12,
+          "movie_raw_id": 862,
+          "score": 0.27489978075027466,
+          "title": "Manny & Lo (1996)",
+          "genres": "Drama",
+          "metadata_found": true
+        },
+        {
+          "rank": 13,
+          "movie_raw_id": 813,
+          "score": 0.2742069363594055,
+          "title": "Larger Than Life (1996)",
+          "genres": "Comedy",
+          "metadata_found": true
+        },
+        {
+          "rank": 14,
+          "movie_raw_id": 822,
+          "score": 0.26800188422203064,
+          "title": "Hedd Wyn (1992)",
+          "genres": "Drama|Romance|War",
+          "metadata_found": true
+        },
+        {
+          "rank": 15,
+          "movie_raw_id": 821,
+          "score": 0.2671986222267151,
+          "title": "Crude Oasis, The (1995)",
+          "genres": "Drama|Romance",
+          "metadata_found": true
+        },
+        {
+          "rank": 16,
+          "movie_raw_id": 776,
+          "score": 0.26377958059310913,
+          "title": "Babyfever (1994)",
+          "genres": "Comedy|Drama",
+          "metadata_found": true
+        },
+        {
+          "rank": 17,
+          "movie_raw_id": 771,
+          "score": 0.2603151500225067,
+          "title": "Life Is Rosy (a.k.a. Life Is Beautiful) (Vie est belle, La) (1987)",
+          "genres": "Comedy|Drama",
+          "metadata_found": true
+        },
+        {
+          "rank": 18,
+          "movie_raw_id": 852,
+          "score": 0.2584362030029297,
+          "title": "Tin Cup (1996)",
+          "genres": "Comedy|Drama|Romance",
+          "metadata_found": true
+        },
+        {
+          "rank": 19,
+          "movie_raw_id": 773,
+          "score": 0.2580064535140991,
+          "title": "Touki Bouki (1973)",
+          "genres": "Drama",
+          "metadata_found": true
+        },
+        {
+          "rank": 20,
+          "movie_raw_id": 483,
+          "score": 0.25749650597572327,
+          "title": "King of the Hill (1993)",
+          "genres": "Drama",
+          "metadata_found": true
+        }
+      ],
+      "metadata_coverage": {
+        "rows": 20,
+        "metadata_found": 20,
+        "missing_movie_ids": 0,
+        "missing_titles": 0,
+        "missing_genres": 0
+      }
+    },
+    {
+      "run_id": "REC01-Kaggle-1M",
+      "user_raw_id": 101198,
+      "method": "lightgcn",
+      "checkpoint_step": 300,
+      "model_graph_version": 81,
+      "candidate_movies": 773,
+      "train_seen_movies": 16,
+      "items": [
+        {
+          "rank": 1,
+          "movie_raw_id": 150,
+          "score": 5.689150810241699,
+          "title": "Apollo 13 (1995)",
+          "genres": "Adventure|Drama|IMAX",
+          "metadata_found": true
+        },
+        {
+          "rank": 2,
+          "movie_raw_id": 593,
+          "score": 5.554333686828613,
+          "title": "Silence of the Lambs, The (1991)",
+          "genres": "Crime|Horror|Thriller",
+          "metadata_found": true
+        },
+        {
+          "rank": 3,
+          "movie_raw_id": 296,
+          "score": 5.508726119995117,
+          "title": "Pulp Fiction (1994)",
+          "genres": "Comedy|Crime|Drama|Thriller",
+          "metadata_found": true
+        },
+        {
+          "rank": 4,
+          "movie_raw_id": 457,
+          "score": 5.499919414520264,
+          "title": "Fugitive, The (1993)",
+          "genres": "Thriller",
+          "metadata_found": true
+        },
+        {
+          "rank": 5,
+          "movie_raw_id": 590,
+          "score": 5.160343170166016,
+          "title": "Dances with Wolves (1990)",
+          "genres": "Adventure|Drama|Western",
+          "metadata_found": true
+        },
+        {
+          "rank": 6,
+          "movie_raw_id": 110,
+          "score": 4.816831588745117,
+          "title": "Braveheart (1995)",
+          "genres": "Action|Drama|War",
+          "metadata_found": true
+        },
+        {
+          "rank": 7,
+          "movie_raw_id": 588,
+          "score": 4.638615608215332,
+          "title": "Aladdin (1992)",
+          "genres": "Adventure|Animation|Children|Comedy|Musical",
+          "metadata_found": true
+        },
+        {
+          "rank": 8,
+          "movie_raw_id": 380,
+          "score": 4.626680374145508,
+          "title": "True Lies (1994)",
+          "genres": "Action|Adventure|Comedy|Romance|Thriller",
+          "metadata_found": true
+        },
+        {
+          "rank": 9,
+          "movie_raw_id": 349,
+          "score": 4.606546401977539,
+          "title": "Clear and Present Danger (1994)",
+          "genres": "Action|Crime|Drama|Thriller",
+          "metadata_found": true
+        },
+        {
+          "rank": 10,
+          "movie_raw_id": 161,
+          "score": 4.550291061401367,
+          "title": "Crimson Tide (1995)",
+          "genres": "Drama|Thriller|War",
+          "metadata_found": true
+        },
+        {
+          "rank": 11,
+          "movie_raw_id": 165,
+          "score": 4.044267177581787,
+          "title": "Die Hard: With a Vengeance (1995)",
+          "genres": "Action|Crime|Thriller",
+          "metadata_found": true
+        },
+        {
+          "rank": 12,
+          "movie_raw_id": 292,
+          "score": 4.009243965148926,
+          "title": "Outbreak (1995)",
+          "genres": "Action|Drama|Sci-Fi|Thriller",
+          "metadata_found": true
+        },
+        {
+          "rank": 13,
+          "movie_raw_id": 34,
+          "score": 3.9434475898742676,
+          "title": "Babe (1995)",
+          "genres": "Children|Drama",
+          "metadata_found": true
+        },
+        {
+          "rank": 14,
+          "movie_raw_id": 527,
+          "score": 3.9262256622314453,
+          "title": "Schindler's List (1993)",
+          "genres": "Drama|War",
+          "metadata_found": true
+        },
+        {
+          "rank": 15,
+          "movie_raw_id": 364,
+          "score": 3.8983001708984375,
+          "title": "Lion King, The (1994)",
+          "genres": "Adventure|Animation|Children|Drama|Musical|IMAX",
+          "metadata_found": true
+        },
+        {
+          "rank": 16,
+          "movie_raw_id": 592,
+          "score": 3.8780181407928467,
+          "title": "Batman (1989)",
+          "genres": "Action|Crime|Thriller",
+          "metadata_found": true
+        },
+        {
+          "rank": 17,
+          "movie_raw_id": 300,
+          "score": 3.858302354812622,
+          "title": "Quiz Show (1994)",
+          "genres": "Drama",
+          "metadata_found": true
+        },
+        {
+          "rank": 18,
+          "movie_raw_id": 329,
+          "score": 3.724189281463623,
+          "title": "Star Trek: Generations (1994)",
+          "genres": "Adventure|Drama|Sci-Fi",
+          "metadata_found": true
+        },
+        {
+          "rank": 19,
+          "movie_raw_id": 316,
+          "score": 3.670675754547119,
+          "title": "Stargate (1994)",
+          "genres": "Action|Adventure|Sci-Fi",
+          "metadata_found": true
+        },
+        {
+          "rank": 20,
+          "movie_raw_id": 10,
+          "score": 3.581422805786133,
+          "title": "GoldenEye (1995)",
+          "genres": "Action|Adventure|Thriller",
+          "metadata_found": true
+        }
+      ],
+      "metadata_coverage": {
+        "rows": 20,
+        "metadata_found": 20,
+        "missing_movie_ids": 0,
+        "missing_titles": 0,
+        "missing_genres": 0
+      }
+    },
+    {
+      "run_id": "REC01-Kaggle-1M",
+      "user_raw_id": 200939,
+      "method": "lightgcn",
+      "checkpoint_step": 300,
+      "model_graph_version": 81,
+      "candidate_movies": 773,
+      "train_seen_movies": 50,
+      "items": [
+        {
+          "rank": 1,
+          "movie_raw_id": 590,
+          "score": 9.125223159790039,
+          "title": "Dances with Wolves (1990)",
+          "genres": "Adventure|Drama|Western",
+          "metadata_found": true
+        },
+        {
+          "rank": 2,
+          "movie_raw_id": 110,
+          "score": 8.510526657104492,
+          "title": "Braveheart (1995)",
+          "genres": "Action|Drama|War",
+          "metadata_found": true
+        },
+        {
+          "rank": 3,
+          "movie_raw_id": 588,
+          "score": 8.203643798828125,
+          "title": "Aladdin (1992)",
+          "genres": "Adventure|Animation|Children|Comedy|Musical",
+          "metadata_found": true
+        },
+        {
+          "rank": 4,
+          "movie_raw_id": 165,
+          "score": 7.141734600067139,
+          "title": "Die Hard: With a Vengeance (1995)",
+          "genres": "Action|Crime|Thriller",
+          "metadata_found": true
+        },
+        {
+          "rank": 5,
+          "movie_raw_id": 292,
+          "score": 7.070158004760742,
+          "title": "Outbreak (1995)",
+          "genres": "Action|Drama|Sci-Fi|Thriller",
+          "metadata_found": true
+        },
+        {
+          "rank": 6,
+          "movie_raw_id": 339,
+          "score": 6.972936153411865,
+          "title": "While You Were Sleeping (1995)",
+          "genres": "Comedy|Romance",
+          "metadata_found": true
+        },
+        {
+          "rank": 7,
+          "movie_raw_id": 527,
+          "score": 6.934613227844238,
+          "title": "Schindler's List (1993)",
+          "genres": "Drama|War",
+          "metadata_found": true
+        },
+        {
+          "rank": 8,
+          "movie_raw_id": 592,
+          "score": 6.841945648193359,
+          "title": "Batman (1989)",
+          "genres": "Action|Crime|Thriller",
+          "metadata_found": true
+        },
+        {
+          "rank": 9,
+          "movie_raw_id": 329,
+          "score": 6.57283878326416,
+          "title": "Star Trek: Generations (1994)",
+          "genres": "Adventure|Drama|Sci-Fi",
+          "metadata_found": true
+        },
+        {
+          "rank": 10,
+          "movie_raw_id": 316,
+          "score": 6.474505424499512,
+          "title": "Stargate (1994)",
+          "genres": "Action|Adventure|Sci-Fi",
+          "metadata_found": true
+        },
+        {
+          "rank": 11,
+          "movie_raw_id": 1,
+          "score": 6.3013997077941895,
+          "title": "Toy Story (1995)",
+          "genres": "Adventure|Animation|Children|Comedy|Fantasy",
+          "metadata_found": true
+        },
+        {
+          "rank": 12,
+          "movie_raw_id": 21,
+          "score": 6.00331974029541,
+          "title": "Get Shorty (1995)",
+          "genres": "Comedy|Crime|Thriller",
+          "metadata_found": true
+        },
+        {
+          "rank": 13,
+          "movie_raw_id": 153,
+          "score": 5.934231281280518,
+          "title": "Batman Forever (1995)",
+          "genres": "Action|Adventure|Comedy|Crime",
+          "metadata_found": true
+        },
+        {
+          "rank": 14,
+          "movie_raw_id": 344,
+          "score": 5.877717018127441,
+          "title": "Ace Ventura: Pet Detective (1994)",
+          "genres": "Comedy",
+          "metadata_found": true
+        },
+        {
+          "rank": 15,
+          "movie_raw_id": 185,
+          "score": 5.813870429992676,
+          "title": "Net, The (1995)",
+          "genres": "Action|Crime|Thriller",
+          "metadata_found": true
+        },
+        {
+          "rank": 16,
+          "movie_raw_id": 434,
+          "score": 5.665134429931641,
+          "title": "Cliffhanger (1993)",
+          "genres": "Action|Adventure|Thriller",
+          "metadata_found": true
+        },
+        {
+          "rank": 17,
+          "movie_raw_id": 111,
+          "score": 5.661979675292969,
+          "title": "Taxi Driver (1976)",
+          "genres": "Crime|Drama|Thriller",
+          "metadata_found": true
+        },
+        {
+          "rank": 18,
+          "movie_raw_id": 539,
+          "score": 5.512733459472656,
+          "title": "Sleepless in Seattle (1993)",
+          "genres": "Comedy|Drama|Romance",
+          "metadata_found": true
+        },
+        {
+          "rank": 19,
+          "movie_raw_id": 440,
+          "score": 5.437342166900635,
+          "title": "Dave (1993)",
+          "genres": "Comedy|Romance",
+          "metadata_found": true
+        },
+        {
+          "rank": 20,
+          "movie_raw_id": 587,
+          "score": 5.402212619781494,
+          "title": "Ghost (1990)",
+          "genres": "Comedy|Drama|Fantasy|Romance|Thriller",
+          "metadata_found": true
+        }
+      ],
+      "metadata_coverage": {
+        "rows": 20,
+        "metadata_found": 20,
+        "missing_movie_ids": 0,
+        "missing_titles": 0,
+        "missing_genres": 0
+      }
+    },
+    {
+      "run_id": "REC01-Kaggle-1M",
+      "user_raw_id": 200940,
+      "method": "popularity",
+      "checkpoint_step": null,
+      "model_graph_version": 81,
+      "candidate_movies": 773,
+      "train_seen_movies": 0,
+      "items": [
+        {
+          "rank": 1,
+          "movie_raw_id": 150,
+          "score": 7979.0,
+          "title": "Apollo 13 (1995)",
+          "genres": "Adventure|Drama|IMAX",
+          "metadata_found": true
+        },
+        {
+          "rank": 2,
+          "movie_raw_id": 593,
+          "score": 7628.0,
+          "title": "Silence of the Lambs, The (1991)",
+          "genres": "Crime|Horror|Thriller",
+          "metadata_found": true
+        },
+        {
+          "rank": 3,
+          "movie_raw_id": 457,
+          "score": 7602.0,
+          "title": "Fugitive, The (1993)",
+          "genres": "Thriller",
+          "metadata_found": true
+        },
+        {
+          "rank": 4,
+          "movie_raw_id": 296,
+          "score": 7398.0,
+          "title": "Pulp Fiction (1994)",
+          "genres": "Comedy|Crime|Drama|Thriller",
+          "metadata_found": true
+        },
+        {
+          "rank": 5,
+          "movie_raw_id": 318,
+          "score": 7304.0,
+          "title": "Shawshank Redemption, The (1994)",
+          "genres": "Crime|Drama",
+          "metadata_found": true
+        },
+        {
+          "rank": 6,
+          "movie_raw_id": 590,
+          "score": 6537.0,
+          "title": "Dances with Wolves (1990)",
+          "genres": "Adventure|Drama|Western",
+          "metadata_found": true
+        },
+        {
+          "rank": 7,
+          "movie_raw_id": 110,
+          "score": 5817.0,
+          "title": "Braveheart (1995)",
+          "genres": "Action|Drama|War",
+          "metadata_found": true
+        },
+        {
+          "rank": 8,
+          "movie_raw_id": 356,
+          "score": 5693.0,
+          "title": "Forrest Gump (1994)",
+          "genres": "Comedy|Drama|Romance|War",
+          "metadata_found": true
+        },
+        {
+          "rank": 9,
+          "movie_raw_id": 588,
+          "score": 5351.0,
+          "title": "Aladdin (1992)",
+          "genres": "Adventure|Animation|Children|Comedy|Musical",
+          "metadata_found": true
+        },
+        {
+          "rank": 10,
+          "movie_raw_id": 380,
+          "score": 5337.0,
+          "title": "True Lies (1994)",
+          "genres": "Action|Adventure|Comedy|Romance|Thriller",
+          "metadata_found": true
+        },
+        {
+          "rank": 11,
+          "movie_raw_id": 349,
+          "score": 5283.0,
+          "title": "Clear and Present Danger (1994)",
+          "genres": "Action|Crime|Drama|Thriller",
+          "metadata_found": true
+        },
+        {
+          "rank": 12,
+          "movie_raw_id": 161,
+          "score": 5161.0,
+          "title": "Crimson Tide (1995)",
+          "genres": "Drama|Thriller|War",
+          "metadata_found": true
+        },
+        {
+          "rank": 13,
+          "movie_raw_id": 480,
+          "score": 4736.0,
+          "title": "Jurassic Park (1993)",
+          "genres": "Action|Adventure|Sci-Fi|Thriller",
+          "metadata_found": true
+        },
+        {
+          "rank": 14,
+          "movie_raw_id": 595,
+          "score": 4615.0,
+          "title": "Beauty and the Beast (1991)",
+          "genres": "Animation|Children|Fantasy|Musical|Romance|IMAX",
+          "metadata_found": true
+        },
+        {
+          "rank": 15,
+          "movie_raw_id": 47,
+          "score": 4526.0,
+          "title": "Seven (a.k.a. Se7en) (1995)",
+          "genres": "Mystery|Thriller",
+          "metadata_found": true
+        },
+        {
+          "rank": 16,
+          "movie_raw_id": 589,
+          "score": 4412.0,
+          "title": "Terminator 2: Judgment Day (1991)",
+          "genres": "Action|Sci-Fi",
+          "metadata_found": true
+        },
+        {
+          "rank": 17,
+          "movie_raw_id": 50,
+          "score": 4349.0,
+          "title": "Usual Suspects, The (1995)",
+          "genres": "Crime|Mystery|Thriller",
+          "metadata_found": true
+        },
+        {
+          "rank": 18,
+          "movie_raw_id": 165,
+          "score": 4052.0,
+          "title": "Die Hard: With a Vengeance (1995)",
+          "genres": "Action|Crime|Thriller",
+          "metadata_found": true
+        },
+        {
+          "rank": 19,
+          "movie_raw_id": 527,
+          "score": 4031.0,
+          "title": "Schindler's List (1993)",
+          "genres": "Drama|War",
+          "metadata_found": true
+        },
+        {
+          "rank": 20,
+          "movie_raw_id": 292,
+          "score": 4020.0,
+          "title": "Outbreak (1995)",
+          "genres": "Action|Drama|Sci-Fi|Thriller",
+          "metadata_found": true
+        }
+      ],
+      "metadata_coverage": {
+        "rows": 20,
+        "metadata_found": 20,
+        "missing_movie_ids": 0,
+        "missing_titles": 0,
+        "missing_genres": 0
+      }
+    }
+  ]
+}

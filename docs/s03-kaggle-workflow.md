@@ -1,5 +1,7 @@
 # S03 — Chuyển REC-01 sang Kaggle GPU và kiểm chứng artifact
 
+> **Hồ sơ lịch sử GOAL 03.5:** giữ để truy nguồn quyết định/kết quả cũ. [Phạm vi v2 hiện hành](current/scope-and-decisions.md) · [Tiến độ v2](current/progress-and-evidence.md).
+
 **Trạng thái 21/11/2026:** bundle đã được tải lên [Dataset riêng tư REC-01](https://www.kaggle.com/datasets/khoakp/rec01-movielens-1m-s03-verified-bundle). [Notebook Version 3](https://www.kaggle.com/code/khoakp/rec01-movielens-1m-gpu-validation?scriptVersionId=372012165) chạy GPU T4 x2, kết thúc `REC01_KAGGLE_PASS`, `seal-output PASS`; artifact tải về đã đạt `verify-output PASS`. Giao thức chính đã được Project Owner duyệt ở [S01](s01-evaluation-spec.md). Script `scripts/rec01_kaggle_prep.py` chỉ đóng gói canonical prefix 1M và mã Python cần thiết; không lấy token, credential hoặc raw `ratings.csv`.
 
 **Bundle đã xác minh tại máy này:** `data/processed/rec01_kaggle_bundle_s03/`, `verify-input=PASS`, `rec01_source.zip` SHA-256 `07f05600dfe8dfaf108e927ff3f41ebe926afeead84f8b9bd3946b060170d49f`. Thư mục `data/processed/rec01_kaggle_bundle/` là lượt đóng gói chẩn đoán trước khi chốt code verifier; **không dùng để upload**. Nếu source code thay đổi sau khi đóng gói, tạo bundle mới với `--out` mới và cập nhật hash thay vì dùng bản cũ.

@@ -1,5 +1,7 @@
 # D10 — Clean rerun và MVP gate G3
 
+> **Hồ sơ lịch sử GOAL 03.5:** giữ để truy nguồn quyết định/kết quả cũ. [Phạm vi v2 hiện hành](current/scope-and-decisions.md) · [Tiến độ v2](current/progress-and-evidence.md).
+
 ## Luồng và artifact
 
 `src/models/d10_mvp.py` bắt đầu từ `../ml-32m/ratings.csv`, chạy lại D02 canonicalization trong thư mục mới, rồi gọi D09 để xử lý train-only D04 incremental graph, exact Full equivalence, D06 normalized adjacency, LightGCN, raw Top-K và metadata Top-K. `movies.csv` được validate trước enrichment. Run manifest lưu input/code/config hashes, môi trường, các lần thử device, đường dẫn và SHA-256 của artifacts. Checkpoint chứa embedding weights và graph version; `model_ids.json` xuất ánh xạ `model_index → node_type, raw_id, first_event_id` để inspect độc lập.

@@ -7,11 +7,12 @@ Each exported cohort is a standalone bipartite graph for GPU feasibility probes.
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 from pathlib import Path
 
 import duckdb
+
+from src.artifacts import file_sha256
 
 
 DEFAULT_CUTOFF_TS = 1577836800  # 2020-01-01 00:00:00 UTC
@@ -24,14 +25,6 @@ SELECTION_BASIS = {
     "chronological_prefix": "pre-cutoff positive edge first timestamp ASC, raw user/movie IDs ASC; edge subset",
     "hash_sample": "pre-cutoff positive pair DuckDB hash(user,movie,7) ASC, raw user/movie IDs ASC; edge subset",
 }
-
-
-def file_sha256(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as stream:
-        for chunk in iter(lambda: stream.read(8 * 1024 * 1024), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
 
 
 def _export(con, query: str, path: Path) -> None:

@@ -1,19 +1,9 @@
-# BigDataProject v2.0 — working instructions
+# BigDataProject v2 — working instructions
 
-## Scope and sources of truth
+Read [current scope](docs/current/scope-and-decisions.md), [architecture](docs/current/architecture.md), [protocol](docs/current/experiment-protocol.md) and [progress](docs/current/progress-and-evidence.md) before architecture work. DXX/SXX and REC-01 records are historical evidence; do not create parallel milestone pipelines.
 
-The approved objective is RQ1 incremental graph maintenance and RQ2 LightGCN model freshness on MovieLens 32M. Snapshot cadence is a supporting engineering study. Keep cumulative historical-positive graph semantics and `rating >= 4.0`. The 01/01/2020 base cutoff is tentative until temporal profiling. Do not claim that v2 refresh experiments are complete without implementation and measured evidence.
+Reuse existing code and use the smallest sufficient implementation. Core modules must not import experiment-specific runners. Preserve deterministic canonical order, unique historical-positive edges (`rating >= 4.0`), stable IDs, exact degrees, idempotent replay, transaction rollback, Full/Incremental equivalence, correct normalization and temporal leakage prevention. The approved v2 base cutoff is `2020-01-01 00:00:00 UTC`; REC-01 keeps its historical protocol.
 
-The Project Owner approved 01/01/2020 00:00 UTC as the base/replay cutoff after temporal profiling. Read `README.md`, `docs/03-system-design.md` (current v2 section), and `docs/architecture-audit-v2.md` before architecture changes. Use `docs/07-experiment-log.md` for measured runs with data/config/hardware/source hashes. DXX/SXX documents, the old project plans and raw results are historical records; preserve them but do not treat them as current milestones. Do not create further DXX/SXX milestones or parallel pipeline variants.
+Preserve original data, checkpoints, raw metrics and frozen report artifacts. Runtime Python source-byte equality is not a compatibility requirement; validate checkpoint integrity, model config/tensor shapes, node mapping, graph version and normalization. Record Git commit, artifact version, hashes, configuration, environment and measured results for research reproducibility. Do not claim Model Refresh Engine exists before GOAL 04.
 
-## Engineering rules
-
-- Reuse tested graph, snapshot, LightGCN, and temporal evaluation code before rewriting. Keep deterministic event order, stable node IDs, no duplicate positive edges, exact degrees, idempotent replay, transaction rollback, full/incremental equivalence at a common watermark, and correct normalized adjacency.
-- Separate canonical graph version, model graph snapshot version, checkpoint/source version, and propagated embeddings version in APIs and evidence. Prevent future events or labels from entering training graphs or candidate masks.
-- Treat REC-01 as a sealed historical artifact. Its loader checks runtime source SHA-256. Never modify sealed reports/checkpoints or relax verification to make old artifacts load. Gate source migration on an explicit versioned artifact contract and compatibility tests.
-- Check Git state and available data/resources before edits. Run targeted tests after behavior changes and full regression at completion. Report passed, failed and skipped separately. Run small fixtures before costly benchmarks/training; do not assume a Kaggle T4 workload fits just because local CUDA is available.
-- Do not modify original datasets, checkpoints or raw experiment logs. Do not commit, push, merge, delete branches or install large dependencies without Project Owner authorization.
-
-## Mentoring and reporting
-
-Explain substantial changes in Vietnamese: WHAT changed, WHY, HOW data/APIs work with file/function links, VERIFICATION and remaining limits, and ACADEMIC VALUE for RQ1/RQ2. Use a small example and 2–3 knowledge-check questions. Distinguish observed measurements from hypotheses and historical results. Ask the Project Owner before changing research scope, original data or an important agreed architecture decision.
+Run targeted tests for changed callers, full regression and a small end-to-end smoke at completion. Do not run large training or new GPU benchmarks for GOAL 03.5. Do not commit, push or merge without Project Owner authorization. Explain substantial changes in Vietnamese: what/why, data flow and APIs, verification, remaining limits and academic value for RQ1/RQ2; include a small example and knowledge-check questions.

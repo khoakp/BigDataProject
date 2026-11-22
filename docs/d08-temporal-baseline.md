@@ -1,5 +1,7 @@
 # D08 — Temporal split và LightGCN baseline
 
+> **Hồ sơ lịch sử GOAL 03.5:** giữ để truy nguồn quyết định/kết quả cũ. [Phạm vi v2 hiện hành](current/scope-and-decisions.md) · [Tiến độ v2](current/progress-and-evidence.md).
+
 Ngày chạy: 20/11/2026 (Asia/Saigon). Mã nguồn: `src/evaluation/temporal.py`, `src/models/d08_baseline.py`. Lệnh từ gốc `BigDataProject`:
 
 ```powershell

@@ -1,0 +1,2577 @@
+{
+  "tracked_python": [
+    {
+      "path": "scripts/audit_exp01_results.py",
+      "lines": 132,
+      "public_symbols": [
+        "sha256_file",
+        "audit",
+        "main"
+      ]
+    },
+    {
+      "path": "scripts/gpu_feasibility_probe.py",
+      "lines": 362,
+      "public_symbols": [
+        "AvailableMemorySampler",
+        "file_sha256",
+        "load_cohort",
+        "run",
+        "main"
+      ]
+    },
+    {
+      "path": "scripts/kaggle_feasibility_runner.py",
+      "lines": 192,
+      "public_symbols": [
+        "sha256",
+        "verify_mounted_files",
+        "load_probe_plan",
+        "main"
+      ]
+    },
+    {
+      "path": "scripts/prepare_kaggle_feasibility.py",
+      "lines": 128,
+      "public_symbols": [
+        "sha256",
+        "prepare",
+        "main"
+      ]
+    },
+    {
+      "path": "scripts/rec01_kaggle_prep.py",
+      "lines": 308,
+      "public_symbols": [
+        "sha256",
+        "inspect_source",
+        "source_files",
+        "write_source_zip",
+        "prepare",
+        "verify_input",
+        "seal_output",
+        "verify_output",
+        "main"
+      ]
+    },
+    {
+      "path": "scripts/s11_integration_probe.py",
+      "lines": 132,
+      "public_symbols": [
+        "run_probe"
+      ]
+    },
+    {
+      "path": "scripts/s12_build_report_docx.py",
+      "lines": 281,
+      "public_symbols": [
+        "replace_text",
+        "set_cell_shading",
+        "field",
+        "heading",
+        "para",
+        "new_page",
+        "table",
+        "build"
+      ]
+    },
+    {
+      "path": "scripts/s12_freeze_manifest.py",
+      "lines": 79,
+      "public_symbols": [
+        "build_manifest"
+      ]
+    },
+    {
+      "path": "scripts/s14_package.py",
+      "lines": 158,
+      "public_symbols": [
+        "sha256_bytes",
+        "files_to_include",
+        "build",
+        "verify"
+      ]
+    },
+    {
+      "path": "scripts/summarize_gpu_probe.py",
+      "lines": 56,
+      "public_symbols": [
+        "row",
+        "main"
+      ]
+    },
+    {
+      "path": "src/app/__init__.py",
+      "lines": 1,
+      "public_symbols": []
+    },
+    {
+      "path": "src/app/feedback.py",
+      "lines": 232,
+      "public_symbols": [
+        "FeedbackStore"
+      ]
+    },
+    {
+      "path": "src/app/rec01_view.py",
+      "lines": 66,
+      "public_symbols": [
+        "verify_history_source",
+        "train_rated_ids",
+        "train_history",
+        "train_catalog"
+      ]
+    },
+    {
+      "path": "src/app/streamlit_app.py",
+      "lines": 186,
+      "public_symbols": [
+        "main"
+      ]
+    },
+    {
+      "path": "src/benchmarking/common.py",
+      "lines": 55,
+      "public_symbols": [
+        "sql_path",
+        "slice_events",
+        "RssSampler"
+      ]
+    },
+    {
+      "path": "src/benchmarking/exp01.py",
+      "lines": 270,
+      "public_symbols": [
+        "export_incremental",
+        "worker",
+        "run_worker",
+        "prepare_history",
+        "case_inputs",
+        "run_pilot",
+        "parse_grid",
+        "main"
+      ]
+    },
+    {
+      "path": "src/benchmarking/exp01_analysis.py",
+      "lines": 195,
+      "public_symbols": [
+        "summarize",
+        "write_summary",
+        "plot",
+        "plot_crossover",
+        "main"
+      ]
+    },
+    {
+      "path": "src/benchmarking/exp02.py",
+      "lines": 251,
+      "public_symbols": [
+        "prepare_batches",
+        "worker",
+        "worker_cli",
+        "compare_common",
+        "run",
+        "main"
+      ]
+    },
+    {
+      "path": "src/benchmarking/exp02_analysis.py",
+      "lines": 107,
+      "public_symbols": [
+        "summarize",
+        "plot",
+        "main"
+      ]
+    },
+    {
+      "path": "src/evaluation/baselines.py",
+      "lines": 35,
+      "public_symbols": [
+        "popularity_topk"
+      ]
+    },
+    {
+      "path": "src/evaluation/checkpoint_selection.py",
+      "lines": 60,
+      "public_symbols": [
+        "select_checkpoint"
+      ]
+    },
+    {
+      "path": "src/evaluation/model_cohort.py",
+      "lines": 245,
+      "public_symbols": [
+        "file_sha256",
+        "prepare_cohorts",
+        "main"
+      ]
+    },
+    {
+      "path": "src/evaluation/rec01.py",
+      "lines": 36,
+      "public_symbols": [
+        "compare_recommenders"
+      ]
+    },
+    {
+      "path": "src/evaluation/s02_probe.py",
+      "lines": 128,
+      "public_symbols": [
+        "run",
+        "main"
+      ]
+    },
+    {
+      "path": "src/evaluation/temporal.py",
+      "lines": 84,
+      "public_symbols": [
+        "split_events",
+        "cutoff_cohort",
+        "score_chunks",
+        "evaluate_topk"
+      ]
+    },
+    {
+      "path": "src/graph/d04_probe.py",
+      "lines": 67,
+      "public_symbols": [
+        "fingerprint",
+        "run"
+      ]
+    },
+    {
+      "path": "src/graph/d05_probe.py",
+      "lines": 118,
+      "public_symbols": [
+        "require",
+        "exercise",
+        "run"
+      ]
+    },
+    {
+      "path": "src/graph/d06_probe.py",
+      "lines": 110,
+      "public_symbols": [
+        "require",
+        "sql_reference",
+        "run"
+      ]
+    },
+    {
+      "path": "src/graph/equivalence.py",
+      "lines": 39,
+      "public_symbols": [
+        "checksum",
+        "full_state",
+        "incremental_state",
+        "compare_states"
+      ]
+    },
+    {
+      "path": "src/graph/full_builder.py",
+      "lines": 103,
+      "public_symbols": [
+        "file_sha256",
+        "rebuild"
+      ]
+    },
+    {
+      "path": "src/graph/incremental.py",
+      "lines": 147,
+      "public_symbols": [
+        "IncrementalGraph"
+      ]
+    },
+    {
+      "path": "src/graph/normalize.py",
+      "lines": 59,
+      "public_symbols": [
+        "SparseAdjacency",
+        "normalize_state",
+        "compare_adjacency"
+      ]
+    },
+    {
+      "path": "src/graph/snapshot.py",
+      "lines": 149,
+      "public_symbols": [
+        "canonical_status",
+        "materialize_normalized",
+        "load_snapshot",
+        "freshness",
+        "export_snapshot",
+        "load_export"
+      ]
+    },
+    {
+      "path": "src/ingest/d02_profile.py",
+      "lines": 96,
+      "public_symbols": [
+        "sha256",
+        "run"
+      ]
+    },
+    {
+      "path": "src/ingest/temporal_profile.py",
+      "lines": 245,
+      "public_symbols": [
+        "utc_second",
+        "file_sha256",
+        "profile",
+        "main"
+      ]
+    },
+    {
+      "path": "src/metadata/movie_lookup.py",
+      "lines": 54,
+      "public_symbols": [
+        "validate_movies",
+        "load_movies",
+        "enrich_topk"
+      ]
+    },
+    {
+      "path": "src/models/d07_probe.py",
+      "lines": 292,
+      "public_symbols": [
+        "toy",
+        "sample_triples",
+        "prepare_million",
+        "record_phase",
+        "update_peaks",
+        "run_case",
+        "write_report",
+        "main"
+      ]
+    },
+    {
+      "path": "src/models/d08_baseline.py",
+      "lines": 177,
+      "public_symbols": [
+        "load_events",
+        "choose_cutoffs",
+        "train_only_graph",
+        "incremental_train_graph",
+        "sample_batches",
+        "run"
+      ]
+    },
+    {
+      "path": "src/models/d09_pipeline.py",
+      "lines": 73,
+      "public_symbols": [
+        "run"
+      ]
+    },
+    {
+      "path": "src/models/d10_demo.py",
+      "lines": 40,
+      "public_symbols": [
+        "show"
+      ]
+    },
+    {
+      "path": "src/models/d10_mvp.py",
+      "lines": 143,
+      "public_symbols": [
+        "write_json",
+        "run"
+      ]
+    },
+    {
+      "path": "src/models/lightgcn.py",
+      "lines": 43,
+      "public_symbols": [
+        "to_sparse_tensor",
+        "LightGCN",
+        "pairwise_loss"
+      ]
+    },
+    {
+      "path": "src/models/rec01_demo.py",
+      "lines": 35,
+      "public_symbols": [
+        "main"
+      ]
+    },
+    {
+      "path": "src/models/rec01_inference.py",
+      "lines": 215,
+      "public_symbols": [
+        "Rec01Inference",
+        "load_rec01_inference"
+      ]
+    },
+    {
+      "path": "src/models/rec01_train.py",
+      "lines": 407,
+      "public_symbols": [
+        "Protocol",
+        "run",
+        "main"
+      ]
+    },
+    {
+      "path": "tests/test_checkpoint_selection.py",
+      "lines": 48,
+      "public_symbols": [
+        "CheckpointSelectionTest"
+      ]
+    },
+    {
+      "path": "tests/test_d02.py",
+      "lines": 34,
+      "public_symbols": [
+        "D02Test"
+      ]
+    },
+    {
+      "path": "tests/test_d09_pipeline.py",
+      "lines": 60,
+      "public_symbols": [
+        "D09Test"
+      ]
+    },
+    {
+      "path": "tests/test_d10_mvp.py",
+      "lines": 40,
+      "public_symbols": [
+        "D10Test"
+      ]
+    },
+    {
+      "path": "tests/test_equivalence.py",
+      "lines": 34,
+      "public_symbols": [
+        "EquivalenceTest"
+      ]
+    },
+    {
+      "path": "tests/test_exp01.py",
+      "lines": 54,
+      "public_symbols": [
+        "Exp01Test"
+      ]
+    },
+    {
+      "path": "tests/test_exp02.py",
+      "lines": 34,
+      "public_symbols": [
+        "Exp02Test"
+      ]
+    },
+    {
+      "path": "tests/test_full_builder.py",
+      "lines": 41,
+      "public_symbols": [
+        "FullBuilderTest"
+      ]
+    },
+    {
+      "path": "tests/test_gpu_feasibility_probe.py",
+      "lines": 69,
+      "public_symbols": [
+        "GpuFeasibilityProbeTest"
+      ]
+    },
+    {
+      "path": "tests/test_incremental.py",
+      "lines": 101,
+      "public_symbols": [
+        "batch",
+        "FailLedgerWrite",
+        "IncrementalTest"
+      ]
+    },
+    {
+      "path": "tests/test_lightgcn.py",
+      "lines": 57,
+      "public_symbols": [
+        "LightGCNTest"
+      ]
+    },
+    {
+      "path": "tests/test_model_cohort.py",
+      "lines": 85,
+      "public_symbols": [
+        "ModelCohortTest"
+      ]
+    },
+    {
+      "path": "tests/test_movie_validation.py",
+      "lines": 35,
+      "public_symbols": [
+        "MovieValidationTest"
+      ]
+    },
+    {
+      "path": "tests/test_normalization.py",
+      "lines": 43,
+      "public_symbols": [
+        "NormalizationTest"
+      ]
+    },
+    {
+      "path": "tests/test_popularity_baseline.py",
+      "lines": 45,
+      "public_symbols": [
+        "PopularityBaselineTest"
+      ]
+    },
+    {
+      "path": "tests/test_prepare_kaggle_feasibility.py",
+      "lines": 80,
+      "public_symbols": [
+        "KaggleFeasibilityBundleTest"
+      ]
+    },
+    {
+      "path": "tests/test_rec01_evaluator.py",
+      "lines": 61,
+      "public_symbols": [
+        "Rec01EvaluatorTest"
+      ]
+    },
+    {
+      "path": "tests/test_rec01_inference.py",
+      "lines": 187,
+      "public_symbols": [
+        "Rec01InferenceTest"
+      ]
+    },
+    {
+      "path": "tests/test_rec01_kaggle_prep.py",
+      "lines": 66,
+      "public_symbols": [
+        "Rec01KagglePrepTest"
+      ]
+    },
+    {
+      "path": "tests/test_rec01_train.py",
+      "lines": 113,
+      "public_symbols": [
+        "toy_source",
+        "Rec01TrainTest"
+      ]
+    },
+    {
+      "path": "tests/test_s02_probe.py",
+      "lines": 35,
+      "public_symbols": [
+        "S02ProbeTest"
+      ]
+    },
+    {
+      "path": "tests/test_s09_app.py",
+      "lines": 45,
+      "public_symbols": [
+        "S09AppTest"
+      ]
+    },
+    {
+      "path": "tests/test_s09_view.py",
+      "lines": 48,
+      "public_symbols": [
+        "S09ViewTest"
+      ]
+    },
+    {
+      "path": "tests/test_s10_feedback.py",
+      "lines": 107,
+      "public_symbols": [
+        "S10FeedbackTest"
+      ]
+    },
+    {
+      "path": "tests/test_s11_feedback_failures.py",
+      "lines": 102,
+      "public_symbols": [
+        "S11FeedbackFailureTest"
+      ]
+    },
+    {
+      "path": "tests/test_snapshots.py",
+      "lines": 85,
+      "public_symbols": [
+        "SnapshotTest"
+      ]
+    },
+    {
+      "path": "tests/test_temporal_leakage.py",
+      "lines": 58,
+      "public_symbols": [
+        "TemporalTest"
+      ]
+    },
+    {
+      "path": "tests/test_temporal_profile.py",
+      "lines": 80,
+      "public_symbols": [
+        "TemporalProfileTest"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "from": "scripts.audit_exp01_results",
+      "to": "src.benchmarking.exp01_analysis",
+      "line": 17,
+      "symbol": "summarize"
+    },
+    {
+      "from": "scripts.gpu_feasibility_probe",
+      "to": "src.benchmarking.common",
+      "line": 22,
+      "symbol": "RssSampler"
+    },
+    {
+      "from": "scripts.gpu_feasibility_probe",
+      "to": "src.evaluation.temporal",
+      "line": 23,
+      "symbol": "score_chunks"
+    },
+    {
+      "from": "scripts.gpu_feasibility_probe",
+      "to": "src.graph.normalize",
+      "line": 24,
+      "symbol": "normalize_state"
+    },
+    {
+      "from": "scripts.gpu_feasibility_probe",
+      "to": "src.models.lightgcn",
+      "line": 25,
+      "symbol": "LightGCN"
+    },
+    {
+      "from": "scripts.gpu_feasibility_probe",
+      "to": "src.models.lightgcn",
+      "line": 25,
+      "symbol": "pairwise_loss"
+    },
+    {
+      "from": "scripts.gpu_feasibility_probe",
+      "to": "src.models.lightgcn",
+      "line": 25,
+      "symbol": "to_sparse_tensor"
+    },
+    {
+      "from": "scripts.gpu_feasibility_probe",
+      "to": "src.models.rec01_train",
+      "line": 26,
+      "symbol": "_sample_batches"
+    },
+    {
+      "from": "scripts.prepare_kaggle_feasibility",
+      "to": "scripts.kaggle_feasibility_runner",
+      "line": 10,
+      "symbol": "load_probe_plan"
+    },
+    {
+      "from": "scripts.rec01_kaggle_prep",
+      "to": "src.graph.snapshot",
+      "line": 191,
+      "symbol": "load_export"
+    },
+    {
+      "from": "scripts.s11_integration_probe",
+      "to": "src.app.feedback",
+      "line": 13,
+      "symbol": "FeedbackStore"
+    },
+    {
+      "from": "scripts.s11_integration_probe",
+      "to": "src.app.rec01_view",
+      "line": 14,
+      "symbol": "train_rated_ids"
+    },
+    {
+      "from": "scripts.s11_integration_probe",
+      "to": "src.graph.equivalence",
+      "line": 15,
+      "symbol": "compare_states"
+    },
+    {
+      "from": "scripts.s11_integration_probe",
+      "to": "src.graph.equivalence",
+      "line": 15,
+      "symbol": "full_state"
+    },
+    {
+      "from": "scripts.s11_integration_probe",
+      "to": "src.graph.equivalence",
+      "line": 15,
+      "symbol": "incremental_state"
+    },
+    {
+      "from": "scripts.s11_integration_probe",
+      "to": "src.graph.full_builder",
+      "line": 16,
+      "symbol": "file_sha256"
+    },
+    {
+      "from": "scripts.s11_integration_probe",
+      "to": "src.graph.full_builder",
+      "line": 16,
+      "symbol": "rebuild"
+    },
+    {
+      "from": "scripts.s11_integration_probe",
+      "to": "src.graph.incremental",
+      "line": 17,
+      "symbol": "IncrementalGraph"
+    },
+    {
+      "from": "scripts.s11_integration_probe",
+      "to": "src.models.rec01_inference",
+      "line": 18,
+      "symbol": "load_rec01_inference"
+    },
+    {
+      "from": "scripts.s12_freeze_manifest",
+      "to": "src.graph.full_builder",
+      "line": 12,
+      "symbol": "file_sha256"
+    },
+    {
+      "from": "src.app.feedback",
+      "to": "src.graph.full_builder",
+      "line": 20,
+      "symbol": "file_sha256"
+    },
+    {
+      "from": "src.app.feedback",
+      "to": "src.graph.incremental",
+      "line": 21,
+      "symbol": "IncrementalGraph"
+    },
+    {
+      "from": "src.app.feedback",
+      "to": "src.graph.snapshot",
+      "line": 22,
+      "symbol": "canonical_status"
+    },
+    {
+      "from": "src.app.rec01_view",
+      "to": "src.graph.full_builder",
+      "line": 9,
+      "symbol": "file_sha256"
+    },
+    {
+      "from": "src.app.streamlit_app",
+      "to": "src.app.feedback",
+      "line": 11,
+      "symbol": "FeedbackStore"
+    },
+    {
+      "from": "src.app.streamlit_app",
+      "to": "src.app.rec01_view",
+      "line": 12,
+      "symbol": "train_catalog"
+    },
+    {
+      "from": "src.app.streamlit_app",
+      "to": "src.app.rec01_view",
+      "line": 12,
+      "symbol": "train_history"
+    },
+    {
+      "from": "src.app.streamlit_app",
+      "to": "src.app.rec01_view",
+      "line": 12,
+      "symbol": "train_rated_ids"
+    },
+    {
+      "from": "src.app.streamlit_app",
+      "to": "src.app.rec01_view",
+      "line": 12,
+      "symbol": "verify_history_source"
+    },
+    {
+      "from": "src.app.streamlit_app",
+      "to": "src.models.rec01_inference",
+      "line": 14,
+      "symbol": "load_rec01_inference"
+    },
+    {
+      "from": "src.benchmarking.exp01",
+      "to": "src.graph.equivalence",
+      "line": 20,
+      "symbol": "compare_states"
+    },
+    {
+      "from": "src.benchmarking.exp01",
+      "to": "src.graph.equivalence",
+      "line": 20,
+      "symbol": "full_state"
+    },
+    {
+      "from": "src.benchmarking.exp01",
+      "to": "src.graph.full_builder",
+      "line": 21,
+      "symbol": "file_sha256"
+    },
+    {
+      "from": "src.benchmarking.exp01",
+      "to": "src.graph.full_builder",
+      "line": 21,
+      "symbol": "rebuild"
+    },
+    {
+      "from": "src.benchmarking.exp01",
+      "to": "src.graph.incremental",
+      "line": 22,
+      "symbol": "IncrementalGraph"
+    },
+    {
+      "from": "src.benchmarking.exp01",
+      "to": "src.ingest.d02_profile",
+      "line": 23,
+      "symbol": "run"
+    },
+    {
+      "from": "src.benchmarking.exp01",
+      "to": "src.benchmarking.common",
+      "line": 24,
+      "symbol": "ROOT"
+    },
+    {
+      "from": "src.benchmarking.exp01",
+      "to": "src.benchmarking.common",
+      "line": 24,
+      "symbol": "RssSampler"
+    },
+    {
+      "from": "src.benchmarking.exp01",
+      "to": "src.benchmarking.common",
+      "line": 24,
+      "symbol": "slice_events"
+    },
+    {
+      "from": "src.benchmarking.exp01",
+      "to": "src.benchmarking.common",
+      "line": 24,
+      "symbol": "sql_path"
+    },
+    {
+      "from": "src.benchmarking.exp02",
+      "to": "src.benchmarking.common",
+      "line": 19,
+      "symbol": "ROOT"
+    },
+    {
+      "from": "src.benchmarking.exp02",
+      "to": "src.benchmarking.common",
+      "line": 19,
+      "symbol": "RssSampler"
+    },
+    {
+      "from": "src.benchmarking.exp02",
+      "to": "src.benchmarking.common",
+      "line": 19,
+      "symbol": "slice_events"
+    },
+    {
+      "from": "src.benchmarking.exp02",
+      "to": "src.graph.full_builder",
+      "line": 20,
+      "symbol": "file_sha256"
+    },
+    {
+      "from": "src.benchmarking.exp02",
+      "to": "src.graph.incremental",
+      "line": 21,
+      "symbol": "IncrementalGraph"
+    },
+    {
+      "from": "src.benchmarking.exp02",
+      "to": "src.graph.normalize",
+      "line": 22,
+      "symbol": "ATOL"
+    },
+    {
+      "from": "src.benchmarking.exp02",
+      "to": "src.graph.normalize",
+      "line": 22,
+      "symbol": "compare_adjacency"
+    },
+    {
+      "from": "src.benchmarking.exp02",
+      "to": "src.graph.snapshot",
+      "line": 23,
+      "symbol": "canonical_status"
+    },
+    {
+      "from": "src.benchmarking.exp02",
+      "to": "src.graph.snapshot",
+      "line": 23,
+      "symbol": "export_snapshot"
+    },
+    {
+      "from": "src.benchmarking.exp02",
+      "to": "src.graph.snapshot",
+      "line": 23,
+      "symbol": "freshness"
+    },
+    {
+      "from": "src.benchmarking.exp02",
+      "to": "src.graph.snapshot",
+      "line": 23,
+      "symbol": "load_export"
+    },
+    {
+      "from": "src.benchmarking.exp02",
+      "to": "src.graph.snapshot",
+      "line": 23,
+      "symbol": "materialize_normalized"
+    },
+    {
+      "from": "src.evaluation.rec01",
+      "to": "src.evaluation.baselines",
+      "line": 4,
+      "symbol": "popularity_topk"
+    },
+    {
+      "from": "src.evaluation.rec01",
+      "to": "src.evaluation.temporal",
+      "line": 5,
+      "symbol": "cutoff_cohort"
+    },
+    {
+      "from": "src.evaluation.rec01",
+      "to": "src.evaluation.temporal",
+      "line": 5,
+      "symbol": "evaluate_topk"
+    },
+    {
+      "from": "src.evaluation.rec01",
+      "to": "src.evaluation.temporal",
+      "line": 5,
+      "symbol": "score_chunks"
+    },
+    {
+      "from": "src.evaluation.s02_probe",
+      "to": "src.evaluation.rec01",
+      "line": 17,
+      "symbol": "compare_recommenders"
+    },
+    {
+      "from": "src.evaluation.s02_probe",
+      "to": "src.graph.equivalence",
+      "line": 18,
+      "symbol": "checksum"
+    },
+    {
+      "from": "src.evaluation.s02_probe",
+      "to": "src.graph.equivalence",
+      "line": 18,
+      "symbol": "full_state"
+    },
+    {
+      "from": "src.evaluation.s02_probe",
+      "to": "src.graph.full_builder",
+      "line": 19,
+      "symbol": "file_sha256"
+    },
+    {
+      "from": "src.evaluation.s02_probe",
+      "to": "src.graph.normalize",
+      "line": 20,
+      "symbol": "normalize_state"
+    },
+    {
+      "from": "src.evaluation.s02_probe",
+      "to": "src.models.d08_baseline",
+      "line": 21,
+      "symbol": "ROOT"
+    },
+    {
+      "from": "src.evaluation.s02_probe",
+      "to": "src.models.lightgcn",
+      "line": 22,
+      "symbol": "LightGCN"
+    },
+    {
+      "from": "src.evaluation.s02_probe",
+      "to": "src.models.lightgcn",
+      "line": 22,
+      "symbol": "to_sparse_tensor"
+    },
+    {
+      "from": "src.graph.d04_probe",
+      "to": "src.graph.incremental",
+      "line": 12,
+      "symbol": "IncrementalGraph"
+    },
+    {
+      "from": "src.graph.d05_probe",
+      "to": "src.graph.equivalence",
+      "line": 11,
+      "symbol": "checksum"
+    },
+    {
+      "from": "src.graph.d05_probe",
+      "to": "src.graph.equivalence",
+      "line": 11,
+      "symbol": "compare_states"
+    },
+    {
+      "from": "src.graph.d05_probe",
+      "to": "src.graph.equivalence",
+      "line": 11,
+      "symbol": "full_state"
+    },
+    {
+      "from": "src.graph.d05_probe",
+      "to": "src.graph.equivalence",
+      "line": 11,
+      "symbol": "incremental_state"
+    },
+    {
+      "from": "src.graph.d05_probe",
+      "to": "src.graph.full_builder",
+      "line": 12,
+      "symbol": "file_sha256"
+    },
+    {
+      "from": "src.graph.d05_probe",
+      "to": "src.graph.full_builder",
+      "line": 12,
+      "symbol": "rebuild"
+    },
+    {
+      "from": "src.graph.d05_probe",
+      "to": "src.graph.incremental",
+      "line": 13,
+      "symbol": "IncrementalGraph"
+    },
+    {
+      "from": "src.graph.d06_probe",
+      "to": "src.graph.full_builder",
+      "line": 11,
+      "symbol": "file_sha256"
+    },
+    {
+      "from": "src.graph.d06_probe",
+      "to": "src.graph.full_builder",
+      "line": 11,
+      "symbol": "rebuild"
+    },
+    {
+      "from": "src.graph.d06_probe",
+      "to": "src.graph.incremental",
+      "line": 12,
+      "symbol": "IncrementalGraph"
+    },
+    {
+      "from": "src.graph.d06_probe",
+      "to": "src.graph.normalize",
+      "line": 13,
+      "symbol": "ATOL"
+    },
+    {
+      "from": "src.graph.d06_probe",
+      "to": "src.graph.normalize",
+      "line": 13,
+      "symbol": "SparseAdjacency"
+    },
+    {
+      "from": "src.graph.d06_probe",
+      "to": "src.graph.normalize",
+      "line": 13,
+      "symbol": "compare_adjacency"
+    },
+    {
+      "from": "src.graph.d06_probe",
+      "to": "src.graph.snapshot",
+      "line": 14,
+      "symbol": "materialize_normalized"
+    },
+    {
+      "from": "src.graph.d06_probe",
+      "to": "src.graph.snapshot",
+      "line": 14,
+      "symbol": "load_snapshot"
+    },
+    {
+      "from": "src.graph.d06_probe",
+      "to": "src.graph.snapshot",
+      "line": 14,
+      "symbol": "export_snapshot"
+    },
+    {
+      "from": "src.graph.d06_probe",
+      "to": "src.graph.snapshot",
+      "line": 14,
+      "symbol": "load_export"
+    },
+    {
+      "from": "src.graph.d06_probe",
+      "to": "src.graph.snapshot",
+      "line": 14,
+      "symbol": "freshness"
+    },
+    {
+      "from": "src.graph.d06_probe",
+      "to": "src.metadata.movie_lookup",
+      "line": 15,
+      "symbol": "validate_movies"
+    },
+    {
+      "from": "src.graph.snapshot",
+      "to": "src.graph.equivalence",
+      "line": 11,
+      "symbol": "checksum"
+    },
+    {
+      "from": "src.graph.snapshot",
+      "to": "src.graph.equivalence",
+      "line": 11,
+      "symbol": "incremental_state"
+    },
+    {
+      "from": "src.graph.snapshot",
+      "to": "src.graph.full_builder",
+      "line": 12,
+      "symbol": "file_sha256"
+    },
+    {
+      "from": "src.graph.snapshot",
+      "to": "src.graph.normalize",
+      "line": 13,
+      "symbol": "ATOL"
+    },
+    {
+      "from": "src.graph.snapshot",
+      "to": "src.graph.normalize",
+      "line": 13,
+      "symbol": "SparseAdjacency"
+    },
+    {
+      "from": "src.graph.snapshot",
+      "to": "src.graph.normalize",
+      "line": 13,
+      "symbol": "normalize_state"
+    },
+    {
+      "from": "src.metadata.movie_lookup",
+      "to": "src.graph.full_builder",
+      "line": 7,
+      "symbol": "file_sha256"
+    },
+    {
+      "from": "src.models.d07_probe",
+      "to": "src.graph.equivalence",
+      "line": 19,
+      "symbol": "checksum"
+    },
+    {
+      "from": "src.models.d07_probe",
+      "to": "src.graph.equivalence",
+      "line": 19,
+      "symbol": "full_state"
+    },
+    {
+      "from": "src.models.d07_probe",
+      "to": "src.graph.full_builder",
+      "line": 20,
+      "symbol": "file_sha256"
+    },
+    {
+      "from": "src.models.d07_probe",
+      "to": "src.graph.full_builder",
+      "line": 20,
+      "symbol": "rebuild"
+    },
+    {
+      "from": "src.models.d07_probe",
+      "to": "src.graph.normalize",
+      "line": 21,
+      "symbol": "normalize_state"
+    },
+    {
+      "from": "src.models.d07_probe",
+      "to": "src.graph.snapshot",
+      "line": 22,
+      "symbol": "load_export"
+    },
+    {
+      "from": "src.models.d07_probe",
+      "to": "src.models.lightgcn",
+      "line": 23,
+      "symbol": "LightGCN"
+    },
+    {
+      "from": "src.models.d07_probe",
+      "to": "src.models.lightgcn",
+      "line": 23,
+      "symbol": "pairwise_loss"
+    },
+    {
+      "from": "src.models.d07_probe",
+      "to": "src.models.lightgcn",
+      "line": 23,
+      "symbol": "to_sparse_tensor"
+    },
+    {
+      "from": "src.models.d08_baseline",
+      "to": "src.evaluation.temporal",
+      "line": 14,
+      "symbol": "cutoff_cohort"
+    },
+    {
+      "from": "src.models.d08_baseline",
+      "to": "src.evaluation.temporal",
+      "line": 14,
+      "symbol": "evaluate_topk"
+    },
+    {
+      "from": "src.models.d08_baseline",
+      "to": "src.evaluation.temporal",
+      "line": 14,
+      "symbol": "score_chunks"
+    },
+    {
+      "from": "src.models.d08_baseline",
+      "to": "src.evaluation.temporal",
+      "line": 14,
+      "symbol": "split_events"
+    },
+    {
+      "from": "src.models.d08_baseline",
+      "to": "src.graph.equivalence",
+      "line": 15,
+      "symbol": "compare_states"
+    },
+    {
+      "from": "src.models.d08_baseline",
+      "to": "src.graph.equivalence",
+      "line": 15,
+      "symbol": "full_state"
+    },
+    {
+      "from": "src.models.d08_baseline",
+      "to": "src.graph.equivalence",
+      "line": 15,
+      "symbol": "incremental_state"
+    },
+    {
+      "from": "src.models.d08_baseline",
+      "to": "src.graph.full_builder",
+      "line": 16,
+      "symbol": "file_sha256"
+    },
+    {
+      "from": "src.models.d08_baseline",
+      "to": "src.graph.full_builder",
+      "line": 16,
+      "symbol": "rebuild"
+    },
+    {
+      "from": "src.models.d08_baseline",
+      "to": "src.graph.incremental",
+      "line": 17,
+      "symbol": "IncrementalGraph"
+    },
+    {
+      "from": "src.models.d08_baseline",
+      "to": "src.graph.normalize",
+      "line": 18,
+      "symbol": "normalize_state"
+    },
+    {
+      "from": "src.models.d08_baseline",
+      "to": "src.models.lightgcn",
+      "line": 19,
+      "symbol": "LightGCN"
+    },
+    {
+      "from": "src.models.d08_baseline",
+      "to": "src.models.lightgcn",
+      "line": 19,
+      "symbol": "pairwise_loss"
+    },
+    {
+      "from": "src.models.d08_baseline",
+      "to": "src.models.lightgcn",
+      "line": 19,
+      "symbol": "to_sparse_tensor"
+    },
+    {
+      "from": "src.models.d09_pipeline",
+      "to": "src.graph.full_builder",
+      "line": 8,
+      "symbol": "file_sha256"
+    },
+    {
+      "from": "src.models.d09_pipeline",
+      "to": "src.metadata.movie_lookup",
+      "line": 9,
+      "symbol": "enrich_topk"
+    },
+    {
+      "from": "src.models.d09_pipeline",
+      "to": "src.metadata.movie_lookup",
+      "line": 9,
+      "symbol": "load_movies"
+    },
+    {
+      "from": "src.models.d09_pipeline",
+      "to": "src.models.d08_baseline",
+      "line": 10,
+      "symbol": "ROOT"
+    },
+    {
+      "from": "src.models.d09_pipeline",
+      "to": "src.models.d08_baseline",
+      "line": 10,
+      "symbol": "run"
+    },
+    {
+      "from": "src.models.d09_pipeline",
+      "to": "src.evaluation.temporal",
+      "line": 27,
+      "symbol": "evaluate_topk"
+    },
+    {
+      "from": "src.models.d09_pipeline",
+      "to": "src.models.d08_baseline",
+      "line": 28,
+      "symbol": "load_events"
+    },
+    {
+      "from": "src.models.d09_pipeline",
+      "to": "src.models.d08_baseline",
+      "line": 28,
+      "symbol": "choose_cutoffs"
+    },
+    {
+      "from": "src.models.d09_pipeline",
+      "to": "src.evaluation.temporal",
+      "line": 29,
+      "symbol": "split_events"
+    },
+    {
+      "from": "src.models.d09_pipeline",
+      "to": "src.evaluation.temporal",
+      "line": 29,
+      "symbol": "cutoff_cohort"
+    },
+    {
+      "from": "src.models.d10_demo",
+      "to": "src.graph.full_builder",
+      "line": 6,
+      "symbol": "file_sha256"
+    },
+    {
+      "from": "src.models.d10_mvp",
+      "to": "src.graph.full_builder",
+      "line": 13,
+      "symbol": "file_sha256"
+    },
+    {
+      "from": "src.models.d10_mvp",
+      "to": "src.ingest.d02_profile",
+      "line": 14,
+      "symbol": "run"
+    },
+    {
+      "from": "src.models.d10_mvp",
+      "to": "src.models.d09_pipeline",
+      "line": 15,
+      "symbol": "run"
+    },
+    {
+      "from": "src.models.d10_mvp",
+      "to": "src.models.d08_baseline",
+      "line": 16,
+      "symbol": "ROOT"
+    },
+    {
+      "from": "src.models.lightgcn",
+      "to": "src.graph.normalize",
+      "line": 7,
+      "symbol": "SparseAdjacency"
+    },
+    {
+      "from": "src.models.rec01_demo",
+      "to": "src.models.rec01_inference",
+      "line": 13,
+      "symbol": "load_rec01_inference"
+    },
+    {
+      "from": "src.models.rec01_inference",
+      "to": "src.evaluation.temporal",
+      "line": 16,
+      "symbol": "score_chunks"
+    },
+    {
+      "from": "src.models.rec01_inference",
+      "to": "src.evaluation.checkpoint_selection",
+      "line": 17,
+      "symbol": "select_checkpoint"
+    },
+    {
+      "from": "src.models.rec01_inference",
+      "to": "src.graph.full_builder",
+      "line": 18,
+      "symbol": "file_sha256"
+    },
+    {
+      "from": "src.models.rec01_inference",
+      "to": "src.graph.snapshot",
+      "line": 19,
+      "symbol": "load_export"
+    },
+    {
+      "from": "src.models.rec01_inference",
+      "to": "src.metadata.movie_lookup",
+      "line": 20,
+      "symbol": "enrich_topk"
+    },
+    {
+      "from": "src.models.rec01_inference",
+      "to": "src.metadata.movie_lookup",
+      "line": 20,
+      "symbol": "load_movies"
+    },
+    {
+      "from": "src.models.rec01_inference",
+      "to": "src.models.lightgcn",
+      "line": 21,
+      "symbol": "LightGCN"
+    },
+    {
+      "from": "src.models.rec01_inference",
+      "to": "src.models.lightgcn",
+      "line": 21,
+      "symbol": "to_sparse_tensor"
+    },
+    {
+      "from": "src.models.rec01_train",
+      "to": "src.evaluation.checkpoint_selection",
+      "line": 26,
+      "symbol": "select_checkpoint"
+    },
+    {
+      "from": "src.models.rec01_train",
+      "to": "src.evaluation.rec01",
+      "line": 27,
+      "symbol": "compare_recommenders"
+    },
+    {
+      "from": "src.models.rec01_train",
+      "to": "src.graph.full_builder",
+      "line": 28,
+      "symbol": "file_sha256"
+    },
+    {
+      "from": "src.models.rec01_train",
+      "to": "src.graph.incremental",
+      "line": 29,
+      "symbol": "IncrementalGraph"
+    },
+    {
+      "from": "src.models.rec01_train",
+      "to": "src.graph.normalize",
+      "line": 30,
+      "symbol": "compare_adjacency"
+    },
+    {
+      "from": "src.models.rec01_train",
+      "to": "src.graph.snapshot",
+      "line": 31,
+      "symbol": "export_snapshot"
+    },
+    {
+      "from": "src.models.rec01_train",
+      "to": "src.graph.snapshot",
+      "line": 31,
+      "symbol": "load_export"
+    },
+    {
+      "from": "src.models.rec01_train",
+      "to": "src.graph.snapshot",
+      "line": 31,
+      "symbol": "materialize_normalized"
+    },
+    {
+      "from": "src.models.rec01_train",
+      "to": "src.models.d08_baseline",
+      "line": 32,
+      "symbol": "ROOT"
+    },
+    {
+      "from": "src.models.rec01_train",
+      "to": "src.models.d08_baseline",
+      "line": 32,
+      "symbol": "incremental_train_graph"
+    },
+    {
+      "from": "src.models.rec01_train",
+      "to": "src.models.lightgcn",
+      "line": 33,
+      "symbol": "LightGCN"
+    },
+    {
+      "from": "src.models.rec01_train",
+      "to": "src.models.lightgcn",
+      "line": 33,
+      "symbol": "pairwise_loss"
+    },
+    {
+      "from": "src.models.rec01_train",
+      "to": "src.models.lightgcn",
+      "line": 33,
+      "symbol": "to_sparse_tensor"
+    },
+    {
+      "from": "tests.test_checkpoint_selection",
+      "to": "src.evaluation.checkpoint_selection",
+      "line": 5,
+      "symbol": "select_checkpoint"
+    },
+    {
+      "from": "tests.test_d09_pipeline",
+      "to": "src.evaluation.temporal",
+      "line": 7,
+      "symbol": "score_chunks"
+    },
+    {
+      "from": "tests.test_d09_pipeline",
+      "to": "src.metadata.movie_lookup",
+      "line": 8,
+      "symbol": "enrich_topk"
+    },
+    {
+      "from": "tests.test_d09_pipeline",
+      "to": "src.metadata.movie_lookup",
+      "line": 8,
+      "symbol": "load_movies"
+    },
+    {
+      "from": "tests.test_d10_mvp",
+      "to": "src.models.d10_mvp",
+      "line": 10,
+      "symbol": "run"
+    },
+    {
+      "from": "tests.test_equivalence",
+      "to": "src.graph.equivalence",
+      "line": 9,
+      "symbol": "compare_states"
+    },
+    {
+      "from": "tests.test_equivalence",
+      "to": "src.graph.full_builder",
+      "line": 10,
+      "symbol": "rebuild"
+    },
+    {
+      "from": "tests.test_exp01",
+      "to": "src.benchmarking.exp01",
+      "line": 9,
+      "symbol": "case_inputs"
+    },
+    {
+      "from": "tests.test_exp01",
+      "to": "src.benchmarking.exp01",
+      "line": 9,
+      "symbol": "prepare_history"
+    },
+    {
+      "from": "tests.test_exp01",
+      "to": "src.benchmarking.exp01",
+      "line": 9,
+      "symbol": "run_pilot"
+    },
+    {
+      "from": "tests.test_exp01",
+      "to": "src.benchmarking.exp01",
+      "line": 9,
+      "symbol": "worker"
+    },
+    {
+      "from": "tests.test_exp01",
+      "to": "src.benchmarking.exp01_analysis",
+      "line": 10,
+      "symbol": "summarize"
+    },
+    {
+      "from": "tests.test_exp01",
+      "to": "src.graph.equivalence",
+      "line": 11,
+      "symbol": "compare_states"
+    },
+    {
+      "from": "tests.test_exp01",
+      "to": "src.graph.equivalence",
+      "line": 11,
+      "symbol": "full_state"
+    },
+    {
+      "from": "tests.test_exp02",
+      "to": "src.benchmarking.exp02",
+      "line": 8,
+      "symbol": "compare_common"
+    },
+    {
+      "from": "tests.test_exp02",
+      "to": "src.benchmarking.exp02",
+      "line": 8,
+      "symbol": "prepare_batches"
+    },
+    {
+      "from": "tests.test_exp02",
+      "to": "src.benchmarking.exp02",
+      "line": 8,
+      "symbol": "worker"
+    },
+    {
+      "from": "tests.test_gpu_feasibility_probe",
+      "to": "scripts.gpu_feasibility_probe",
+      "line": 10,
+      "symbol": "_cpu_memory_snapshot"
+    },
+    {
+      "from": "tests.test_gpu_feasibility_probe",
+      "to": "scripts.gpu_feasibility_probe",
+      "line": 10,
+      "symbol": "run"
+    },
+    {
+      "from": "tests.test_lightgcn",
+      "to": "src.models.d07_probe",
+      "line": 11,
+      "symbol": "run_case"
+    },
+    {
+      "from": "tests.test_lightgcn",
+      "to": "src.models.d07_probe",
+      "line": 11,
+      "symbol": "sample_triples"
+    },
+    {
+      "from": "tests.test_lightgcn",
+      "to": "src.models.d07_probe",
+      "line": 11,
+      "symbol": "toy"
+    },
+    {
+      "from": "tests.test_lightgcn",
+      "to": "src.models.d07_probe",
+      "line": 11,
+      "symbol": "write_report"
+    },
+    {
+      "from": "tests.test_lightgcn",
+      "to": "src.models.lightgcn",
+      "line": 12,
+      "symbol": "LightGCN"
+    },
+    {
+      "from": "tests.test_lightgcn",
+      "to": "src.models.lightgcn",
+      "line": 12,
+      "symbol": "pairwise_loss"
+    },
+    {
+      "from": "tests.test_lightgcn",
+      "to": "src.models.lightgcn",
+      "line": 12,
+      "symbol": "to_sparse_tensor"
+    },
+    {
+      "from": "tests.test_model_cohort",
+      "to": "src.evaluation.model_cohort",
+      "line": 10,
+      "symbol": "prepare_cohorts"
+    },
+    {
+      "from": "tests.test_movie_validation",
+      "to": "src.metadata.movie_lookup",
+      "line": 9,
+      "symbol": "validate_movies"
+    },
+    {
+      "from": "tests.test_normalization",
+      "to": "src.graph.normalize",
+      "line": 7,
+      "symbol": "ATOL"
+    },
+    {
+      "from": "tests.test_normalization",
+      "to": "src.graph.normalize",
+      "line": 7,
+      "symbol": "SparseAdjacency"
+    },
+    {
+      "from": "tests.test_normalization",
+      "to": "src.graph.normalize",
+      "line": 7,
+      "symbol": "compare_adjacency"
+    },
+    {
+      "from": "tests.test_normalization",
+      "to": "src.graph.normalize",
+      "line": 7,
+      "symbol": "normalize_state"
+    },
+    {
+      "from": "tests.test_popularity_baseline",
+      "to": "src.evaluation.baselines",
+      "line": 4,
+      "symbol": "popularity_topk"
+    },
+    {
+      "from": "tests.test_popularity_baseline",
+      "to": "src.evaluation.temporal",
+      "line": 5,
+      "symbol": "evaluate_topk"
+    },
+    {
+      "from": "tests.test_prepare_kaggle_feasibility",
+      "to": "scripts.kaggle_feasibility_runner",
+      "line": 8,
+      "symbol": "load_probe_plan"
+    },
+    {
+      "from": "tests.test_prepare_kaggle_feasibility",
+      "to": "scripts.kaggle_feasibility_runner",
+      "line": 8,
+      "symbol": "verify_mounted_files"
+    },
+    {
+      "from": "tests.test_prepare_kaggle_feasibility",
+      "to": "scripts.prepare_kaggle_feasibility",
+      "line": 9,
+      "symbol": "prepare"
+    },
+    {
+      "from": "tests.test_prepare_kaggle_feasibility",
+      "to": "scripts.prepare_kaggle_feasibility",
+      "line": 9,
+      "symbol": "sha256"
+    },
+    {
+      "from": "tests.test_rec01_evaluator",
+      "to": "src.evaluation.baselines",
+      "line": 7,
+      "symbol": "popularity_topk"
+    },
+    {
+      "from": "tests.test_rec01_evaluator",
+      "to": "src.evaluation.rec01",
+      "line": 8,
+      "symbol": "compare_recommenders"
+    },
+    {
+      "from": "tests.test_rec01_evaluator",
+      "to": "src.evaluation.temporal",
+      "line": 9,
+      "symbol": "evaluate_topk"
+    },
+    {
+      "from": "tests.test_rec01_evaluator",
+      "to": "src.evaluation.temporal",
+      "line": 9,
+      "symbol": "score_chunks"
+    },
+    {
+      "from": "tests.test_rec01_inference",
+      "to": "src.graph.full_builder",
+      "line": 11,
+      "symbol": "file_sha256"
+    },
+    {
+      "from": "tests.test_rec01_inference",
+      "to": "src.models.rec01_inference",
+      "line": 12,
+      "symbol": "load_rec01_inference"
+    },
+    {
+      "from": "tests.test_rec01_inference",
+      "to": "src.models.rec01_train",
+      "line": 13,
+      "symbol": "Protocol"
+    },
+    {
+      "from": "tests.test_rec01_inference",
+      "to": "src.models.rec01_train",
+      "line": 13,
+      "symbol": "run"
+    },
+    {
+      "from": "tests.test_rec01_kaggle_prep",
+      "to": "scripts.rec01_kaggle_prep",
+      "line": 10,
+      "symbol": "inspect_source"
+    },
+    {
+      "from": "tests.test_rec01_kaggle_prep",
+      "to": "scripts.rec01_kaggle_prep",
+      "line": 10,
+      "symbol": "seal_output"
+    },
+    {
+      "from": "tests.test_rec01_kaggle_prep",
+      "to": "scripts.rec01_kaggle_prep",
+      "line": 10,
+      "symbol": "sha256"
+    },
+    {
+      "from": "tests.test_rec01_kaggle_prep",
+      "to": "scripts.rec01_kaggle_prep",
+      "line": 10,
+      "symbol": "verify_output"
+    },
+    {
+      "from": "tests.test_rec01_kaggle_prep",
+      "to": "scripts.rec01_kaggle_prep",
+      "line": 10,
+      "symbol": "write_source_zip"
+    },
+    {
+      "from": "tests.test_rec01_train",
+      "to": "src.evaluation.checkpoint_selection",
+      "line": 12,
+      "symbol": "select_checkpoint"
+    },
+    {
+      "from": "tests.test_rec01_train",
+      "to": "src.evaluation.rec01",
+      "line": 13,
+      "symbol": "compare_recommenders"
+    },
+    {
+      "from": "tests.test_rec01_train",
+      "to": "src.graph.full_builder",
+      "line": 14,
+      "symbol": "file_sha256"
+    },
+    {
+      "from": "tests.test_rec01_train",
+      "to": "src.models.d08_baseline",
+      "line": 15,
+      "symbol": "sample_batches"
+    },
+    {
+      "from": "tests.test_rec01_train",
+      "to": "src.models.rec01_train",
+      "line": 16,
+      "symbol": "Protocol"
+    },
+    {
+      "from": "tests.test_rec01_train",
+      "to": "src.models.rec01_train",
+      "line": 16,
+      "symbol": "_load_partition"
+    },
+    {
+      "from": "tests.test_rec01_train",
+      "to": "src.models.rec01_train",
+      "line": 16,
+      "symbol": "_sample_batches"
+    },
+    {
+      "from": "tests.test_rec01_train",
+      "to": "src.models.rec01_train",
+      "line": 16,
+      "symbol": "run"
+    },
+    {
+      "from": "tests.test_s02_probe",
+      "to": "src.evaluation.s02_probe",
+      "line": 9,
+      "symbol": "s02_probe"
+    },
+    {
+      "from": "tests.test_s09_view",
+      "to": "src.app.rec01_view",
+      "line": 8,
+      "symbol": "train_catalog"
+    },
+    {
+      "from": "tests.test_s09_view",
+      "to": "src.app.rec01_view",
+      "line": 8,
+      "symbol": "train_history"
+    },
+    {
+      "from": "tests.test_s09_view",
+      "to": "src.app.rec01_view",
+      "line": 8,
+      "symbol": "verify_history_source"
+    },
+    {
+      "from": "tests.test_s09_view",
+      "to": "src.graph.full_builder",
+      "line": 9,
+      "symbol": "file_sha256"
+    },
+    {
+      "from": "tests.test_s10_feedback",
+      "to": "src.app.feedback",
+      "line": 11,
+      "symbol": "FeedbackStore"
+    },
+    {
+      "from": "tests.test_s10_feedback",
+      "to": "src.app.rec01_view",
+      "line": 12,
+      "symbol": "train_rated_ids"
+    },
+    {
+      "from": "tests.test_s10_feedback",
+      "to": "src.graph.full_builder",
+      "line": 13,
+      "symbol": "file_sha256"
+    },
+    {
+      "from": "tests.test_s10_feedback",
+      "to": "src.models.rec01_inference",
+      "line": 14,
+      "symbol": "load_rec01_inference"
+    },
+    {
+      "from": "tests.test_s11_feedback_failures",
+      "to": "src.app.feedback",
+      "line": 10,
+      "symbol": "FeedbackStore"
+    },
+    {
+      "from": "tests.test_s11_feedback_failures",
+      "to": "src.app.rec01_view",
+      "line": 11,
+      "symbol": "train_rated_ids"
+    },
+    {
+      "from": "tests.test_s11_feedback_failures",
+      "to": "src.graph.incremental",
+      "line": 12,
+      "symbol": "IncrementalGraph"
+    },
+    {
+      "from": "tests.test_s11_feedback_failures",
+      "to": "src.graph.snapshot",
+      "line": 13,
+      "symbol": "canonical_status"
+    },
+    {
+      "from": "tests.test_snapshots",
+      "to": "src.graph.incremental",
+      "line": 8,
+      "symbol": "IncrementalGraph"
+    },
+    {
+      "from": "tests.test_snapshots",
+      "to": "src.graph.snapshot",
+      "line": 9,
+      "symbol": "materialize_normalized"
+    },
+    {
+      "from": "tests.test_snapshots",
+      "to": "src.graph.snapshot",
+      "line": 9,
+      "symbol": "load_snapshot"
+    },
+    {
+      "from": "tests.test_snapshots",
+      "to": "src.graph.snapshot",
+      "line": 9,
+      "symbol": "export_snapshot"
+    },
+    {
+      "from": "tests.test_snapshots",
+      "to": "src.graph.snapshot",
+      "line": 9,
+      "symbol": "load_export"
+    },
+    {
+      "from": "tests.test_snapshots",
+      "to": "src.graph.snapshot",
+      "line": 9,
+      "symbol": "freshness"
+    },
+    {
+      "from": "tests.test_temporal_leakage",
+      "to": "src.evaluation.temporal",
+      "line": 8,
+      "symbol": "cutoff_cohort"
+    },
+    {
+      "from": "tests.test_temporal_leakage",
+      "to": "src.evaluation.temporal",
+      "line": 8,
+      "symbol": "evaluate_topk"
+    },
+    {
+      "from": "tests.test_temporal_leakage",
+      "to": "src.evaluation.temporal",
+      "line": 8,
+      "symbol": "score_chunks"
+    },
+    {
+      "from": "tests.test_temporal_leakage",
+      "to": "src.evaluation.temporal",
+      "line": 8,
+      "symbol": "split_events"
+    },
+    {
+      "from": "tests.test_temporal_leakage",
+      "to": "src.models.d08_baseline",
+      "line": 9,
+      "symbol": "choose_cutoffs"
+    },
+    {
+      "from": "tests.test_temporal_leakage",
+      "to": "src.models.d08_baseline",
+      "line": 9,
+      "symbol": "train_only_graph"
+    },
+    {
+      "from": "tests.test_temporal_leakage",
+      "to": "src.models.d08_baseline",
+      "line": 9,
+      "symbol": "sample_batches"
+    },
+    {
+      "from": "tests.test_temporal_profile",
+      "to": "src.ingest.temporal_profile",
+      "line": 8,
+      "symbol": "profile"
+    },
+    {
+      "from": "tests.test_temporal_profile",
+      "to": "src.ingest.temporal_profile",
+      "line": 8,
+      "symbol": "utc_second"
+    }
+  ],
+  "dynamic_imports": [
+    {
+      "path": "tests/test_d02.py",
+      "line": 11,
+      "call": "importlib.util.spec_from_file_location('d02_profile', MODULE)"
+    },
+    {
+      "path": "tests/test_full_builder.py",
+      "line": 11,
+      "call": "importlib.util.spec_from_file_location('full_builder', MODULE)"
+    },
+    {
+      "path": "tests/test_incremental.py",
+      "line": 10,
+      "call": "importlib.util.spec_from_file_location('incremental', Path(__file__).resolve().parents[1] / 'src/graph/incremental.py')"
+    }
+  ],
+  "static_cycles": [],
+  "markdown": [
+    {
+      "path": "AGENTS.md",
+      "lines": 19,
+      "title": "# BigDataProject v2.0 — working instructions",
+      "s12_frozen": false
+    },
+    {
+      "path": "README.md",
+      "lines": 34,
+      "title": "# BigDataProject v2.0",
+      "s12_frozen": false
+    },
+    {
+      "path": "docs/01-project-overview.md",
+      "lines": 154,
+      "title": "# 01 — Tổng quan và đặc tả đề tài",
+      "s12_frozen": false
+    },
+    {
+      "path": "docs/02-research-journal.md",
+      "lines": 125,
+      "title": "# 02 — Nhật ký tìm hiểu và nghiên cứu",
+      "s12_frozen": false
+    },
+    {
+      "path": "docs/03-system-design.md",
+      "lines": 355,
+      "title": "# 03 — Kiến trúc nghiên cứu v2.0",
+      "s12_frozen": false
+    },
+    {
+      "path": "docs/04-project-plan.md",
+      "lines": 135,
+      "title": "# 04 — Kế hoạch triển khai BigDataProject trong 21 ngày",
+      "s12_frozen": false
+    },
+    {
+      "path": "docs/05-work-log.md",
+      "lines": 192,
+      "title": "# 05 — Nhật ký làm việc hằng ngày",
+      "s12_frozen": false
+    },
+    {
+      "path": "docs/06-decisions-and-risks.md",
+      "lines": 126,
+      "title": "# 06 — Nhật ký quyết định kiến trúc (ADR) và quản lý rủi ro",
+      "s12_frozen": false
+    },
+    {
+      "path": "docs/07-experiment-log.md",
+      "lines": 224,
+      "title": "# 07 — Sổ thực nghiệm, protocol và kết quả benchmark",
+      "s12_frozen": false
+    },
+    {
+      "path": "docs/08-final-report-outline.md",
+      "lines": 169,
+      "title": "# 08 — Khung báo cáo cuối kỳ, bằng chứng, tài liệu tham khảo và bảo vệ",
+      "s12_frozen": false
+    },
+    {
+      "path": "docs/08-report-notes.md",
+      "lines": 90,
+      "title": "# 08 — Ghi chú tích lũy cho báo cáo học phần",
+      "s12_frozen": false
+    },
+    {
+      "path": "docs/09-report-evidence.md",
+      "lines": 86,
+      "title": "# 09 — Ma trận bằng chứng cho báo cáo",
+      "s12_frozen": false
+    },
+    {
+      "path": "docs/10-direction-update-v1.md",
+      "lines": 253,
+      "title": "# BigDataProject — Project Direction Update v1.0",
+      "s12_frozen": false
+    },
+    {
+      "path": "docs/11-sprint14-plan.md",
+      "lines": 43,
+      "title": "# Kế hoạch S01–S14 theo định hướng v1.0",
+      "s12_frozen": false
+    },
+    {
+      "path": "docs/CHANGELOG-2026-11-10.md",
+      "lines": 33,
+      "title": "# BigDataProject — Tóm tắt cập nhật tài liệu (10/11/2026)",
+      "s12_frozen": false
+    },
+    {
+      "path": "docs/architecture-audit-v2.md",
+      "lines": 62,
+      "title": "# v2.0 architecture audit and migration record",
+      "s12_frozen": false
+    },
+    {
+      "path": "docs/archive/04-project-plan-7weeks-archived.md",
+      "lines": 185,
+      "title": "# 04 — Kế hoạch 7 tuần, deadline chi tiết và nghiệm thu",
+      "s12_frozen": false
+    },
+    {
+      "path": "docs/archive/README.md",
+      "lines": 3,
+      "title": "# Kế hoạch lưu trữ",
+      "s12_frozen": false
+    },
+    {
+      "path": "docs/d02-data-profile.md",
+      "lines": 43,
+      "title": "# D02 — Profile ratings và canonical prefix",
+      "s12_frozen": false
+    },
+    {
+      "path": "docs/d03-full-reference.md",
+      "lines": 37,
+      "title": "# D03 — Positive rule và Full Rebuild reference",
+      "s12_frozen": false
+    },
+    {
+      "path": "docs/d04-incremental.md",
+      "lines": 59,
+      "title": "# D04 — Stateful apply_batch và batch ledger",
+      "s12_frozen": false
+    },
+    {
+      "path": "docs/d05-equivalence.md",
+      "lines": 62,
+      "title": "# D05 — Exact Full/Incremental equivalence và G1",
+      "s12_frozen": false
+    },
+    {
+      "path": "docs/d06-normalization.md",
+      "lines": 70,
+      "title": "# D06 — Sparse normalization, model graph versions và metadata validation",
+      "s12_frozen": false
+    },
+    {
+      "path": "docs/d07-lightgcn-smoke.md",
+      "lines": 53,
+      "title": "# D07 — LightGCN sparse CUDA smoke và hồ sơ bộ nhớ",
+      "s12_frozen": false
+    },
+    {
+      "path": "docs/d08-temporal-baseline.md",
+      "lines": 20,
+      "title": "# D08 — Temporal split và LightGCN baseline",
+      "s12_frozen": false
+    },
+    {
+      "path": "docs/d09-end-to-end.md",
+      "lines": 22,
+      "title": "# D09 — Incremental graph đến metadata Top-K",
+      "s12_frozen": false
+    },
+    {
+      "path": "docs/d10-mvp.md",
+      "lines": 33,
+      "title": "# D10 — Clean rerun và MVP gate G3",
+      "s12_frozen": false
+    },
+    {
+      "path": "docs/d11-exp01-pilot.md",
+      "lines": 33,
+      "title": "# D11 — EXP-01 pilot harness",
+      "s12_frozen": false
+    },
+    {
+      "path": "docs/d12-exp01-results.md",
+      "lines": 48,
+      "title": "# D12 — EXP-01 repetitions và phân tích crossover",
+      "s12_frozen": false
+    },
+    {
+      "path": "docs/d13-exp02-results.md",
+      "lines": 48,
+      "title": "# D13 — EXP-02: chu kỳ chuẩn hóa R=1 và R=5",
+      "s12_frozen": false
+    },
+    {
+      "path": "docs/environment.md",
+      "lines": 45,
+      "title": "# D01 — Môi trường và kiểm tra khả thi ban đầu",
+      "s12_frozen": false
+    },
+    {
+      "path": "docs/final-report.md",
+      "lines": 146,
+      "title": "# Xây dựng hệ thống gợi ý phim cá nhân hóa sử dụng LightGCN kết hợp pipeline xử lý dữ liệu lớn và cập nhật đồ thị tăng dần",
+      "s12_frozen": true
+    },
+    {
+      "path": "docs/gpu-feasibility-v2.md",
+      "lines": 95,
+      "title": "# GPU feasibility và LightGCN workload selection (v2)",
+      "s12_frozen": false
+    },
+    {
+      "path": "docs/report-assets/README.md",
+      "lines": 21,
+      "title": "# Report assets",
+      "s12_frozen": false
+    },
+    {
+      "path": "docs/s01-evaluation-spec.md",
+      "lines": 48,
+      "title": "# S01 — Kiểm kê và giao thức đánh giá REC-01",
+      "s12_frozen": false
+    },
+    {
+      "path": "docs/s02-validation-smoke.md",
+      "lines": 28,
+      "title": "# S02 — Evaluator Top-20 và validation-only smoke",
+      "s12_frozen": false
+    },
+    {
+      "path": "docs/s03-kaggle-workflow.md",
+      "lines": 102,
+      "title": "# S03 — Chuyển REC-01 sang Kaggle GPU và kiểm chứng artifact",
+      "s12_frozen": false
+    },
+    {
+      "path": "docs/s04-rec01-results.md",
+      "lines": 36,
+      "title": "# S04 — REC-01: LightGCN và Popularity trên MovieLens 1M",
+      "s12_frozen": false
+    },
+    {
+      "path": "docs/s05-recommendation-pipeline.md",
+      "lines": 29,
+      "title": "# S05 — Top-20 inference từ REC-01 checkpoint",
+      "s12_frozen": false
+    },
+    {
+      "path": "docs/s06-exp01-audit.md",
+      "lines": 28,
+      "title": "# S06 — Kiểm kê EXP-01 để tái dùng raw benchmark D12",
+      "s12_frozen": false
+    },
+    {
+      "path": "docs/s07-exp01-engineering-conclusions.md",
+      "lines": 43,
+      "title": "# S07 — Phân tích scalability EXP-01 và gate Engineering",
+      "s12_frozen": false
+    },
+    {
+      "path": "docs/s09-streamlit-mvp.md",
+      "lines": 28,
+      "title": "# S09 — Streamlit recommendation MVP",
+      "s12_frozen": false
+    },
+    {
+      "path": "docs/s10-rating-graph-refresh.md",
+      "lines": 23,
+      "title": "# S10 — Rating và cập nhật graph demo",
+      "s12_frozen": false
+    },
+    {
+      "path": "docs/s11-integration-scaling.md",
+      "lines": 40,
+      "title": "# S11 — Integration, failure paths và scale demo",
+      "s12_frozen": false
+    },
+    {
+      "path": "docs/s12-reproducibility.md",
+      "lines": 42,
+      "title": "# S12 — Báo cáo, environment và artifact freeze candidate",
+      "s12_frozen": false
+    },
+    {
+      "path": "docs/s13-defense-qa.md",
+      "lines": 43,
+      "title": "# S13 — Bảo vệ MovieGraph",
+      "s12_frozen": false
+    },
+    {
+      "path": "docs/s14-submission.md",
+      "lines": 14,
+      "title": "# S14 — Final QA và gói nộp",
+      "s12_frozen": false
+    },
+    {
+      "path": "docs/source-manifest.md",
+      "lines": 22,
+      "title": "# D01 — MovieLens 32M source manifest",
+      "s12_frozen": false
+    },
+    {
+      "path": "docs/temporal-profile-v2.md",
+      "lines": 64,
+      "title": "# MovieLens 32M temporal profile và cutoff feasibility (v2)",
+      "s12_frozen": false
+    }
+  ],
+  "missing_link_files": [
+    {
+      "source": "docs/archive/04-project-plan-7weeks-archived.md",
+      "target": "05-work-log.md",
+      "line": 12
+    },
+    {
+      "source": "docs/archive/04-project-plan-7weeks-archived.md",
+      "target": "05-work-log.md",
+      "line": 154
+    },
+    {
+      "source": "docs/archive/04-project-plan-7weeks-archived.md",
+      "target": "06-decisions-and-risks.md",
+      "line": 154
+    },
+    {
+      "source": "docs/archive/04-project-plan-7weeks-archived.md",
+      "target": "07-experiment-log.md",
+      "line": 154
+    },
+    {
+      "source": "docs/archive/04-project-plan-7weeks-archived.md",
+      "target": "05-work-log.md",
+      "line": 185
+    }
+  ],
+  "tree_before": [
+    ".gitattributes",
+    ".gitignore",
+    "AGENTS.md",
+    "README.md",
+    "data/processed/d13_exp02/D13-100k-r1-r5-final/report.json",
+    "docs/01-project-overview.md",
+    "docs/02-research-journal.md",
+    "docs/03-system-design.md",
+    "docs/04-project-plan.md",
+    "docs/05-work-log.md",
+    "docs/06-decisions-and-risks.md",
+    "docs/07-experiment-log.md",
+    "docs/08-final-report-outline.md",
+    "docs/08-report-notes.md",
+    "docs/09-report-evidence.md",
+    "docs/10-direction-update-v1.md",
+    "docs/11-sprint14-plan.md",
+    "docs/Bao-cao-MovieGraph-IUH.docx",
+    "docs/Bao-cao-MovieGraph-IUH.pdf",
+    "docs/CHANGELOG-2026-11-10.md",
+    "docs/MovieGraph-defense.pdf",
+    "docs/architecture-audit-v2.md",
+    "docs/archive/04-project-plan-7weeks-archived.md",
+    "docs/archive/README.md",
+    "docs/d02-data-profile.md",
+    "docs/d03-full-reference.md",
+    "docs/d04-incremental.md",
+    "docs/d05-equivalence.md",
+    "docs/d06-normalization.md",
+    "docs/d07-lightgcn-smoke.md",
+    "docs/d08-temporal-baseline.md",
+    "docs/d09-end-to-end.md",
+    "docs/d10-mvp.md",
+    "docs/d11-exp01-pilot.md",
+    "docs/d12-exp01-results.md",
+    "docs/d13-exp02-results.md",
+    "docs/defense-slides/slide-01.png",
+    "docs/defense-slides/slide-02.png",
+    "docs/defense-slides/slide-03.png",
+    "docs/defense-slides/slide-04.png",
+    "docs/defense-slides/slide-05.png",
+    "docs/defense-slides/slide-06.png",
+    "docs/defense-slides/slide-07.png",
+    "docs/defense-slides/slide-08.png",
+    "docs/defense-slides/slide-09.png",
+    "docs/defense-slides/slide-10.png",
+    "docs/defense-slides/slide-11.png",
+    "docs/defense-slides/slide-12.png",
+    "docs/environment.md",
+    "docs/final-report.md",
+    "docs/gpu-feasibility-v2.md",
+    "docs/report-assets/README.md",
+    "docs/report-assets/d04-batch-flow.mmd",
+    "docs/report-assets/d05-equivalence-flow.mmd",
+    "docs/report-assets/d06-version-flow.mmd",
+    "docs/report-assets/d07-lightgcn-flow.mmd",
+    "docs/report-assets/d09-pipeline.mmd",
+    "docs/report-assets/exp01_bytes.png",
+    "docs/report-assets/exp01_bytes.svg",
+    "docs/report-assets/exp01_crossover.png",
+    "docs/report-assets/exp01_crossover.svg",
+    "docs/report-assets/exp01_latency.png",
+    "docs/report-assets/exp01_latency.svg",
+    "docs/report-assets/exp01_rss.png",
+    "docs/report-assets/exp01_rss.svg",
+    "docs/report-assets/exp01_speedup.png",
+    "docs/report-assets/exp01_speedup.svg",
+    "docs/report-assets/exp02_cost_staleness.png",
+    "docs/report-assets/exp02_cost_staleness.svg",
+    "docs/s01-evaluation-spec.md",
+    "docs/s02-validation-smoke.md",
+    "docs/s03-kaggle-workflow.md",
+    "docs/s04-rec01-results.md",
+    "docs/s05-recommendation-pipeline.md",
+    "docs/s06-exp01-audit.md",
+    "docs/s07-exp01-engineering-conclusions.md",
+    "docs/s09-streamlit-mvp.md",
+    "docs/s10-rating-graph-refresh.md",
+    "docs/s11-integration-scaling.md",
+    "docs/s12-freeze-manifest.json",
+    "docs/s12-reproducibility.md",
+    "docs/s13-defense-qa.md",
+    "docs/s14-submission.md",
+    "docs/source-manifest.md",
+    "docs/temporal-profile-v2.md",
+    "notebooks/rec01_kaggle.ipynb",
+    "requirements-app.txt",
+    "requirements-local-repro.txt",
+    "results/gpu_feasibility_local/2m.json",
+    "results/gpu_feasibility_local/500k.json",
+    "results/gpu_feasibility_local/5m.json",
+    "results/gpu_feasibility_local/summary.csv",
+    "results/gpu_feasibility_t4/2m.json",
+    "results/gpu_feasibility_t4/500k.json",
+    "results/gpu_feasibility_t4/5m.json",
+    "results/gpu_feasibility_t4/kernel_v1.log",
+    "results/gpu_feasibility_t4/kernel_v2.log",
+    "results/gpu_feasibility_t4/summary.csv",
+    "results/gpu_feasibility_t4/summary.json",
+    "results/gpu_feasibility_t4/trajectory_500.json",
+    "results/gpu_feasibility_t4/trajectory_plan.json",
+    "results/gpu_feasibility_t4/trajectory_summary.json",
+    "results/model_cohort_v2_manifest.json",
+    "results/model_cohort_v2_policy_comparison.csv",
+    "results/raw/exp02_normalization.csv",
+    "results/raw/exp02_summary.json",
+    "results/temporal_profile_v2/cutoffs.csv",
+    "results/temporal_profile_v2/manifest.json",
+    "results/temporal_profile_v2/monthly.csv",
+    "results/temporal_profile_v2/yearly.csv",
+    "scripts/audit_exp01_results.py",
+    "scripts/gpu_feasibility_probe.py",
+    "scripts/kaggle_feasibility_runner.py",
+    "scripts/prepare_kaggle_feasibility.py",
+    "scripts/rec01_kaggle_prep.py",
+    "scripts/s11_integration_probe.py",
+    "scripts/s12_build_report_docx.py",
+    "scripts/s12_freeze_manifest.py",
+    "scripts/s14_package.py",
+    "scripts/summarize_gpu_probe.py",
+    "src/app/__init__.py",
+    "src/app/feedback.py",
+    "src/app/rec01_view.py",
+    "src/app/streamlit_app.py",
+    "src/benchmarking/common.py",
+    "src/benchmarking/exp01.py",
+    "src/benchmarking/exp01_analysis.py",
+    "src/benchmarking/exp02.py",
+    "src/benchmarking/exp02_analysis.py",
+    "src/evaluation/baselines.py",
+    "src/evaluation/checkpoint_selection.py",
+    "src/evaluation/model_cohort.py",
+    "src/evaluation/rec01.py",
+    "src/evaluation/s02_probe.py",
+    "src/evaluation/temporal.py",
+    "src/graph/d04_probe.py",
+    "src/graph/d05_probe.py",
+    "src/graph/d06_probe.py",
+    "src/graph/equivalence.py",
+    "src/graph/full_builder.py",
+    "src/graph/incremental.py",
+    "src/graph/normalize.py",
+    "src/graph/snapshot.py",
+    "src/ingest/d02_profile.py",
+    "src/ingest/temporal_profile.py",
+    "src/metadata/movie_lookup.py",
+    "src/models/d07_probe.py",
+    "src/models/d08_baseline.py",
+    "src/models/d09_pipeline.py",
+    "src/models/d10_demo.py",
+    "src/models/d10_mvp.py",
+    "src/models/lightgcn.py",
+    "src/models/rec01_demo.py",
+    "src/models/rec01_inference.py",
+    "src/models/rec01_train.py",
+    "tests/test_checkpoint_selection.py",
+    "tests/test_d02.py",
+    "tests/test_d09_pipeline.py",
+    "tests/test_d10_mvp.py",
+    "tests/test_equivalence.py",
+    "tests/test_exp01.py",
+    "tests/test_exp02.py",
+    "tests/test_full_builder.py",
+    "tests/test_gpu_feasibility_probe.py",
+    "tests/test_incremental.py",
+    "tests/test_lightgcn.py",
+    "tests/test_model_cohort.py",
+    "tests/test_movie_validation.py",
+    "tests/test_normalization.py",
+    "tests/test_popularity_baseline.py",
+    "tests/test_prepare_kaggle_feasibility.py",
+    "tests/test_rec01_evaluator.py",
+    "tests/test_rec01_inference.py",
+    "tests/test_rec01_kaggle_prep.py",
+    "tests/test_rec01_train.py",
+    "tests/test_s02_probe.py",
+    "tests/test_s09_app.py",
+    "tests/test_s09_view.py",
+    "tests/test_s10_feedback.py",
+    "tests/test_s11_feedback_failures.py",
+    "tests/test_snapshots.py",
+    "tests/test_temporal_leakage.py",
+    "tests/test_temporal_profile.py"
+  ]
+}

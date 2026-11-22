@@ -1,5 +1,7 @@
 # D04 — Stateful apply_batch và batch ledger
 
+> **Hồ sơ lịch sử GOAL 03.5:** giữ để truy nguồn quyết định/kết quả cũ. [Phạm vi v2 hiện hành](current/scope-and-decisions.md) · [Tiến độ v2](current/progress-and-evidence.md).
+
 Ngày thực hiện: 19/11/2026 (Asia/Saigon). Mục tiêu: cập nhật canonical graph theo batch, giữ node IDs và ngăn batch replay làm tăng cạnh/degree. Chưa thực hiện kiểm chứng Full/Incremental với nhiều batch segmentation (D05), normalization hoặc benchmark.
 
 ## Phương pháp và implementation

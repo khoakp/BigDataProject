@@ -1,0 +1,44 @@
+{
+  "status": "PASS",
+  "scope": "read-only pre-refactor artifact integrity; no training or benchmark",
+  "rec01": {
+    "bundle": "data\\processed\\rec01_kaggle_bundle_s03",
+    "run": "data\\processed\\rec01_kaggle_runs\\version_3\\rec01_project\\REC01-Kaggle-1M",
+    "verifier": "scripts.rec01_kaggle_prep.verify_output",
+    "sealed_files_verified": 97,
+    "output_manifest_sha256": "2d90dade8ace60466d81e0d44dd0749370276fd959c39dff37c1659392b7ddd1",
+    "input_manifest_sha256": "1a668fc6067fa83620aca5a79b8c87d335f3d109f72acd4c9278d5e8b152b4a6"
+  },
+  "cohort": {
+    "path": "results\\model_cohort_v2_final\\edges_5000000",
+    "files_sha256": {
+      "nodes.parquet": "a2723792903893694cc708b65c85468180064a445dd949e321a24030f7dbb3d7",
+      "edges.parquet": "f697aa05eabab03db6b7bc72980229eeb157a42801c42597d92672df50e857f8",
+      "manifest.json": "10411c083ec8076bf831e4cbf5c8180518fcd557feaa43898142547ced77929e"
+    },
+    "manifest_policy_verified": true,
+    "nodes": {
+      "count": 90253,
+      "distinct_ids": 90253,
+      "min_id": 0,
+      "max_id": 90252,
+      "distinct_typed_raw_keys": 90253,
+      "users": 49587,
+      "movies": 40666,
+      "invalid_raw_ids": 0
+    },
+    "edges": {
+      "count": 4999981,
+      "unique_pairs": 4999981,
+      "min_first_event_ts": 874357760,
+      "max_first_event_ts": 1577836786,
+      "invalid_first_event_ts": 0
+    },
+    "invalid_bipartite_endpoints": 0,
+    "files_unchanged_after_checks": true
+  },
+  "limits": [
+    "No re-derivation from raw 32M CSV; manifest hashes, stored mapping, edges and first-positive timestamps checked.",
+    "No performance or quality result inferred."
+  ]
+}

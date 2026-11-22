@@ -1,5 +1,7 @@
 # S04 — REC-01: LightGCN và Popularity trên MovieLens 1M
 
+> **Hồ sơ lịch sử GOAL 03.5:** giữ để truy nguồn quyết định/kết quả cũ. [Phạm vi v2 hiện hành](current/scope-and-decisions.md) · [Tiến độ v2](current/progress-and-evidence.md).
+
 **Run:** `REC01-Kaggle-1M`, [Kaggle Notebook Version 3](https://www.kaggle.com/code/khoakp/rec01-movielens-1m-gpu-validation?scriptVersionId=372012165), GPU Tesla T4. Dataset là canonical prefix 1.000.000 sự kiện từ MovieLens 32M, SHA-256 `f17048bd7b12bea613387c169c65db6ce67442aa7341314f5e18fba39efcfbae`. Artifact local ở `data/processed/rec01_kaggle_runs/version_3/rec01_project/REC01-Kaggle-1M/`; `verify-output PASS` với bundle S03. Đây là kết quả REC-01 trên prefix 1M, không phải toàn bộ 32M.
 
 ## Giao thức

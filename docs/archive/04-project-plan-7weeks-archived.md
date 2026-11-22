@@ -9,7 +9,7 @@
 
 **Critical path:** Setup + dữ liệu → deterministic replay → Full/Incremental correctness → normalized correctness → GPU LightGCN MVP → experiments → report.
 
-**Mỗi task đạt Done khi:** (1) code/tests hoặc bằng chứng xuất hiện, (2) có log/commit/config liên quan, (3) tiêu chí nghiệm thu cột cuối được thỏa, (4) cập nhật [05 — Work Log](05-work-log.md). Nếu thiếu một điều kiện, ghi `Blocked` hoặc `Partial`, không đánh dấu Done.
+**Mỗi task đạt Done khi:** (1) code/tests hoặc bằng chứng xuất hiện, (2) có log/commit/config liên quan, (3) tiêu chí nghiệm thu cột cuối được thỏa, (4) cập nhật [05 — Work Log](../05-work-log.md). Nếu thiếu một điều kiện, ghi `Blocked` hoặc `Partial`, không đánh dấu Done.
 
 **Trạng thái được phép:** `TODO`, `DOING`, `BLOCKED`, `DONE`, `CANCELLED`. Mỗi task chỉ có một trạng thái tại một thời điểm.
 
@@ -151,7 +151,7 @@ Không tự chọn giờ nộp hoặc hứa rằng ngày nghỉ cũng rảnh; n�
 
 **Trước khi làm (5 phút):** xem task ID → định nghĩa kết quả mong đợi → kiểm tra dependency, timebox.  
 **Trong lúc làm:** commit code, lưu CSV/log vào experiment ID nếu có.  
-**Sau khi làm (10 phút):** ghi [05 — Work Log](05-work-log.md), mark DONE/BLOCKED, nêu vấn đề. Cần thay thiết kế → [06 — DEC/Risk](06-decisions-and-risks.md); có benchmark → [07 — Experiment Log](07-experiment-log.md).
+**Sau khi làm (10 phút):** ghi [05 — Work Log](../05-work-log.md), mark DONE/BLOCKED, nêu vấn đề. Cần thay thiết kế → [06 — DEC/Risk](../06-decisions-and-risks.md); có benchmark → [07 — Experiment Log](../07-experiment-log.md).
 
 ### Mẫu weekly review
 
@@ -182,4 +182,4 @@ Không tự chọn giờ nộp hoặc hứa rằng ngày nghỉ cũng rảnh; n�
 2. **Giảm phạm vi có điều kiện:** EXP-02 chỉ R=1 và R=5, EXP-03 một cutoff và ít seeds (công bố hạn chế rõ).
 3. **Cắt đầu tiên:** web demo, training full32M, Kafka/Spark/Neo4j, compaction ablation, hyperparameter search lớn.
 
-**Ghi chú:** timeboxes không phải số liệu thời gian đã thực hiện. Cập nhật thời gian thực trong [05](05-work-log.md).
+**Ghi chú:** timeboxes không phải số liệu thời gian đã thực hiện. Cập nhật thời gian thực trong [05](../05-work-log.md).

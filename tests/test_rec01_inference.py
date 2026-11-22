@@ -7,6 +7,7 @@ import unittest
 from pathlib import Path
 
 import duckdb
+import torch
 
 from src.graph.full_builder import file_sha256
 from src.models.rec01_inference import load_rec01_inference
@@ -110,15 +111,15 @@ class Rec01InferenceTest(unittest.TestCase):
         self.assertEqual(result["train_seen_movies"], 22)
         self.assertEqual(result["items"], [])
 
-    def test_runtime_code_hash_must_match_training_report(self):
+    def test_historical_source_hashes_are_provenance_not_runtime_pin(self):
         with tempfile.TemporaryDirectory() as tmp:
             bundle = self._copied_bundle(Path(tmp) / "bundle")
             report_path = bundle / "report.json"
             report = json.loads(report_path.read_text(encoding="utf-8"))
             report["code_sha256"]["src/evaluation/temporal.py"] = "0" * 64
             report_path.write_text(json.dumps(report), encoding="utf-8")
-            with self.assertRaisesRegex(ValueError, "runtime code SHA-256"):
-                load_rec01_inference(bundle, self.movies_csv)
+            service = load_rec01_inference(bundle, self.movies_csv)
+            self.assertEqual(service.recommend(7)["method"], "lightgcn")
 
     def test_checkpoint_hash_rejects_tampering(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -128,6 +129,32 @@ class Rec01InferenceTest(unittest.TestCase):
                 stream.write(b"tampered")
             with self.assertRaisesRegex(ValueError, "checkpoint SHA-256"):
                 load_rec01_inference(bundle, self.movies_csv)
+
+    def test_checkpoint_shape_and_config_rejected_after_hash_update(self):
+        for change, expected in (("shape", "size mismatch"),
+                                 ("config", "embedding dimension")):
+            with self.subTest(change=change), tempfile.TemporaryDirectory() as tmp:
+                bundle = self._copied_bundle(Path(tmp) / "bundle")
+                report_path = bundle / "report.json"
+                report = json.loads(report_path.read_text(encoding="utf-8"))
+                step = report["selected_checkpoint"]["step"]
+                checkpoint = bundle / report["selected_checkpoint_file"]
+                saved = torch.load(checkpoint, map_location="cpu", weights_only=True)
+                if change == "shape":
+                    saved["state_dict"]["embedding.weight"] = saved["state_dict"][
+                        "embedding.weight"][:-1]
+                else:
+                    saved["config"]["dim"] += 1
+                torch.save(saved, checkpoint)
+                digest = file_sha256(checkpoint)
+                report["selected_checkpoint"]["checkpoint_sha256"] = digest
+                report["checkpoint_sha256"][str(step)] = digest
+                for candidate in report["validation_candidates"]:
+                    if candidate["step"] == step:
+                        candidate["checkpoint_sha256"] = digest
+                report_path.write_text(json.dumps(report), encoding="utf-8")
+                with self.assertRaisesRegex((ValueError, RuntimeError), expected):
+                    load_rec01_inference(bundle, self.movies_csv)
 
     def test_model_ids_must_match_graph_even_if_report_hash_is_updated(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -151,6 +178,30 @@ class Rec01InferenceTest(unittest.TestCase):
             report["graph"]["version"] += 1
             report_path.write_text(json.dumps(report), encoding="utf-8")
             with self.assertRaisesRegex(ValueError, "model graph version"):
+                load_rec01_inference(bundle, self.movies_csv)
+
+    def test_normalization_policy_rejected_after_outer_hash_update(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            bundle = self._copied_bundle(Path(tmp) / "bundle")
+            manifest_path = bundle / "model_graph/manifest.json"
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+            manifest["normalization"] = "wrong_policy"
+            manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+            report_path = bundle / "report.json"
+            report = json.loads(report_path.read_text(encoding="utf-8"))
+            report["graph"]["model_graph_manifest_sha256"] = file_sha256(manifest_path)
+            report_path.write_text(json.dumps(report), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "model graph policy mismatch"):
+                load_rec01_inference(bundle, self.movies_csv)
+
+    def test_unknown_artifact_schema_is_rejected(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            bundle = self._copied_bundle(Path(tmp) / "bundle")
+            report_path = bundle / "report.json"
+            report = json.loads(report_path.read_text(encoding="utf-8"))
+            report["artifact_schema"] = "future-format"
+            report_path.write_text(json.dumps(report), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "artifact schema"):
                 load_rec01_inference(bundle, self.movies_csv)
 
     def test_protocol_config_hash_must_match_its_contents(self):

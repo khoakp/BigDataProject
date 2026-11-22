@@ -2,26 +2,25 @@
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 from pathlib import Path
 
 import duckdb
+from src.artifacts import file_sha256
+from src.ingest.canonical import validate_events
 
 
 POSITIVE_THRESHOLD = 4.0
 
 
-def file_sha256(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as stream:
-        for chunk in iter(lambda: stream.read(8 * 1024 * 1024), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
-
-
-def rebuild(events: Path, output: Path | None = None, threshold: float = POSITIVE_THRESHOLD) -> dict:
+def rebuild(events: Path, output: Path | None = None, threshold: float = POSITIVE_THRESHOLD,
+            *, validate: bool = True) -> dict:
     """Build state from all supplied canonical events; no incremental state is read."""
+    if validate:
+        validate_events(events)
+    if output is not None and any((output / name).exists() for name in
+                                  ("registry.parquet", "edges.parquet", "degrees.parquet", "manifest.json")):
+        raise FileExistsError("Full rebuild output already contains graph artifacts")
     with duckdb.connect() as con:
         return _rebuild(con, events, output, threshold)
 

@@ -1,0 +1,82 @@
+{
+  "../ml-32m/ratings.csv": {
+    "bytes": 877076222,
+    "sha256": "91159850e41ee59c86231165a688709647e2726cab2e7ba9faf04001bd5261ee"
+  },
+  "../ml-32m/movies.csv": {
+    "bytes": 4242926,
+    "sha256": "b37ca1abc7798de741138ed252b62f69f7e37c84b8a8fab1b82d409b4c6c5cc2"
+  },
+  "data/processed/canonical_events/canonical_100000.parquet": {
+    "bytes": 1210758,
+    "sha256": "8a01bc6f132362f44ab5a206575fb16ab7f34ce44c6bd224b418ea076c7bf519"
+  },
+  "data/processed/canonical_events/canonical_1000000.parquet": {
+    "bytes": 12994021,
+    "sha256": "f17048bd7b12bea613387c169c65db6ce67442aa7341314f5e18fba39efcfbae"
+  },
+  "results/raw/exp01_full_vs_incremental.csv": {
+    "bytes": 73084,
+    "sha256": "fb0f83c6fd4415daa77e40275eeaea6d0393588bf3cc6ab35a9e5ea954ac260c"
+  },
+  "results/raw/exp01_pilot_d11.csv": {
+    "bytes": 24586,
+    "sha256": "3a589a216815cb0da42d5394b9879da38137474857bd04592b19d3c0fbe1cee1"
+  },
+  "results/raw/exp01_scale2m_d12.csv": {
+    "bytes": 24709,
+    "sha256": "4e95552d63dd3e006652dc31df5035bcefea921acaf6735ac1aa77634fc7ef35"
+  },
+  "results/raw/exp01_scale2m_summary_d12.csv": {
+    "bytes": 1285,
+    "sha256": "0380a7383703db129fc18bc43fdcbc2b084f243c99d0a9a3501d3cf205f90a69"
+  },
+  "results/raw/exp01_smoke_d11.csv": {
+    "bytes": 4550,
+    "sha256": "d08e38208298f73fab195f35b86a54e5abc357e25e2f4d1f5bdc43dec97366e8"
+  },
+  "results/raw/exp01_summary_d12.csv": {
+    "bytes": 2573,
+    "sha256": "590ff3ec77cf2621de2f9b415c7d4fa06b9b75e695346b5dc0d1d76dd35ac973"
+  },
+  "results/raw/exp02_normalization.csv": {
+    "bytes": 62675,
+    "sha256": "f7b57c8246405823d68b16834b06ce660af787ef31381df273eb31c19a9ccf30"
+  },
+  "results/model_cohort_v2_final/edges_10000000/manifest.json": {
+    "bytes": 1307,
+    "sha256": "647509d32743582e5a71f9f983713db8bca94368e510f499fac8737ba16172f8"
+  },
+  "results/model_cohort_v2_final/edges_13644889/manifest.json": {
+    "bytes": 1291,
+    "sha256": "a198d5671fc5f08b0149a84e13736f2b920b97b756bcc0715d89a49afb4b58a7"
+  },
+  "results/model_cohort_v2_final/edges_2000000/manifest.json": {
+    "bytes": 1305,
+    "sha256": "c2477fdcb0722541fee426b674b2fed6a8987ebc365a3d8740db5ded40db6d13"
+  },
+  "results/model_cohort_v2_final/edges_500000/manifest.json": {
+    "bytes": 1303,
+    "sha256": "b3a379f3a56b017def3f2b0beafc9630636e0b6cb80bd2b2d6262aa4199cee2c"
+  },
+  "results/model_cohort_v2_final/edges_5000000/manifest.json": {
+    "bytes": 1305,
+    "sha256": "10411c083ec8076bf831e4cbf5c8180518fcd557feaa43898142547ced77929e"
+  },
+  "results/model_cohort_v2_final/manifest.json": {
+    "bytes": 5845,
+    "sha256": "5041270501b1643cc7a86b7834305c06740df923efd3ab2c53ead195b9bc7bda"
+  },
+  "docs/s12-freeze-manifest.json": {
+    "bytes": 13314,
+    "sha256": "abb0215cb4d92316a69377c482d691e7be4d959a29398df081248591a97701ad"
+  },
+  "docs/final-report.md": {
+    "bytes": 18917,
+    "sha256": "dd41b18e74520deae6b5e230afa80e0b94411ff9c272bed8e9be4078d1c35d44"
+  },
+  "data/processed/rec01_kaggle_runs/version_3/rec01_project/REC01-Kaggle-1M/graph_build/graph.duckdb": {
+    "bytes": 45101056,
+    "sha256": "375e2ce4c150b3a2c77733030752a1f7fc18b5b3ab8bba1ba114fcfecbca7e16"
+  }
+}

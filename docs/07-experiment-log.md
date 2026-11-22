@@ -1,5 +1,7 @@
 # 07 — Sổ thực nghiệm, protocol và kết quả benchmark
 
+> Sổ số đo và protocol lịch sử; quy tắc v2 hiện hành tại [experiment protocol](current/experiment-protocol.md).
+
 **S01/REC-01 (21/11/2026):** [giao thức Top-20 + Popularity](s01-evaluation-spec.md) đã được Project Owner duyệt và dùng trong [Kaggle run S03–S04](s04-rec01-results.md). Không đổi nhãn D08/D10 Top-10 thành REC-01. D11–D12 EXP-01 và D13 EXP-02 giữ đúng tên và số liệu lịch sử.
 
 **S03–S04 REC-01 (21/11/2026):** [Kaggle Notebook Version 3](https://www.kaggle.com/code/khoakp/rec01-movielens-1m-gpu-validation?scriptVersionId=372012165), run `REC01-Kaggle-1M`, Tesla T4, source canonical 1M SHA-256 `f17048bd7b12bea613387c169c65db6ce67442aa7341314f5e18fba39efcfbae`, config SHA-256 `8b8223681cf181d0ae9bd2b794d0e0f8159b3c01443622fabffff27820b8b8e8`. `seal-output PASS`, local `verify-output PASS`. Checkpoint bước 300 chọn theo validation NDCG@20 0,083543; test LightGCN Recall/NDCG@20 0,128000/0,085161 và Popularity 0,128099/0,086897 trên cùng 403 warm users, 2.069 warm pairs, 773 train movies. Popularity nhỉnh hơn; không có kiểm định thống kê. Raw `data/processed/rec01_kaggle_runs/version_3/rec01_project/REC01-Kaggle-1M/rec01_quality.csv`, report/manifest cùng thư mục, ZIP SHA-256 `25b3f97606aa330fc5892195e7afea7b825f48818c45b31b8b947d3f6172fe49`. [Bảng đầy đủ, exclusions và giới hạn](s04-rec01-results.md).

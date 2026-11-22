@@ -14,6 +14,20 @@ spec.loader.exec_module(d02)
 
 
 class D02Test(unittest.TestCase):
+    def test_rejects_nonpositive_ids_and_existing_output(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            base = Path(tmp)
+            source = base / "ratings.csv"
+            source.write_text("userId,movieId,rating,timestamp\n0,10,4,1\n", encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "Source validation"):
+                d02.run(source, base / "invalid", max_prefix=1)
+            source.write_text("userId,movieId,rating,timestamp\n1,10,4,1\n", encoding="utf-8")
+            d02.run(source, base / "valid", max_prefix=1)
+            before = (base / "valid/canonical_1.parquet").read_bytes()
+            source.write_text("userId,movieId,rating,timestamp\n2,10,4,1\n", encoding="utf-8")
+            with self.assertRaises(FileExistsError):
+                d02.run(source, base / "valid", max_prefix=1)
+            self.assertEqual((base / "valid/canonical_1.parquet").read_bytes(), before)
     def test_ties_and_identical_rows_are_stable(self):
         with tempfile.TemporaryDirectory() as tmp:
             base = Path(tmp)

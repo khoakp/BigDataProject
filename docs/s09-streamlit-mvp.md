@@ -1,5 +1,7 @@
 # S09 — Streamlit recommendation MVP
 
+> **Hồ sơ lịch sử GOAL 03.5:** giữ để truy nguồn quyết định/kết quả cũ. [Phạm vi v2 hiện hành](current/scope-and-decisions.md) · [Tiến độ v2](current/progress-and-evidence.md).
+
 **Trạng thái 21/11/2026:** ứng dụng Streamlit đã chạy local với artifact Kaggle REC-01 Version 3, kiểm tra bằng AppTest và trong trình duyệt. Nó phục vụ snapshot **chỉ đọc**: chọn warm user, xem Top-20 LightGCN, lịch sử rating train và train catalog; user mới nhận Popularity fallback. Ghi rating mới và cập nhật graph thuộc S10.
 
 ## What và Why

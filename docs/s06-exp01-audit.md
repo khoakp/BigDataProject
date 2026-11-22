@@ -1,5 +1,7 @@
 # S06 — Kiểm kê EXP-01 để tái dùng raw benchmark D12
 
+> **Hồ sơ lịch sử GOAL 03.5:** giữ để truy nguồn quyết định/kết quả cũ. [Phạm vi v2 hiện hành](current/scope-and-decisions.md) · [Tiến độ v2](current/progress-and-evidence.md).
+
 **Kết luận 21/11/2026:** S06 dùng lại hai run EXP-01 D12 đã hoàn thành, không chạy thêm benchmark hay đổi số liệu. [`scripts/audit_exp01_results.py`](../scripts/audit_exp01_results.py) kiểm tra độc lập CSV/report, pairing, provenance, summary, số byte export và SHA-256 của từng Parquet so với manifest. Core `D12-repeat-grid`: **72/72 rows, 36/36 cặp PASS**; scale `D12-scale-2m`: **24/24 rows, 12/12 cặp PASS**. D11 là pilot và không dùng để kết luận speedup. [D12](d12-exp01-results.md) giữ kết quả, biểu đồ và diễn giải chi tiết.
 
 ## Phạm vi đo và tính công bằng

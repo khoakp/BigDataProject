@@ -12,10 +12,8 @@ import hashlib
 import json
 import os
 import platform
-import random
 import subprocess
 import time
-from collections import defaultdict
 from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from pathlib import Path
@@ -29,8 +27,12 @@ from src.graph.full_builder import file_sha256
 from src.graph.incremental import IncrementalGraph
 from src.graph.normalize import compare_adjacency
 from src.graph.snapshot import export_snapshot, load_export, materialize_normalized
-from src.models.d08_baseline import ROOT, incremental_train_graph
-from src.models.lightgcn import LightGCN, pairwise_loss, to_sparse_tensor
+from src.graph.preparation import incremental_train_graph
+from src.models.lightgcn import LightGCN, to_sparse_tensor
+from src.models.training import bpr_step, sample_batches as _sample_batches
+
+
+ROOT = Path(__file__).resolve().parents[2]
 
 
 @dataclass(frozen=True)
@@ -73,7 +75,9 @@ def _write_json(path: Path, value: object) -> None:
 
 def _code_provenance() -> dict:
     paths = (Path(__file__), ROOT / "src/models/lightgcn.py",
-             ROOT / "src/models/d08_baseline.py", ROOT / "src/evaluation/temporal.py",
+             ROOT / "src/models/training.py", ROOT / "src/graph/preparation.py",
+             ROOT / "src/artifacts.py", ROOT / "src/ingest/canonical.py",
+             ROOT / "src/evaluation/temporal.py",
              ROOT / "src/evaluation/rec01.py", ROOT / "src/evaluation/baselines.py",
              ROOT / "src/evaluation/checkpoint_selection.py",
              ROOT / "src/graph/incremental.py", ROOT / "src/graph/normalize.py",
@@ -180,28 +184,6 @@ def _save_checkpoint(path: Path, model: LightGCN, *, protocol: Protocol,
     return file_sha256(path)
 
 
-def _sample_batches(state: dict, batch_size: int, steps: int, seed: int):
-    """D08 sampling sequence with sorted positives cached once per user."""
-    positives = defaultdict(set)
-    movies = [node for node, kind, *_ in state["registry"] if kind == "movie"]
-    for user, movie, _ in state["edges"]:
-        positives[user].add(movie)
-    eligible = [user for user in positives if len(positives[user]) < len(movies)]
-    if not eligible:
-        raise ValueError("No train user has an unobserved train movie")
-    ordered = {user: sorted(items) for user, items in positives.items()}
-    rng = random.Random(seed)
-    for _ in range(steps):
-        batch = []
-        while len(batch) < batch_size:
-            user = rng.choice(eligible)
-            positive = rng.choice(ordered[user])
-            negative = rng.choice(movies)
-            if negative not in positives[user]:
-                batch.append((user, positive, negative))
-        yield batch
-
-
 def run(source: Path, output: Path, *, device_name: str = "cuda",
         protocol: Protocol = APPROVED) -> dict:
     """Run one fixed trajectory; test is evaluated only after checkpoint reload."""
@@ -217,7 +199,7 @@ def run(source: Path, output: Path, *, device_name: str = "cuda",
     started = datetime.now(timezone.utc)
     config = asdict(protocol)
     config_hash = hashlib.sha256(json.dumps(config, sort_keys=True).encode()).hexdigest()
-    report = {"run_id": output.name, "status": "RUNNING",
+    report = {"artifact_schema": "rec01-v1", "run_id": output.name, "status": "RUNNING",
               "started_utc": started.isoformat(), "protocol": config,
               "config_sha256": config_hash,
               "environment": {"python": platform.python_version(), "torch": torch.__version__,
@@ -281,14 +263,7 @@ def run(source: Path, output: Path, *, device_name: str = "cuda",
         for step, batch in enumerate(_sample_batches(state, protocol.batch_size,
                                                      protocol.checkpoint_steps[-1],
                                                      protocol.seed), 1):
-            model.train()
-            optimizer.zero_grad(set_to_none=True)
-            triples = torch.tensor(batch, dtype=torch.long, device=device)
-            loss = pairwise_loss(model(sparse), triples)
-            if not torch.isfinite(loss):
-                raise RuntimeError(f"Nonfinite BPR loss at step {step}")
-            loss.backward()
-            optimizer.step()
+            loss = bpr_step(model, sparse, optimizer, batch, device)
             if step not in protocol.checkpoint_steps:
                 continue
             losses[step] = float(loss.detach())

@@ -1,5 +1,7 @@
 # D12 — EXP-01 repetitions và phân tích crossover
 
+> **Hồ sơ lịch sử GOAL 03.5:** giữ để truy nguồn quyết định/kết quả cũ. [Phạm vi v2 hiện hành](current/scope-and-decisions.md) · [Tiến độ v2](current/progress-and-evidence.md).
+
 ## Protocol và nguồn số liệu
 
 Run `D12-repeat-grid` ngày 20/11/2026 dùng cùng canonical prefix 1.010.000 events của D11, SHA-256 `6c2aa8d38a014be75125a2d694077ef364cba5465bf2da1da4d7966d60e175c1`. Grid `H={100k,500k,1M}`, `Δ={1k,10k}`. Mỗi cặp có một warm-up và **năm measured repetitions** cho mỗi method; mỗi lượt chạy process mới, thứ tự method được shuffle theo seed 7. DuckDB một thread, `warm-cache-uncontrolled`. Phần tạo canonical prefix, chia input và prebuild history nằm ngoài timer; thời gian prebuild được ghi riêng. Timer bao gồm Full Rebuild hoặc Incremental apply và xuất cùng ba bảng Parquet `registry/edges/degrees` có schema tương ứng. Exact correctness được đối chiếu sau timer ở từng repetition.

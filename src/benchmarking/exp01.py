@@ -21,6 +21,7 @@ from src.graph.equivalence import compare_states, full_state
 from src.graph.full_builder import file_sha256, rebuild
 from src.graph.incremental import IncrementalGraph
 from src.ingest.d02_profile import run as canonicalize
+from src.ingest.canonical import validate_events
 from src.benchmarking.common import ROOT, RssSampler, slice_events, sql_path
 
 
@@ -60,6 +61,8 @@ def worker(method: str, combined: Path, delta: Path, prebuilt_db: Path, output: 
     """Measure update+same export. Copy the prebuilt DB before the timer."""
     if method not in ("full", "incremental"):
         raise ValueError("Unknown method")
+    # Validate outside the measured Full/Incremental boundary.
+    validate_events(combined)
     output.mkdir(parents=True, exist_ok=False)
     db_path = output / "working.duckdb"
     db_before = 0
@@ -71,7 +74,7 @@ def worker(method: str, combined: Path, delta: Path, prebuilt_db: Path, output: 
     with RssSampler() as sampler:
         start_cpu, start_wall = time.process_time(), time.perf_counter()
         if method == "full":
-            result = rebuild(combined, output)
+            result = rebuild(combined, output, validate=False)
             inserted = result["edges"]
             processed = result["events"]
         else:

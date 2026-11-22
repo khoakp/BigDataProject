@@ -1,5 +1,7 @@
 # D09 — Incremental graph đến metadata Top-K
 
+> **Hồ sơ lịch sử GOAL 03.5:** giữ để truy nguồn quyết định/kết quả cũ. [Phạm vi v2 hiện hành](current/scope-and-decisions.md) · [Tiến độ v2](current/progress-and-evidence.md).
+
 Ngày chạy: 20/11/2026 (Asia/Saigon). Entry point: `src/models/d09_pipeline.py`. D09 lấy canonical prefix, cắt train bằng event time theo D08, chia train thành batch 10.000 events và gọi `IncrementalGraph.apply_batch()`. Graph version đến từ ledger D04. Tại train cutoff, registry/edges/degrees được so sánh exact với Full Rebuild; sau đó D06 normalization, LightGCN training/evaluation và Top-K raw IDs chạy theo D08. `movies.csv` được validate trước khi tra cứu theo `movieId`; metadata chỉ bổ sung sau ranking. Output gồm `graph.duckdb`, `model.pt`, `topk_raw.json`, `topk_enriched.json`, `report.json` và `integration_report.json` trong thư mục ngoài Git.
 
 Chạy từ root `BigDataProject`:

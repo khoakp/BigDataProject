@@ -1,5 +1,7 @@
 # 01 — Tổng quan và đặc tả đề tài
 
+> **Hồ sơ lịch sử GOAL 03.5:** giữ để truy nguồn quyết định/kết quả cũ. [Phạm vi v2 hiện hành](current/scope-and-decisions.md) · [Tiến độ v2](current/progress-and-evidence.md).
+
 > **Định hướng hiện hành từ 21/11/2026:** *Xây dựng hệ thống gợi ý phim cá nhân hóa sử dụng LightGCN kết hợp pipeline xử lý dữ liệu lớn và cập nhật đồ thị tăng dần* (*Building a Personalized Movie Recommendation System Using LightGCN and an Incremental Big Data Pipeline*). [Bản v1.0](10-direction-update-v1.md) và [sprint S01–S14](11-sprint14-plan.md) thay thế ưu tiên cũ trong tài liệu này; các đoạn bên dưới được giữ làm lịch sử D01–D13. Big Data Engineering và Graph-based Deep Recommender Systems đều là trụ cột bắt buộc; Popularity/Top-20 quality và Streamlit thuộc P0, EXP-02 là phần mở rộng đã chạy.
 
 > **Trạng thái:** charter lịch sử D01–D13, đã được [bản v1.0](10-direction-update-v1.md) thay thế từ 21/11/2026 · **Bản gốc:** 10/11/2026.

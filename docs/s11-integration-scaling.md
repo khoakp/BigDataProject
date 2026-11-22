@@ -1,5 +1,7 @@
 # S11 — Integration, failure paths và scale demo
 
+> **Hồ sơ lịch sử GOAL 03.5:** giữ để truy nguồn quyết định/kết quả cũ. [Phạm vi v2 hiện hành](current/scope-and-decisions.md) · [Tiến độ v2](current/progress-and-evidence.md).
+
 **Trạng thái 21/11/2026:** DONE trong phạm vi REC-01 canonical prefix 1M và một Streamlit server process. [`scripts/s11_integration_probe.py`](../scripts/s11_integration_probe.py) chạy batch 20 feedback ratings trên bản sao sealed Kaggle graph, dựng Full Rebuild độc lập ở cùng train cutoff cộng batch, rồi so từng dòng registry/edges/degrees. [`test_s11_feedback_failures.py`](../tests/test_s11_feedback_failures.py) kiểm gián đoạn, đầu vào sai, sửa intent và hai request đồng thời trong cùng tiến trình.
 
 ## Input, output và cách chạy

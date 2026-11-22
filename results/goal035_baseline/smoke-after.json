@@ -1,0 +1,223 @@
+{
+  "status": "PASS",
+  "pipeline": "raw CSV -> canonical events -> full/incremental equivalence -> snapshot export/load -> two BPR steps -> validation selection -> held-out evaluation -> inference",
+  "graph": {
+    "version": 3,
+    "nodes": 24,
+    "edges": 24,
+    "full_equivalence": {
+      "registry": {
+        "equal": true,
+        "full_rows": 24,
+        "incremental_rows": 24,
+        "full_sha256": "3cf35d520e26483e7ffb08cc2fd0fb46348d596047bdc71e5d5ce91638f44393",
+        "incremental_sha256": "3cf35d520e26483e7ffb08cc2fd0fb46348d596047bdc71e5d5ce91638f44393"
+      },
+      "edges": {
+        "equal": true,
+        "full_rows": 24,
+        "incremental_rows": 24,
+        "full_sha256": "93633183c81f873ec61742da9fc359349eb8b4e658d95db80449ab12ba227d9c",
+        "incremental_sha256": "93633183c81f873ec61742da9fc359349eb8b4e658d95db80449ab12ba227d9c"
+      },
+      "degrees": {
+        "equal": true,
+        "full_rows": 24,
+        "incremental_rows": 24,
+        "full_sha256": "8ec4c261a472e798c20ba5090514e15345b537f43a901976296388609ad2c4c1",
+        "incremental_sha256": "8ec4c261a472e798c20ba5090514e15345b537f43a901976296388609ad2c4c1"
+      },
+      "pass": true
+    },
+    "build_s": 0.4582737000018824,
+    "normalized_nnz": 48,
+    "model_graph_coo_sha256": "8ca43f82562a6d223b0fd42e149215779331cf5fe305816bcec9de82843be755",
+    "model_graph_manifest_sha256": "849056ad25705fc21734fb2e5799327c0b7ef0ba4734e659768126a6aa57faff"
+  },
+  "selected_checkpoint": {
+    "step": 1,
+    "validation_recall_20": 1.0,
+    "validation_ndcg_20": 0.4383959916998056,
+    "checkpoint_sha256": "23ffc52ca0d33047a5ae08d7c07b1c63cab43dcb201c8f481fe47d8849d2056f"
+  },
+  "recommendation": {
+    "run_id": "training",
+    "user_raw_id": 7,
+    "method": "lightgcn",
+    "checkpoint_step": 1,
+    "model_graph_version": 3,
+    "candidate_movies": 22,
+    "train_seen_movies": 2,
+    "items": [
+      {
+        "rank": 1,
+        "movie_raw_id": 6,
+        "score": 0.008660785853862762,
+        "title": "Movie 6",
+        "genres": "Drama",
+        "metadata_found": true
+      },
+      {
+        "rank": 2,
+        "movie_raw_id": 9,
+        "score": 0.007887717336416245,
+        "title": "Movie 9",
+        "genres": "Drama",
+        "metadata_found": true
+      },
+      {
+        "rank": 3,
+        "movie_raw_id": 11,
+        "score": 0.007110348902642727,
+        "title": "Movie 11",
+        "genres": "Drama",
+        "metadata_found": true
+      },
+      {
+        "rank": 4,
+        "movie_raw_id": 18,
+        "score": 0.006139928475022316,
+        "title": "Movie 18",
+        "genres": "Drama",
+        "metadata_found": true
+      },
+      {
+        "rank": 5,
+        "movie_raw_id": 7,
+        "score": 0.0024249607231467962,
+        "title": "Movie 7",
+        "genres": "Drama",
+        "metadata_found": true
+      },
+      {
+        "rank": 6,
+        "movie_raw_id": 4,
+        "score": 0.0017180247232317924,
+        "title": "Movie 4",
+        "genres": "Drama",
+        "metadata_found": true
+      },
+      {
+        "rank": 7,
+        "movie_raw_id": 5,
+        "score": 0.000725234393030405,
+        "title": "Movie 5",
+        "genres": "Drama",
+        "metadata_found": true
+      },
+      {
+        "rank": 8,
+        "movie_raw_id": 14,
+        "score": 0.0006765087018720806,
+        "title": "Movie 14",
+        "genres": "Drama",
+        "metadata_found": true
+      },
+      {
+        "rank": 9,
+        "movie_raw_id": 15,
+        "score": -0.0011482266709208488,
+        "title": "Movie 15",
+        "genres": "Drama",
+        "metadata_found": true
+      },
+      {
+        "rank": 10,
+        "movie_raw_id": 21,
+        "score": -0.0012136311270296574,
+        "title": "Movie 21",
+        "genres": "Drama",
+        "metadata_found": true
+      },
+      {
+        "rank": 11,
+        "movie_raw_id": 20,
+        "score": -0.0015381062403321266,
+        "title": "Movie 20",
+        "genres": "Drama",
+        "metadata_found": true
+      },
+      {
+        "rank": 12,
+        "movie_raw_id": 19,
+        "score": -0.0016566426493227482,
+        "title": "Movie 19",
+        "genres": "Drama",
+        "metadata_found": true
+      },
+      {
+        "rank": 13,
+        "movie_raw_id": 16,
+        "score": -0.003014774527400732,
+        "title": "Movie 16",
+        "genres": "Drama",
+        "metadata_found": true
+      },
+      {
+        "rank": 14,
+        "movie_raw_id": 10,
+        "score": -0.003971393685787916,
+        "title": "Movie 10",
+        "genres": "Drama",
+        "metadata_found": true
+      },
+      {
+        "rank": 15,
+        "movie_raw_id": 8,
+        "score": -0.00885200034826994,
+        "title": "Movie 8",
+        "genres": "Drama",
+        "metadata_found": true
+      },
+      {
+        "rank": 16,
+        "movie_raw_id": 3,
+        "score": -0.009094594977796078,
+        "title": "Movie 3",
+        "genres": "Drama",
+        "metadata_found": true
+      },
+      {
+        "rank": 17,
+        "movie_raw_id": 17,
+        "score": -0.010561931878328323,
+        "title": "Movie 17",
+        "genres": "Drama",
+        "metadata_found": true
+      },
+      {
+        "rank": 18,
+        "movie_raw_id": 12,
+        "score": -0.011008533649146557,
+        "title": "Movie 12",
+        "genres": "Drama",
+        "metadata_found": true
+      },
+      {
+        "rank": 19,
+        "movie_raw_id": 22,
+        "score": -0.012635080143809319,
+        "title": "Movie 22",
+        "genres": "Drama",
+        "metadata_found": true
+      },
+      {
+        "rank": 20,
+        "movie_raw_id": 13,
+        "score": -0.014486294239759445,
+        "title": "Movie 13",
+        "genres": "Drama",
+        "metadata_found": true
+      }
+    ],
+    "metadata_coverage": {
+      "rows": 20,
+      "metadata_found": 20,
+      "missing_movie_ids": 0,
+      "missing_titles": 0,
+      "missing_genres": 0
+    }
+  },
+  "baseline_ordered_ids_exact": true,
+  "baseline_max_score_abs_diff": 0.0
+}

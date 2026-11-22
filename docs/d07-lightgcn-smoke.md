@@ -1,5 +1,7 @@
 # D07 — LightGCN sparse CUDA smoke và hồ sơ bộ nhớ
 
+> **Hồ sơ lịch sử GOAL 03.5:** giữ để truy nguồn quyết định/kết quả cũ. [Phạm vi v2 hiện hành](current/scope-and-decisions.md) · [Tiến độ v2](current/progress-and-evidence.md).
+
 D07 hoàn thành và G2 đạt ngày 20/11/2026. Forward, backward và optimizer chạy thành công trên RTX 4050 tại cả ba quy mô đã thử.
 
 ## Mục tiêu và cơ sở lý thuyết

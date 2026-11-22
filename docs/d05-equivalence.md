@@ -1,5 +1,7 @@
 # D05 — Exact Full/Incremental equivalence và G1
 
+> **Hồ sơ lịch sử GOAL 03.5:** giữ để truy nguồn quyết định/kết quả cũ. [Phạm vi v2 hiện hành](current/scope-and-decisions.md) · [Tiến độ v2](current/progress-and-evidence.md).
+
 **Kết quả: D05 DONE, G1 PASS trong phạm vi toy và canonical MovieLens 32M prefix 100k đã kiểm tra.** Không suy rộng sang full 32M, normalized graph, model hoặc hiệu năng. Ngày thực hiện: 19/11/2026 (Asia/Saigon).
 
 ## Research Objective và lý thuyết kiểm chứng

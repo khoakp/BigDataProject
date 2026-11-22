@@ -2,21 +2,16 @@
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 from pathlib import Path
 import duckdb
 
-
-def sha256(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as stream:
-        for chunk in iter(lambda: stream.read(8 * 1024 * 1024), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
+from src.artifacts import file_sha256 as sha256
 
 
 def run(source: Path, out: Path, *, max_prefix: int = 1_000_000) -> dict:
+    if out.exists() and any(out.iterdir()):
+        raise FileExistsError("Canonical output directory must be fresh")
     out.mkdir(parents=True, exist_ok=True)
     con = duckdb.connect()
     con.execute("SET threads=1")
@@ -45,6 +40,7 @@ def run(source: Path, out: Path, *, max_prefix: int = 1_000_000) -> dict:
           count(*) FILTER (WHERE rating NOT BETWEEN 0.5 AND 5 OR rating*2 != floor(rating*2)) AS invalid_rating,
           min(event_ts) AS min_timestamp, max(event_ts) AS max_timestamp,
           count(*) FILTER (WHERE event_ts <= 0) AS invalid_timestamp,
+          count(*) FILTER (WHERE user_raw_id <= 0 OR movie_raw_id <= 0) AS invalid_raw_id,
           count(DISTINCT user_raw_id) AS users, count(DISTINCT movie_raw_id) AS movies,
           count(DISTINCT event_ts) AS distinct_timestamps,
           count(DISTINCT (user_raw_id, movie_raw_id)) AS distinct_pairs
@@ -58,7 +54,7 @@ def run(source: Path, out: Path, *, max_prefix: int = 1_000_000) -> dict:
         SELECT count(*) FROM (SELECT event_ts, lag(event_ts) OVER (ORDER BY source_row_id) AS prior FROM source)
         WHERE event_ts < prior
     """).fetchone()[0]
-    if any(profile[k] for k in ("null_user", "null_movie", "null_rating", "null_timestamp", "invalid_rating", "invalid_timestamp")):
+    if any(profile[k] for k in ("null_user", "null_movie", "null_rating", "null_timestamp", "invalid_rating", "invalid_timestamp", "invalid_raw_id")):
         raise ValueError("Source validation failed; see profile")
     if max_prefix > profile["rows"]:
         raise ValueError("Prefix exceeds source rows")
@@ -70,7 +66,7 @@ def run(source: Path, out: Path, *, max_prefix: int = 1_000_000) -> dict:
         ORDER BY event_ts, user_raw_id, movie_raw_id, source_row_id
         LIMIT {int(max_prefix)}
     """)
-    # Positive threshold remains undecided (DEC-005); batch_id belongs to replay, not D02.
+    # Batch ID belongs to replay, not canonicalization.
     prefix_sizes = sorted({min(100_000, max_prefix), max_prefix})
     for n in prefix_sizes:
         target = (out / f"canonical_{n}.parquet").as_posix().replace("'", "''")
@@ -82,7 +78,7 @@ def run(source: Path, out: Path, *, max_prefix: int = 1_000_000) -> dict:
     profile["source_sha256"] = sha256(source)
     profile["transform"] = {"version": "d02-v1", "threads": 1, "source_row_id_base": 0,
                             "order_by": ["event_ts", "user_raw_id", "movie_raw_id", "source_row_id"],
-                            "event_id_base": 0, "rating_dtype": "FLOAT", "positive_threshold": "not_chosen"}
+                            "event_id_base": 0, "rating_dtype": "FLOAT", "positive_threshold": 4.0}
     (out / "manifest.json").write_text(json.dumps(profile, indent=2), encoding="utf-8")
     return profile
 

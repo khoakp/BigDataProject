@@ -10,8 +10,13 @@ Graph là cumulative historical-positive user–movie, ngưỡng `rating >= 4.0`
 
 ## Tài liệu hiện hành
 
-- [Kiến trúc, API, version contract và bước tiếp theo](docs/03-system-design.md)
-- [Audit, dependency map, baseline tests và migration plan](docs/architecture-audit-v2.md)
+- [Phạm vi và quyết định v2](docs/current/scope-and-decisions.md)
+- [Kiến trúc và version contract](docs/current/architecture.md)
+- [Protocol thực nghiệm](docs/current/experiment-protocol.md)
+- [Tiến độ và bằng chứng](docs/current/progress-and-evidence.md)
+- [Architecture Walkthrough tiếng Việt](docs/current/architecture-walkthrough-vi.md)
+- [Chỉ mục nghiên cứu](docs/research/README.md)
+- [GOAL 03.5 audit, dependency map, baseline tests và migration plan](docs/goal035-audit-plan.md)
 - [Temporal profile MovieLens 32M](docs/temporal-profile-v2.md) — bằng chứng cho cutoff 2020 đã được duyệt.
 - [GPU feasibility, cohort selection và LightGCN workload](docs/gpu-feasibility-v2.md) — đã đo private Kaggle T4 và trajectory 500 bước; chờ Project Owner review trước Model Refresh Engine.
 - [Experiment protocol và raw evidence log](docs/07-experiment-log.md) — các số đo DXX/EXP hiện có là lịch sử, không thay thế thí nghiệm v2.
@@ -25,10 +30,11 @@ Từ root repo, dùng venv có sẵn. Hai toy tests dưới đây tạo dữ li�
 
 ```powershell
 ..\venv\Scripts\python.exe -m unittest tests.test_exp01 tests.test_exp02 -v
+..\venv\Scripts\python.exe -m unittest tests.test_rec01_train tests.test_rec01_inference -v
 ..\venv\Scripts\python.exe -m src.graph.full_builder --events data/processed/canonical_events/canonical_100000.parquet --out data/processed/v2_toy_full
 ..\venv\Scripts\python.exe -m unittest discover -s tests -v
 ```
 
 For a fresh canonical prefix from `../ml-32m/ratings.csv`, run `python -m src.ingest.d02_profile --source ... --out <fresh-directory>` only after choosing a fresh output directory; it scans the full CSV. Existing graph benchmark commands are `python -m src.benchmarking.exp01 --help` and `python -m src.benchmarking.exp02 --help`; both require explicit resource planning before large runs. Fixed REC-01 training is `python -m src.models.rec01_train --help`; the local demo is `python -m streamlit run src/app/streamlit_app.py`. These are current runnable entrypoints, while a unified v2 refresh pipeline remains planned.
 
-The sealed REC-01 artifact at `data/processed/rec01_kaggle_runs/version_3/rec01_project/REC01-Kaggle-1M` uses a source-hash-verifying loader. Do not edit its report/checkpoint or bypass hash verification. The app shows stale model recommendations when feedback advances the graph.
+The sealed REC-01 artifact at `data/processed/rec01_kaggle_runs/version_3/rec01_project/REC01-Kaggle-1M` is verified by checkpoint, graph, mapping and config contracts. Historical source-code hashes remain provenance. The app shows stale model recommendations when feedback advances the graph.

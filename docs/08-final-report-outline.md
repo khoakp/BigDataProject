@@ -1,5 +1,7 @@
 # 08 — Khung báo cáo cuối kỳ, bằng chứng, tài liệu tham khảo và bảo vệ
 
+> **Hồ sơ lịch sử GOAL 03.5:** giữ để truy nguồn quyết định/kết quả cũ. [Phạm vi v2 hiện hành](current/scope-and-decisions.md) · [Tiến độ v2](current/progress-and-evidence.md).
+
 > **Cập nhật phạm vi 21/11/2026:** [Project Direction v1.0](10-direction-update-v1.md) và [sprint S01–S14](11-sprint14-plan.md) thay thế trọng tâm DE-only của dàn ý cũ. Báo cáo cuối phải có hai trụ cột DE và Graph-based Deep Recommender, REC-01 vs Popularity Top-20, cùng Streamlit demo; D13 EXP-02 là kết quả mở rộng. Nội dung bên dưới giữ làm cấu trúc lịch sử để biên tập, chưa phải bản cuối.
 
 > **Trạng thái:** đề cương cập nhật 10/11/2026; chưa điền kết quả. Cấu trúc phục vụ báo cáo môn Nhập môn Big Data, nhấn mạnh Data Engineering.  

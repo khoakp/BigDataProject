@@ -2,9 +2,7 @@
 import argparse
 import json
 import platform
-import random
 import subprocess
-from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -12,11 +10,10 @@ import duckdb
 import torch
 
 from src.evaluation.temporal import cutoff_cohort, evaluate_topk, score_chunks, split_events
-from src.graph.equivalence import compare_states, full_state, incremental_state
-from src.graph.full_builder import file_sha256, rebuild
-from src.graph.incremental import IncrementalGraph
-from src.graph.normalize import normalize_state
+from src.artifacts import file_sha256
+from src.graph.preparation import train_only_graph, incremental_train_graph
 from src.models.lightgcn import LightGCN, pairwise_loss, to_sparse_tensor
+from src.models.training import sample_batches
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -34,62 +31,6 @@ def choose_cutoffs(events):
     train_index = min(max(0, int(len(timestamps) * .8) - 1), len(timestamps) - 3)
     valid_index = min(max(train_index + 1, int(len(timestamps) * .9) - 1), len(timestamps) - 2)
     return timestamps[train_index], timestamps[valid_index]
-
-
-def train_only_graph(source, output, train_count):
-    target = output / "train_events.parquet"
-    source_sql = str(source.resolve()).replace("\\", "/").replace("'", "''")
-    target_sql = str(target.resolve()).replace("\\", "/").replace("'", "''")
-    with duckdb.connect() as con:
-        con.execute(f"COPY (SELECT * FROM read_parquet('{source_sql}') WHERE event_id < {int(train_count)} "
-                    f"ORDER BY event_id) TO '{target_sql}' (FORMAT PARQUET)")
-    summary = rebuild(target, output / "graph")
-    state = full_state(output / "graph")
-    if any(first >= train_count for *_, first in state["edges"]):
-        raise AssertionError("Future edge in train graph")
-    return summary, state, normalize_state(state)
-
-
-def incremental_train_graph(source, output, train_count, batch_events=10_000):
-    """Apply only train events to versioned D04 state, then compare full reference."""
-    summary, reference, _ = train_only_graph(source, output, train_count)
-    train_path = output / "train_events.parquet"
-    source_sql = str(train_path.resolve()).replace("\\", "/").replace("'", "''")
-    with IncrementalGraph(output / "graph.duckdb") as graph:
-        for batch_id, start in enumerate(range(0, train_count, batch_events)):
-            target = output / f"batch_{batch_id:05d}.parquet"
-            target_sql = str(target.resolve()).replace("\\", "/").replace("'", "''")
-            with duckdb.connect() as con:
-                con.execute(f"COPY (SELECT * FROM read_parquet('{source_sql}') WHERE event_id >= {start} "
-                            f"AND event_id < {min(start + batch_events, train_count)} ORDER BY event_id) "
-                            f"TO '{target_sql}' (FORMAT PARQUET)")
-            graph.apply_batch(batch_id, target)
-        state = incremental_state(graph)
-        ledger = graph.con.execute("SELECT max(graph_version),max(max_event_id) FROM applied_batches").fetchone()
-    comparison = compare_states(reference, state)
-    if not comparison["pass"] or ledger[1] != train_count - 1:
-        raise AssertionError("Incremental train state differs from full reference")
-    return summary, state, normalize_state(state), ledger[0], comparison
-
-
-def sample_batches(state, batch_size, steps, seed):
-    users = defaultdict(set)
-    movies = [node for node, kind, *_ in state["registry"] if kind == "movie"]
-    for user, movie, _ in state["edges"]:
-        users[user].add(movie)
-    eligible = [user for user in users if len(users[user]) < len(movies)]
-    if not eligible:
-        raise ValueError("No train user has an unobserved train movie")
-    rng = random.Random(seed)
-    for _ in range(steps):
-        batch = []
-        while len(batch) < batch_size:
-            user = rng.choice(eligible)
-            positive = rng.choice(sorted(users[user]))
-            negative = rng.choice(movies)
-            if negative not in users[user]:
-                batch.append((user, positive, negative))
-        yield batch
 
 
 def run(source, output, *, steps=100, batch_size=1024, dim=64, layers=3,

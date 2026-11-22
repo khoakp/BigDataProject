@@ -1,5 +1,7 @@
 # S02 — Evaluator Top-20 và validation-only smoke
 
+> **Hồ sơ lịch sử GOAL 03.5:** giữ để truy nguồn quyết định/kết quả cũ. [Phạm vi v2 hiện hành](current/scope-and-decisions.md) · [Tiến độ v2](current/progress-and-evidence.md).
+
 **Ngày:** 21/11/2026. **Trạng thái:** S02 evaluator PASS; **không phải REC-01 final quality run**. [S01 protocol](s01-evaluation-spec.md) đã được Project Owner duyệt. Probe này chỉ kiểm tra đường tích hợp bằng checkpoint D08 cũ 100 bước, chưa có validation checkpoint selection và không đọc nhãn test.
 
 ## Đã triển khai

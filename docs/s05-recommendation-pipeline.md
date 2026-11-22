@@ -1,5 +1,7 @@
 # S05 — Top-20 inference từ REC-01 checkpoint
 
+> **Hồ sơ lịch sử GOAL 03.5:** giữ để truy nguồn quyết định/kết quả cũ. [Phạm vi v2 hiện hành](current/scope-and-decisions.md) · [Tiến độ v2](current/progress-and-evidence.md).
+
 **Trạng thái 21/11/2026:** loader và CLI đã chạy trên artifact Kaggle REC-01 Version 3; 52 local unit tests PASS. S05 chỉ phục vụ checkpoint và train graph đã niêm phong. Streamlit, rating mới và graph refresh thuộc S09–S10.
 
 ## What và Why

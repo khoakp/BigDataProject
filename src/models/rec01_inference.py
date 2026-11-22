@@ -21,16 +21,6 @@ from src.metadata.movie_lookup import enrich_topk, load_movies
 from src.models.lightgcn import LightGCN, to_sparse_tensor
 
 
-RUNTIME_CODE = (
-    "src/models/lightgcn.py",
-    "src/evaluation/temporal.py",
-    "src/evaluation/checkpoint_selection.py",
-    "src/graph/snapshot.py",
-    "src/graph/normalize.py",
-    "src/graph/equivalence.py",
-)
-
-
 def _require_equal(actual: object, expected: object, label: str) -> None:
     if actual != expected:
         raise ValueError(f"REC-01 {label} mismatch")
@@ -48,6 +38,8 @@ class Rec01Inference:
         self.device = torch.device(device_name)
 
         report = json.loads((self.run_dir / "report.json").read_text(encoding="utf-8"))
+        if report.get("artifact_schema", "rec01-v1") != "rec01-v1":
+            raise ValueError("Unsupported REC-01 artifact schema")
         if report.get("status") != "PASS":
             raise ValueError("REC-01 run is not complete")
         protocol, graph_report, selected = (report["protocol"], report["graph"],
@@ -56,11 +48,8 @@ class Rec01Inference:
             raise ValueError("REC-01 inference requires the Top-20 protocol")
         _require_equal(hashlib.sha256(json.dumps(protocol, sort_keys=True).encode()).hexdigest(),
                        report["config_sha256"], "protocol config SHA-256")
-        code_hashes = report.get("code_sha256", {})
-        root = Path(__file__).resolve().parents[2]
-        for name in RUNTIME_CODE:
-            _require_equal(file_sha256(root / name), code_hashes.get(name),
-                           f"runtime code SHA-256 for {name}")
+        # Historical source hashes remain provenance in the sealed report. Artifact
+        # compatibility is checked against its config, graph, mapping and tensors.
         _require_equal(select_checkpoint(report["validation_candidates"]), selected,
                        "validation-selected checkpoint")
         step = selected["step"]

@@ -1,5 +1,7 @@
 # v2.0 architecture audit and migration record
 
+> Audit v2 trước GOAL 03.5; xem [audit và implementation report mới](goal035-implementation-report.md).
+
 Audit baseline: 21/11/2026, branch `main`, HEAD `1911e6e158244edbc24b5847e88c95b2cd7064c4`, clean working tree. Refactor branch: `refactor/v2-architecture`. This document records observed code and limits; it is not a new experiment result.
 
 ## Evidence and findings

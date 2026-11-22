@@ -8,24 +8,17 @@ from __future__ import annotations
 
 import argparse
 import csv
-import hashlib
 import json
 import math
 from collections import defaultdict
 from pathlib import Path
 
+from src.artifacts import file_sha256 as sha256_file
+
 from src.benchmarking.exp01_analysis import summarize
 
 
 TABLES = ("registry", "edges", "degrees")
-
-
-def sha256_file(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as stream:
-        for chunk in iter(lambda: stream.read(1024 * 1024), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
 
 
 def audit(raw: Path, summary_path: Path, report_path: Path, repo: Path) -> dict:

@@ -1,5 +1,7 @@
 # BigDataProject — Project Direction Update v1.0
 
+> **Hồ sơ lịch sử GOAL 03.5:** giữ để truy nguồn quyết định/kết quả cũ. [Phạm vi v2 hiện hành](current/scope-and-decisions.md) · [Tiến độ v2](current/progress-and-evidence.md).
+
 **Ngày cập nhật:** 21/11/2026
 **Thời gian còn lại:** 14 ngày, 5–6 giờ/ngày
 **Trạng thái:** Định hướng mới đã thống nhất; tài liệu và code cần được đối chiếu trước khi áp dụng.

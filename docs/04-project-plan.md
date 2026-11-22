@@ -1,5 +1,7 @@
 # 04 — Kế hoạch triển khai BigDataProject trong 21 ngày
 
+> **Hồ sơ lịch sử GOAL 03.5:** giữ để truy nguồn quyết định/kết quả cũ. [Phạm vi v2 hiện hành](current/scope-and-decisions.md) · [Tiến độ v2](current/progress-and-evidence.md).
+
 > **Lưu lịch sử D01–D13:** Từ 21/11/2026, định hướng và thứ tự công việc mới nằm ở [Project Direction v1.0](10-direction-update-v1.md) và [sprint S01–S14](11-sprint14-plan.md). Các mốc D01–D21 bên dưới là kế hoạch cũ để đối chiếu bằng chứng, không còn là critical path đang thực hiện. Không đổi nhãn các EXP đã chạy.
 
 > **Phiên bản kế hoạch lịch sử:** 0.2 · **Bản gốc:** 10/11/2026 · **Trạng thái:** không còn là lịch hiện hành; xem [S01–S14](11-sprint14-plan.md).

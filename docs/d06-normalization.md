@@ -1,5 +1,7 @@
 # D06 — Sparse normalization, model graph versions và metadata validation
 
+> **Hồ sơ lịch sử GOAL 03.5:** giữ để truy nguồn quyết định/kết quả cũ. [Phạm vi v2 hiện hành](current/scope-and-decisions.md) · [Tiến độ v2](current/progress-and-evidence.md).
+
 **D06 DONE ngày 19/11/2026.** T-05/T-06 và metadata validation đạt trong phạm vi đã kiểm tra; G2 còn chờ D07. Không có kết quả training hoặc benchmark từ milestone này.
 
 ## Research Objective và cơ sở toán học

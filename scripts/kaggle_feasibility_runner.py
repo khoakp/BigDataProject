@@ -20,6 +20,14 @@ from pathlib import Path, PurePosixPath
 EMBEDDED_PROBE_PLAN = None
 
 
+def probe_status(returncode: int | None, report_status: str | None) -> str:
+    if returncode is None:
+        return "TIMEOUT"
+    if returncode != 0 and report_status in (None, "RUNNING", "PASS"):
+        return "ERROR"
+    return report_status or "ERROR"
+
+
 def sha256(path: Path) -> str:
     digest = hashlib.sha256()
     with path.open("rb") as stream:
@@ -166,8 +174,6 @@ def main() -> None:
         report_path = output / "report.json"
         record = {"cohort": cohort_name, "returncode": returncode,
                   "report_exists": report_path.is_file()}
-        if returncode is None:
-            record["status"] = "TIMEOUT"
         if report_path.is_file():
             report = json.loads(report_path.read_text(encoding="utf-8"))
             record.update(status=report.get("status"),
@@ -177,6 +183,7 @@ def main() -> None:
                           gpu_peak_reserved_bytes=report.get("gpu_peak_reserved_bytes"),
                           gpu_total_headroom_fraction=report.get("gpu_total_headroom_fraction"),
                           gpu_effective_headroom_fraction=report.get("gpu_effective_headroom_fraction"))
+        record["status"] = probe_status(returncode, record.get("status"))
         summary["results"].append(record)
         (project / "summary.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
         print(json.dumps(record), flush=True)

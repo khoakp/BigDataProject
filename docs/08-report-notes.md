@@ -1,5 +1,7 @@
 # 08 — Ghi chú tích lũy cho báo cáo học phần
 
+> **Hồ sơ lịch sử GOAL 03.5:** giữ để truy nguồn quyết định/kết quả cũ. [Phạm vi v2 hiện hành](current/scope-and-decisions.md) · [Tiến độ v2](current/progress-and-evidence.md).
+
 **Định hướng mới S01 (21/11/2026):** tên đề tài và hai trụ cột P0 theo [bản v1.0](10-direction-update-v1.md). Phần Results bên dưới gồm lịch sử D01–D13 và [REC-01 S03–S04](s04-rec01-results.md) đã chạy trên Kaggle; [Streamlit S09–S10](s10-rating-graph-refresh.md) có rating và graph demo nhưng checkpoint chưa refresh. [Giao thức S01](s01-evaluation-spec.md) đã được duyệt trước run.
 
 **S12:** Nội dung đã được biên tập thành [báo cáo kỹ thuật](final-report.md) với links và số liệu từ evidence matrix. [Freeze candidate](s12-reproducibility.md) ghi môi trường/hash; bìa và định dạng phải điền theo yêu cầu học phần khi Project Owner cung cấp.

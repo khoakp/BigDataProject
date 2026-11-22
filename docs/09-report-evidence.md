@@ -1,5 +1,7 @@
 # 09 — Ma trận bằng chứng cho báo cáo
 
+> Ma trận claim của báo cáo lịch sử; xem [research index](research/README.md) và [scope v2](current/scope-and-decisions.md).
+
 **S01 (21/11/2026):** [định hướng v1.0](10-direction-update-v1.md) và [audit/REC-01 protocol](s01-evaluation-spec.md) là quyết định phạm vi và giao thức đã được Project Owner duyệt, không phải bằng chứng LightGCN vượt Popularity hay Streamlit đã hoạt động. EXP-01/02 vẫn giữ các evidence IDs cũ.
 
 **S02 evaluator:** [Popularity utility](../src/evaluation/baselines.py), [shared Top-20 comparator](../src/evaluation/rec01.py), [validation selector](../src/evaluation/checkpoint_selection.py) và toy tests chứng minh API/logic trên dữ liệu nhỏ. Các thành phần này đã được dùng trong REC-01 S03–S04.

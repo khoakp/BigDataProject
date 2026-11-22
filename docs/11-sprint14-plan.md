@@ -1,5 +1,7 @@
 # Kế hoạch S01–S14 theo định hướng v1.0
 
+> **Hồ sơ lịch sử GOAL 03.5:** giữ để truy nguồn quyết định/kết quả cũ. [Phạm vi v2 hiện hành](current/scope-and-decisions.md) · [Tiến độ v2](current/progress-and-evidence.md).
+
 **Bắt đầu:** 21/11/2026. **Ngân sách dự kiến:** 14 ngày làm việc, 5–6 giờ/ngày; đây không phải ngày nộp chính thức. [Nguồn định hướng đã thống nhất](10-direction-update-v1.md). [Kế hoạch D01–D21](04-project-plan.md) và log D01–D13 là lịch sử, không đổi số hiệu thí nghiệm.
 
 ## Mục tiêu và thứ tự ưu tiên

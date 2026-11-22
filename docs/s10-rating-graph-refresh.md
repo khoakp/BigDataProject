@@ -1,5 +1,7 @@
 # S10 — Rating và cập nhật graph demo
 
+> **Hồ sơ lịch sử GOAL 03.5:** giữ để truy nguồn quyết định/kết quả cũ. [Phạm vi v2 hiện hành](current/scope-and-decisions.md) · [Tiến độ v2](current/progress-and-evidence.md).
+
 **Trạng thái 21/11/2026:** DONE trong phạm vi demo local một tiến trình. Ứng dụng Streamlit cho phép xếp tối đa 20 rating vào hàng chờ rồi áp dụng thành một batch lên bản sao của train graph REC-01. Graph demo tăng version; checkpoint LightGCN và Top-20 vẫn ở train graph version 81. [DEC-018](06-decisions-and-risks.md) khóa cách hiểu version.
 
 ## What và Why

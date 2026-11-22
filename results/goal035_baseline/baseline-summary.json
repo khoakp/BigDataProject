@@ -1,0 +1,28 @@
+{
+  "date_local": "2026-11-22",
+  "timezone": "Asia/Saigon",
+  "branch": "refactor/v2-architecture",
+  "git_head": "cec72b8ddbad76f5788cc37cd0e30fce6624f282",
+  "initial_worktree": "clean",
+  "command": "..\\venv\\Scripts\\python.exe -m unittest discover -s tests -v",
+  "tests": {
+    "pass": 68,
+    "fail": 0,
+    "error": 0,
+    "skip": 0,
+    "seconds": 39.409
+  },
+  "environment": {
+    "python": "3.10.11",
+    "os": "Windows-10-10.0.26300-SP0",
+    "torch": "2.8.0+cu126",
+    "duckdb": "1.5.6",
+    "numpy": "2.2.6",
+    "pandas": "2.3.3",
+    "pyarrow": "25.0.1",
+    "psutil": "7.2.2",
+    "streamlit": "1.54.0",
+    "cuda_available": true
+  },
+  "note": "unittest final summary observed from execution output; full test transcript was in command-scoped temporary storage, not retained. Independent toy end-to-end and sealed inference evidence stored beside this file."
+}

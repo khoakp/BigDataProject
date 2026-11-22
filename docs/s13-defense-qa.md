@@ -1,5 +1,7 @@
 # S13 — Bảo vệ MovieGraph
 
+> **Hồ sơ lịch sử GOAL 03.5:** giữ để truy nguồn quyết định/kết quả cũ. [Phạm vi v2 hiện hành](current/scope-and-decisions.md) · [Tiến độ v2](current/progress-and-evidence.md).
+
 ## Slide deck
 
 Deck 12 slide đã lưu trong Spaces: `MovieGraph - Bảo vệ đồ án Big Data` (`page_01af54e84f488191b0761ff7e2e66b38`). Hai biểu đồ REC-01 và EXP-01 là chart gốc có thể sửa. Mỗi slide đã được render và rà trực quan ở 1280×720. Trình tự: đề tài → RQ → dữ liệu → pipeline → temporal split → train → REC-01 → EXP-01 → EXP-02 → graph feedback → giới hạn → demo/kết luận.

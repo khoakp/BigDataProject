@@ -1,5 +1,7 @@
 # S07 — Phân tích scalability EXP-01 và gate Engineering
 
+> **Hồ sơ lịch sử GOAL 03.5:** giữ để truy nguồn quyết định/kết quả cũ. [Phạm vi v2 hiện hành](current/scope-and-decisions.md) · [Tiến độ v2](current/progress-and-evidence.md).
+
 **Kết luận 21/11/2026:** gate Engineering đạt trong phạm vi benchmark đã đo: 96/96 raw rows và 48/48 cặp Full/Incremental có correctness PASS theo [S06 audit](s06-exp01-audit.md). [D12](d12-exp01-results.md) là hồ sơ chi tiết; S07 tổng hợp các claim có thể trình bày, điều kiện áp dụng và biểu đồ. Đây là kết quả trên các history H=100k–2M từ MovieLens 32M, không là phép đo graph 32M.
 
 ## Kết quả latency từ raw

@@ -4,7 +4,7 @@ from pathlib import Path
 
 import duckdb
 
-from src.graph.full_builder import file_sha256
+from src.artifacts import file_sha256
 
 
 def validate_movies(source: Path) -> dict:
