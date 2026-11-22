@@ -9,6 +9,7 @@ import argparse
 import hashlib
 import json
 import platform
+import threading
 import time
 from collections import Counter
 from datetime import datetime, timezone
@@ -23,6 +24,95 @@ from src.evaluation.temporal import score_chunks
 from src.graph.normalize import normalize_state
 from src.models.lightgcn import LightGCN, pairwise_loss, to_sparse_tensor
 from src.models.rec01_train import _sample_batches
+
+
+def _read_memory_value(path: Path | None) -> int | None:
+    if path is None:
+        return None
+    try:
+        value = path.read_text(encoding="ascii").strip()
+        return None if value == "max" else int(value)
+    except (OSError, ValueError):
+        return None
+
+
+def _cgroup_memory_files() -> tuple[Path | None, Path | None]:
+    """Locate Linux cgroup v2 or v1 memory files, if this process has them."""
+    base = Path("/sys/fs/cgroup")
+    candidates = [(base / "memory.max", base / "memory.current"),
+                  (base / "memory/memory.limit_in_bytes",
+                   base / "memory/memory.usage_in_bytes")]
+    try:
+        lines = Path("/proc/self/cgroup").read_text(encoding="ascii").splitlines()
+    except OSError:
+        lines = []
+    for line in lines:
+        fields = line.split(":", 2)
+        if len(fields) != 3:
+            continue
+        hierarchy, controllers, relative = fields
+        relative = relative.lstrip("/")
+        if hierarchy == "0":
+            candidates.append((base / relative / "memory.max",
+                               base / relative / "memory.current"))
+        elif "memory" in controllers.split(","):
+            candidates.append((base / "memory" / relative / "memory.limit_in_bytes",
+                               base / "memory" / relative / "memory.usage_in_bytes"))
+    for limit_path, current_path in candidates:
+        if limit_path.is_file() and current_path.is_file():
+            return limit_path, current_path
+    return None, None
+
+
+def _cpu_memory_snapshot(cgroup_limit: int | None,
+                         current_path: Path | None) -> dict:
+    host_available = psutil.virtual_memory().available
+    cgroup_current = _read_memory_value(current_path)
+    cgroup_available = (max(0, cgroup_limit - cgroup_current)
+                        if cgroup_limit is not None and cgroup_current is not None
+                        else None)
+    return {"host_available_bytes": host_available,
+            "cgroup_current_bytes": cgroup_current,
+            "effective_available_bytes": min(host_available, cgroup_available)
+            if cgroup_available is not None else host_available}
+
+
+class AvailableMemorySampler:
+    """Sample host and cgroup headroom during a phase at 10 ms intervals."""
+
+    def __init__(self, cgroup_limit: int | None, current_path: Path | None):
+        self.cgroup_limit = cgroup_limit
+        self.current_path = current_path
+        self.min_host_available_bytes: int | None = None
+        self.max_cgroup_current_bytes: int | None = None
+        self.min_effective_available_bytes: int | None = None
+        self.stop = threading.Event()
+        self.thread = threading.Thread(target=self._run, daemon=True)
+
+    def _sample(self) -> None:
+        sample = _cpu_memory_snapshot(self.cgroup_limit, self.current_path)
+        host = sample["host_available_bytes"]
+        effective = sample["effective_available_bytes"]
+        current = sample["cgroup_current_bytes"]
+        self.min_host_available_bytes = min(self.min_host_available_bytes, host) if self.min_host_available_bytes is not None else host
+        self.min_effective_available_bytes = min(self.min_effective_available_bytes, effective) if self.min_effective_available_bytes is not None else effective
+        if current is not None:
+            self.max_cgroup_current_bytes = max(self.max_cgroup_current_bytes, current) if self.max_cgroup_current_bytes is not None else current
+
+    def _run(self) -> None:
+        while not self.stop.is_set():
+            self._sample()
+            self.stop.wait(.01)
+
+    def __enter__(self):
+        self._sample()
+        self.thread.start()
+        return self
+
+    def __exit__(self, *_):
+        self.stop.set()
+        self.thread.join()
+        self._sample()
 
 
 def file_sha256(path: Path) -> str:
@@ -76,6 +166,9 @@ def run(cohort: Path, output: Path, *, device_name: str = "cuda:0", dim: int = 6
     torch.manual_seed(seed)
     torch.set_num_threads(1)
     process = psutil.Process()
+    cgroup_limit_path, cgroup_current_path = _cgroup_memory_files()
+    cgroup_limit = _read_memory_value(cgroup_limit_path)
+    memory_start = _cpu_memory_snapshot(cgroup_limit, cgroup_current_path)
     report = {
         "status": "RUNNING", "started_utc": datetime.now(timezone.utc).isoformat(),
         "cohort": str(cohort),
@@ -89,7 +182,11 @@ def run(cohort: Path, output: Path, *, device_name: str = "cuda:0", dim: int = 6
         "environment": {"python": platform.python_version(), "torch": torch.__version__,
                         "cuda_runtime": torch.version.cuda,
                         "physical_ram_bytes": psutil.virtual_memory().total,
-                        "cpu_rss_start_bytes": process.memory_info().rss},
+                        "cpu_rss_start_bytes": process.memory_info().rss,
+                        "cpu_host_available_start_bytes": memory_start["host_available_bytes"],
+                        "cgroup_memory_limit_bytes": cgroup_limit,
+                        "cgroup_memory_current_start_bytes": memory_start["cgroup_current_bytes"],
+                        "cpu_effective_available_start_bytes": memory_start["effective_available_bytes"]},
         "phases": {},
     }
     if device.type == "cuda":
@@ -108,20 +205,37 @@ def run(cohort: Path, output: Path, *, device_name: str = "cuda:0", dim: int = 6
             torch.cuda.synchronize(device)
             torch.cuda.reset_peak_memory_stats(device)
         before = process.memory_info().rss
+        memory_before = _cpu_memory_snapshot(cgroup_limit, cgroup_current_path)
+        gpu_free_before = torch.cuda.mem_get_info(device)[0] if device.type == "cuda" else None
         started = time.perf_counter()
-        with RssSampler(interval=.01) as sampler:
+        with RssSampler(interval=.01) as sampler, AvailableMemorySampler(
+                cgroup_limit, cgroup_current_path) as memory_sampler:
             value = operation()
             if device.type == "cuda":
                 torch.cuda.synchronize(device)
+        memory_after = _cpu_memory_snapshot(cgroup_limit, cgroup_current_path)
         row = {"wall_s": time.perf_counter() - started,
                "cpu_rss_before_bytes": before,
                "cpu_rss_after_bytes": process.memory_info().rss,
-               "cpu_peak_rss_bytes": sampler.peak}
+               "cpu_peak_rss_bytes": sampler.peak,
+               "cpu_host_available_before_bytes": memory_before["host_available_bytes"],
+               "cpu_host_available_after_bytes": memory_after["host_available_bytes"],
+               "cpu_host_available_min_bytes": min(memory_sampler.min_host_available_bytes,
+                                                   memory_before["host_available_bytes"],
+                                                   memory_after["host_available_bytes"]),
+               "cgroup_memory_current_before_bytes": memory_before["cgroup_current_bytes"],
+               "cgroup_memory_current_after_bytes": memory_after["cgroup_current_bytes"],
+               "cgroup_memory_current_peak_bytes": memory_sampler.max_cgroup_current_bytes,
+               "cpu_effective_available_min_bytes": min(
+                   memory_sampler.min_effective_available_bytes,
+                   memory_before["effective_available_bytes"],
+                   memory_after["effective_available_bytes"])}
         if device.type == "cuda":
             row.update(gpu_allocated_after_bytes=torch.cuda.memory_allocated(device),
                        gpu_reserved_after_bytes=torch.cuda.memory_reserved(device),
                        gpu_peak_allocated_bytes=torch.cuda.max_memory_allocated(device),
                        gpu_peak_reserved_bytes=torch.cuda.max_memory_reserved(device),
+                       gpu_free_before_bytes=gpu_free_before,
                        gpu_free_after_bytes=torch.cuda.mem_get_info(device)[0])
         report["phases"][name] = row
         write()
@@ -191,6 +305,12 @@ def run(cohort: Path, output: Path, *, device_name: str = "cuda:0", dim: int = 6
             report["ranking"] = {"users": len(rankings), "candidate_movies": len(movies),
                                  "returned_items": sum(map(len, rankings.values()))}
 
+        report["cpu_effective_available_min_bytes"] = min(
+            row["cpu_effective_available_min_bytes"] for row in report["phases"].values())
+        cpu_capacity = min(report["environment"]["physical_ram_bytes"], cgroup_limit) \
+            if cgroup_limit is not None else report["environment"]["physical_ram_bytes"]
+        report["cpu_effective_headroom_fraction"] = (
+            report["cpu_effective_available_min_bytes"] / cpu_capacity)
         if device.type == "cuda":
             total = report["environment"]["gpu_total_bytes"]
             peak = max(row.get("gpu_peak_reserved_bytes", 0)
@@ -198,8 +318,14 @@ def run(cohort: Path, output: Path, *, device_name: str = "cuda:0", dim: int = 6
             report["gpu_peak_reserved_bytes"] = peak
             report["gpu_total_headroom_fraction"] = (total - peak) / total
             report["gpu_free_end_bytes"] = torch.cuda.mem_get_info(device)[0]
+            report["gpu_phase_min_observed_free_bytes"] = min(
+                min(row["gpu_free_before_bytes"], row["gpu_free_after_bytes"])
+                for row in report["phases"].values())
+            report["gpu_phase_min_observed_free_headroom_fraction"] = (
+                report["gpu_phase_min_observed_free_bytes"] / total)
             report["gpu_effective_headroom_fraction"] = min(
                 report["gpu_total_headroom_fraction"],
+                report["gpu_phase_min_observed_free_headroom_fraction"],
                 report["gpu_free_end_bytes"] / total)
         report["status"] = "PASS"
     except Exception as exc:

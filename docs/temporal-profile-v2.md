@@ -1,6 +1,6 @@
 # MovieLens 32M temporal profile và cutoff feasibility (v2)
 
-**Trạng thái:** profiling hoàn thành; đề xuất cutoff **01/01/2020 00:00:00 UTC** để Project Owner review. Chưa tạo base graph 32M, chưa benchmark Full/Incremental, chưa đo GPU hoặc train LightGCN. Các số dưới đây là thống kê dữ liệu, không phải số đo hiệu năng.
+**Trạng thái:** profiling hoàn thành; Project Owner đã duyệt cutoff **01/01/2020 00:00:00 UTC**. Chưa tạo base graph 32M hay benchmark Full/Incremental trên toàn base; [GPU feasibility](gpu-feasibility-v2.md) đã đo các model cohorts trên Kaggle T4. Các số dưới đây là thống kê dữ liệu, không phải số đo hiệu năng.
 
 ## Dữ liệu và định nghĩa
 

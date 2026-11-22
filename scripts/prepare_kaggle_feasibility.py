@@ -4,9 +4,10 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
-import shutil
 import zipfile
 from pathlib import Path
+
+from scripts.kaggle_feasibility_runner import load_probe_plan
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -28,7 +29,8 @@ def _add(archive: zipfile.ZipFile, source: Path, member: str) -> None:
     archive.writestr(entry, source.read_bytes())
 
 
-def prepare(cohorts: list[Path], output: Path, *, username: str) -> dict:
+def prepare(cohorts: list[Path], output: Path, *, username: str,
+            probe_plan: dict | None = None) -> dict:
     if not cohorts or not username or "/" in username:
         raise ValueError("Expected cohorts and Kaggle username")
     cohorts = [Path(path).resolve() for path in cohorts]
@@ -43,12 +45,16 @@ def prepare(cohorts: list[Path], output: Path, *, username: str) -> dict:
     dataset.mkdir()
     kernel.mkdir()
 
+    unpacked_files_sha256 = {}
     source_zip = dataset / "project_source.zip"
     with zipfile.ZipFile(source_zip, "w") as archive:
         for path in sorted((ROOT / "src").rglob("*.py")):
-            _add(archive, path, path.relative_to(ROOT).as_posix())
-        _add(archive, ROOT / "scripts/gpu_feasibility_probe.py",
-             "scripts/gpu_feasibility_probe.py")
+            member = path.relative_to(ROOT).as_posix()
+            _add(archive, path, member)
+            unpacked_files_sha256[f"project_source/{member}"] = sha256(path)
+        probe_source = ROOT / "scripts/gpu_feasibility_probe.py"
+        _add(archive, probe_source, "scripts/gpu_feasibility_probe.py")
+        unpacked_files_sha256["project_source/scripts/gpu_feasibility_probe.py"] = sha256(probe_source)
 
     names = []
     for cohort in cohorts:
@@ -60,11 +66,13 @@ def prepare(cohorts: list[Path], output: Path, *, username: str) -> dict:
         with zipfile.ZipFile(target, "w") as archive:
             for filename in ("nodes.parquet", "edges.parquet", "manifest.json"):
                 _add(archive, cohort / filename, f"{name}/{filename}")
+                unpacked_files_sha256[f"{name}/{name}/{filename}"] = sha256(cohort / filename)
 
     input_files = (source_zip.name,) + tuple(f"{name}.zip" for name in names)
     input_manifest = {"dataset_id": f"{username}/{DATASET_SLUG}",
                       "cohorts": names,
-                      "files_sha256": {name: sha256(dataset / name) for name in input_files}}
+                      "files_sha256": {name: sha256(dataset / name) for name in input_files},
+                      "unpacked_files_sha256": unpacked_files_sha256}
     (dataset / "input_manifest.json").write_text(json.dumps(input_manifest, indent=2),
                                                  encoding="utf-8")
     (dataset / "dataset-metadata.json").write_text(json.dumps({
@@ -74,7 +82,17 @@ def prepare(cohorts: list[Path], output: Path, *, username: str) -> dict:
         "description": "Private derived MovieLens 32M pre-2020 positive graph cohorts for GPU feasibility. Original MovieLens terms apply; not a public training release.",
     }, indent=2), encoding="utf-8")
 
-    shutil.copy2(ROOT / "scripts/kaggle_feasibility_runner.py", kernel / "probe_runner.py")
+    runner_source = (ROOT / "scripts/kaggle_feasibility_runner.py").read_text(encoding="utf-8")
+    if probe_plan is not None:
+        validated = load_probe_plan(None, names, probe_plan)
+        marker = "EMBEDDED_PROBE_PLAN = None"
+        if runner_source.count(marker) != 1:
+            raise ValueError("Expected exactly one embedded probe plan marker")
+        inline_plan = json.dumps({"cohorts": validated["cohorts"],
+                                  "steps": validated["steps"]})
+        runner_source = runner_source.replace(
+            marker, f"EMBEDDED_PROBE_PLAN = {inline_plan}")
+    (kernel / "probe_runner.py").write_bytes(runner_source.encode("utf-8"))
     (kernel / "kernel-metadata.json").write_text(json.dumps({
         "id": f"{username}/{KERNEL_SLUG}",
         "title": "MovieGraph v2 GPU Feasibility",
@@ -98,8 +116,12 @@ def main() -> None:
     parser.add_argument("--cohort", type=Path, action="append", required=True)
     parser.add_argument("--out", type=Path, required=True)
     parser.add_argument("--username", required=True)
+    parser.add_argument("--plan", type=Path,
+                        help="Optional bounded {cohorts,steps} plan embedded in Kaggle's code_file")
     args = parser.parse_args()
-    print(json.dumps(prepare(args.cohort, args.out, username=args.username), indent=2))
+    plan = json.loads(args.plan.read_text(encoding="utf-8")) if args.plan else None
+    print(json.dumps(prepare(args.cohort, args.out, username=args.username,
+                             probe_plan=plan), indent=2))
 
 
 if __name__ == "__main__":

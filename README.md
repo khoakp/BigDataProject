@@ -13,7 +13,7 @@ Graph là cumulative historical-positive user–movie, ngưỡng `rating >= 4.0`
 - [Kiến trúc, API, version contract và bước tiếp theo](docs/03-system-design.md)
 - [Audit, dependency map, baseline tests và migration plan](docs/architecture-audit-v2.md)
 - [Temporal profile MovieLens 32M](docs/temporal-profile-v2.md) — bằng chứng cho cutoff 2020 đã được duyệt.
-- [GPU feasibility, cohort selection và LightGCN workload](docs/gpu-feasibility-v2.md) — có số đo GPU local, đang chờ probe Kaggle T4.
+- [GPU feasibility, cohort selection và LightGCN workload](docs/gpu-feasibility-v2.md) — đã đo private Kaggle T4 và trajectory 500 bước; chờ Project Owner review trước Model Refresh Engine.
 - [Experiment protocol và raw evidence log](docs/07-experiment-log.md) — các số đo DXX/EXP hiện có là lịch sử, không thay thế thí nghiệm v2.
 - [AGENTS.md](AGENTS.md) — quy tắc triển khai hiện hành.
 

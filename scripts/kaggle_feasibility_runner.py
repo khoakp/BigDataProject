@@ -8,10 +8,16 @@ from __future__ import annotations
 import hashlib
 import importlib.metadata
 import json
+import shutil
 import subprocess
 import sys
-import zipfile
-from pathlib import Path
+from pathlib import Path, PurePosixPath
+
+
+# Kaggle CLI uploads only kernel-metadata.json's code_file. A one-off trajectory
+# may be embedded in the submitted copy of this script; the repository default
+# remains the 5-step sweep over all packaged cohorts.
+EMBEDDED_PROBE_PLAN = None
 
 
 def sha256(path: Path) -> str:
@@ -22,27 +28,66 @@ def sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
-def extract_verified(archive_path: Path, target: Path, expected: set[str] | None = None) -> None:
-    """Extract only regular files within target after validating member names."""
-    with zipfile.ZipFile(archive_path) as archive:
-        members = archive.infolist()
-        names = {member.filename for member in members}
-        if expected is not None and names != expected:
-            raise ValueError(f"Unexpected archive members in {archive_path.name}")
-        for member in members:
-            name = member.filename
-            parts = Path(name.replace("\\", "/")).parts
-            destination = (target / name).resolve()
-            if (member.is_dir() or name.startswith(("/", "\\")) or
-                    not parts or ".." in parts or
-                    target.resolve() not in destination.parents or
-                    not (name.endswith(".py") or name.endswith(".parquet") or
-                         name.endswith("manifest.json"))):
-                raise ValueError(f"Unsafe archive member: {name}")
-            destination.parent.mkdir(parents=True, exist_ok=True)
-            with archive.open(member) as source, destination.open("wb") as out:
-                while block := source.read(1024 * 1024):
-                    out.write(block)
+def verify_mounted_files(source: Path, inputs: dict) -> tuple[dict[str, Path], list[str]]:
+    """Verify Kaggle's auto-extracted ZIP members and any retained ZIP files."""
+    root = source.resolve()
+    members = inputs["unpacked_files_sha256"]
+    if not members or "project_source/scripts/gpu_feasibility_probe.py" not in members:
+        raise ValueError("Missing unpacked project source manifest")
+    for cohort in inputs["cohorts"]:
+        if "/" in cohort or "\\" in cohort or cohort in (".", ".."):
+            raise ValueError("Invalid cohort name")
+        for name in ("nodes.parquet", "edges.parquet", "manifest.json"):
+            if f"{cohort}/{cohort}/{name}" not in members:
+                raise ValueError(f"Missing unpacked cohort manifest: {cohort}/{name}")
+    verified = {}
+    for relative, expected in members.items():
+        parts = PurePosixPath(relative).parts
+        if (not parts or relative.startswith(("/", "\\")) or ".." in parts or
+                "\\" in relative):
+            raise ValueError(f"Unsafe input manifest path: {relative}")
+        path = source.joinpath(*parts)
+        resolved = path.resolve()
+        if root not in resolved.parents or not path.is_file() or path.is_symlink():
+            raise ValueError(f"Missing or unsafe mounted input: {relative}")
+        if sha256(path) != expected:
+            raise ValueError(f"Unpacked SHA-256 mismatch: {relative}")
+        verified[relative] = path
+    retained_archives = []
+    for name, expected in inputs["files_sha256"].items():
+        if name != Path(name).name or not name.endswith(".zip"):
+            raise ValueError(f"Unsafe archive name: {name}")
+        path = source / name
+        if path.is_file():
+            if sha256(path) != expected:
+                raise ValueError(f"ZIP SHA-256 mismatch: {name}")
+            retained_archives.append(name)
+        elif path.exists():
+            raise ValueError(f"Unexpected archive path: {name}")
+    return verified, retained_archives
+
+
+def load_probe_plan(path: Path | None, available_cohorts: list[str],
+                    embedded: dict | None = None) -> dict:
+    """Use the original five-step sweep unless a bounded plan is supplied."""
+    if embedded is not None:
+        plan, source = embedded, "embedded"
+    elif path is not None and path.is_file():
+        plan = json.loads(path.read_text(encoding="utf-8"))
+        source = str(path)
+    else:
+        return {"cohorts": list(available_cohorts), "steps": 5, "source": "default"}
+    if not isinstance(plan, dict) or set(plan) != {"cohorts", "steps"}:
+        raise ValueError("probe_plan.json needs exactly cohorts and steps")
+    selected = plan["cohorts"]
+    steps = plan["steps"]
+    if (not isinstance(selected, list) or not selected or
+            any(not isinstance(name, str) or name not in available_cohorts
+                for name in selected) or len(set(selected)) != len(selected)):
+        raise ValueError("probe_plan.json cohorts must be a unique nonempty subset")
+    if type(steps) is not int or not 1 <= steps <= 500:
+        raise ValueError("probe_plan.json steps must be an integer in 1..500")
+    return {"cohorts": selected, "steps": steps, "source": source}
 
 
 def main() -> None:
@@ -51,16 +96,18 @@ def main() -> None:
         raise RuntimeError(f"Expected exactly one GPU probe input dataset, got {len(matches)}")
     source = matches[0].parent
     inputs = json.loads(matches[0].read_text(encoding="utf-8"))
-    for name, expected in inputs["files_sha256"].items():
-        if sha256(source / name) != expected:
-            raise ValueError(f"Input SHA-256 mismatch: {name}")
+    verified, retained_archives = verify_mounted_files(source, inputs)
+    plan_path = next((path for path in
+                      (Path(__file__).resolve().with_name("probe_plan.json"),
+                       Path.cwd() / "probe_plan.json") if path.is_file()), None)
+    plan = load_probe_plan(plan_path, inputs["cohorts"], EMBEDDED_PROBE_PLAN)
 
     try:
         installed = importlib.metadata.version("duckdb")
     except importlib.metadata.PackageNotFoundError:
         installed = None
     requirements = []
-    if installed != "1.5.6":
+    if installed is None:
         requirements.append("duckdb==1.5.6")
     try:
         importlib.metadata.version("psutil")
@@ -68,6 +115,8 @@ def main() -> None:
         requirements.append("psutil")
     if requirements:
         subprocess.run([sys.executable, "-m", "pip", "install", *requirements], check=True)
+    if installed is None:
+        installed = importlib.metadata.version("duckdb")
 
     import torch
     if not torch.cuda.is_available():
@@ -78,23 +127,26 @@ def main() -> None:
 
     project = Path("/kaggle/working/moviegraph_probe")
     project.mkdir(parents=True, exist_ok=False)
-    extract_verified(source / "project_source.zip", project)
-    (project / "cohorts").mkdir()
+    for relative, path in verified.items():
+        if not relative.startswith("project_source/"):
+            continue
+        target = project / relative.removeprefix("project_source/")
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(path, target)
     summary = {"input_manifest": inputs, "cuda_device": "cuda:0", "gpu_name": name,
-               "visible_gpus": torch.cuda.device_count(), "results": []}
-    for cohort_name in inputs["cohorts"]:
-        if "/" in cohort_name or "\\" in cohort_name or cohort_name in (".", ".."):
-            raise ValueError("Invalid cohort name")
-        extract_verified(source / f"{cohort_name}.zip", project / "cohorts",
-                         {f"{cohort_name}/{name}" for name in
-                          ("nodes.parquet", "edges.parquet", "manifest.json")})
-        cohort = project / "cohorts" / cohort_name
+               "visible_gpus": torch.cuda.device_count(),
+               "duckdb_version": installed,
+               "retained_archives_verified": retained_archives,
+               "probe_plan": plan,
+               "results": []}
+    for cohort_name in plan["cohorts"]:
+        cohort = source / cohort_name / cohort_name
         output = project / "results" / cohort_name
         output.parent.mkdir(exist_ok=True)
         cmd = [sys.executable, "-u", "-m", "scripts.gpu_feasibility_probe",
                "--cohort", str(cohort), "--out", str(output), "--device", "cuda:0",
                "--dim", "64", "--layers", "3", "--batch-size", "1024",
-               "--steps", "5", "--eval-users", "100"]
+               "--steps", str(plan["steps"]), "--eval-users", "100"]
         try:
             run = subprocess.run(cmd, cwd=project, capture_output=True, text=True,
                                  timeout=900)
@@ -120,14 +172,19 @@ def main() -> None:
             report = json.loads(report_path.read_text(encoding="utf-8"))
             record.update(status=report.get("status"),
                           graph=report.get("graph"),
+                          cpu_effective_available_min_bytes=report.get("cpu_effective_available_min_bytes"),
+                          cpu_effective_headroom_fraction=report.get("cpu_effective_headroom_fraction"),
                           gpu_peak_reserved_bytes=report.get("gpu_peak_reserved_bytes"),
                           gpu_total_headroom_fraction=report.get("gpu_total_headroom_fraction"),
                           gpu_effective_headroom_fraction=report.get("gpu_effective_headroom_fraction"))
         summary["results"].append(record)
         (project / "summary.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
         print(json.dumps(record), flush=True)
-        if returncode != 0 or (record.get("gpu_effective_headroom_fraction") is not None and
-                              record["gpu_effective_headroom_fraction"] < .30):
+        if (returncode != 0 or
+                (record.get("gpu_effective_headroom_fraction") is not None and
+                 record["gpu_effective_headroom_fraction"] < .30) or
+                (record.get("cpu_effective_available_min_bytes") is not None and
+                 record["cpu_effective_available_min_bytes"] < 2 * 1024**3)):
             break
 
 

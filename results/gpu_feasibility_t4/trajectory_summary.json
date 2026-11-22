@@ -1,0 +1,94 @@
+{
+  "input_manifest": {
+    "dataset_id": "khoakp/moviegraph-v2-feasibility-input",
+    "cohorts": [
+      "edges_500000",
+      "edges_2000000",
+      "edges_5000000"
+    ],
+    "files_sha256": {
+      "project_source.zip": "a5c9ff3301cde3c313ce16782ae49ca254788f494b36196bbaa31104da93d478",
+      "edges_500000.zip": "1bced10bdfbea0c8c4e3e1fa574f439e3624481dc6626d7cef9722f394147a0f",
+      "edges_2000000.zip": "693d8d8e45dbc71d7fff340861312999e2f47bf6748dd0e234aa86ff05d34342",
+      "edges_5000000.zip": "f983ab699764c9b061e91f42e4477e1e28736db564acb24161d3f48d44c1a96b"
+    },
+    "unpacked_files_sha256": {
+      "project_source/src/app/__init__.py": "3822e6dd9998913bc7370237fff3dff5728549dfa9c62890dec8f1a7fe7ff8b4",
+      "project_source/src/app/feedback.py": "8b25e8a83e98fd8dc238b4f06ebea38694d87b2e2693145b95dbd9e75a585b5e",
+      "project_source/src/app/rec01_view.py": "5d93e80ce15a400118d721a566c9bbeccd2d1dbf113f4a54c606502ee5d8ca46",
+      "project_source/src/app/streamlit_app.py": "40dc9a349093d9ea629c8ec3422ce45cc3c20e418996474a076289721d3745ec",
+      "project_source/src/benchmarking/common.py": "8eb91e8e96a69002d712a15379cf700e4e0bad85a487180ccc362597bc1ef5ba",
+      "project_source/src/benchmarking/exp01.py": "a41c1a080e7ed5bca54e8b5f3375687e0599f009c5e0305e352ce1e1524229b1",
+      "project_source/src/benchmarking/exp01_analysis.py": "041ee339eff743d45d0a28d4b1fb0596ce5479d78a6c18a4d9f2b08021073705",
+      "project_source/src/benchmarking/exp02.py": "484aba73fc8db7a03642f314b1d5c4420226198d19a5c7aaf07e0ae431110a03",
+      "project_source/src/benchmarking/exp02_analysis.py": "1af4b54aa54b02125476d8402461a7dfd326b1d66e3f97c607588e21922e9638",
+      "project_source/src/evaluation/baselines.py": "f5ed86a958e0d9911c6563c4ae34976aae184523e7dba30e20ae30807ce9f577",
+      "project_source/src/evaluation/checkpoint_selection.py": "a402d8c02e407a5647190a4449c971750d33643feda982c6e4105f0aea3e1dac",
+      "project_source/src/evaluation/model_cohort.py": "bc7db52b250fcf4576efa1cc376ba5573772a5ad1f42816bd9e92a03517b7a4d",
+      "project_source/src/evaluation/rec01.py": "eeb638a95f391cb5384731fdfafdb73e2d6f1288d6dd6572b84cbe21e6bc79ee",
+      "project_source/src/evaluation/s02_probe.py": "a396045a8e5939e2a2c7d13838209ea5e4497788729243d7f32b9fc5a28cfe47",
+      "project_source/src/evaluation/temporal.py": "942fc577f70802dfcb603a425584c085491c69717c22728d646eeca005899d05",
+      "project_source/src/graph/d04_probe.py": "6005860fffb0b0b65cc71188bdb14a276d1f5c7e060b64c13bd6968cf20397e9",
+      "project_source/src/graph/d05_probe.py": "f8428eef8402b496db18acc6ea7dd0731fe9793533324d792b3ce4905a367e7f",
+      "project_source/src/graph/d06_probe.py": "a7bf10c7ba477fa26f69f24a6d4d72a9ba421a070d0298279c49f40209208d9f",
+      "project_source/src/graph/equivalence.py": "67661e3bf4be05876c45587a3b5fafd1930535bf56282707e7e62d3d4d441c7b",
+      "project_source/src/graph/full_builder.py": "d7d3bf86003d42ca21801109243dba0ec11ebcbb1db062ac46e928a271736aa3",
+      "project_source/src/graph/incremental.py": "41f99c680e8062729b4cc7164ce4828c762bf7421ce189562aca8265d66d53d9",
+      "project_source/src/graph/normalize.py": "5cac744420f40d3f411b6d1af0b57d1786dbbf42d3b6bbebe0f0fab520933992",
+      "project_source/src/graph/snapshot.py": "7e5ee6558fdcc15d2fa64a69790bc318e787ca1cb95ba32fc4257622779ebc0d",
+      "project_source/src/ingest/d02_profile.py": "3de9dcd183be22c1bb1fbf840d7b928cf3204300ed8c491c285974debd287230",
+      "project_source/src/ingest/temporal_profile.py": "6e87c9cf6ad413c091070d17d376a1a150a797bb73857ff0068357133dff003f",
+      "project_source/src/metadata/movie_lookup.py": "74dcfe26a3b56437fff96c5705dc13410fd65ad694ca4acabc43b4f837be77dc",
+      "project_source/src/models/d07_probe.py": "f0e3a193f2ca2096ff0c814a28def0183ae2272f1c4fb320049dddd87a3fbc00",
+      "project_source/src/models/d08_baseline.py": "1a5a521762d51037928162d21884cb082e1c76140990a3733bce855e3b5922e1",
+      "project_source/src/models/d09_pipeline.py": "27f75bd8645a2256baf927b71caa267f1e2d7d7aa2cdd2d57a0b1ecc107ec23a",
+      "project_source/src/models/d10_demo.py": "e3f99c120be8eb34e1368a126878ebed5f644b03fe4b077b0f26b1d69c2dffe7",
+      "project_source/src/models/d10_mvp.py": "547f458dc123fcde89a4e392558fa27b632060b7f40fa9371a559a077820f944",
+      "project_source/src/models/lightgcn.py": "7edc8d9480409faea8f226117e9b60a470b0969fdcab35b8930879e591776d33",
+      "project_source/src/models/rec01_demo.py": "28e0606121ad900ba696396f1f7b96c4bc4566461f32949f48d4e0da09bc6f57",
+      "project_source/src/models/rec01_inference.py": "2f372a6a3c3ded22044155ae052c540bc1d79ce9d47536c9b349723fd2e6a4da",
+      "project_source/src/models/rec01_train.py": "932c59821d553d32aee7980622551223f25b68bbec17ef8f6ba9a7fdec18401a",
+      "project_source/scripts/gpu_feasibility_probe.py": "aeba056ec296d16d80d14d125b78661372a4a0bc4ca18ec6205e52125ca2df08",
+      "edges_500000/edges_500000/nodes.parquet": "3bec53fcce375389b6f6727d0f523d6eb2a13c06a226f4a397a17b4e97a7d8d0",
+      "edges_500000/edges_500000/edges.parquet": "164c5b84f3f0ce043e87b154eff33cd6e675482891b0b086c032f1013acbda95",
+      "edges_500000/edges_500000/manifest.json": "b3a379f3a56b017def3f2b0beafc9630636e0b6cb80bd2b2d6262aa4199cee2c",
+      "edges_2000000/edges_2000000/nodes.parquet": "7a2752331318427a4fb5bbeda6f5de0c12be2a6218f3d3db8166ed7bcc93761a",
+      "edges_2000000/edges_2000000/edges.parquet": "b7d218b9519e443c010a4a20cb26d22f3b52091ed244f4f687b48b97c721c7a4",
+      "edges_2000000/edges_2000000/manifest.json": "c2477fdcb0722541fee426b674b2fed6a8987ebc365a3d8740db5ded40db6d13",
+      "edges_5000000/edges_5000000/nodes.parquet": "a2723792903893694cc708b65c85468180064a445dd949e321a24030f7dbb3d7",
+      "edges_5000000/edges_5000000/edges.parquet": "f697aa05eabab03db6b7bc72980229eeb157a42801c42597d92672df50e857f8",
+      "edges_5000000/edges_5000000/manifest.json": "10411c083ec8076bf831e4cbf5c8180518fcd557feaa43898142547ced77929e"
+    }
+  },
+  "cuda_device": "cuda:0",
+  "gpu_name": "Tesla T4",
+  "visible_gpus": 2,
+  "duckdb_version": "1.3.2",
+  "retained_archives_verified": [],
+  "probe_plan": {
+    "cohorts": [
+      "edges_5000000"
+    ],
+    "steps": 500,
+    "source": "embedded"
+  },
+  "results": [
+    {
+      "cohort": "edges_5000000",
+      "returncode": 0,
+      "report_exists": true,
+      "status": "PASS",
+      "graph": {
+        "nodes": 90253,
+        "positive_edges": 4999981,
+        "sparse_entries": 9999962,
+        "sparse_tensor_nnz": 9999962
+      },
+      "cpu_effective_available_min_bytes": 27891093504,
+      "cpu_effective_headroom_fraction": 0.8658535003662109,
+      "gpu_peak_reserved_bytes": 1178599424,
+      "gpu_total_headroom_fraction": 0.924622883895602,
+      "gpu_effective_headroom_fraction": 0.9158462112353146
+    }
+  ]
+}
