@@ -1,0 +1,19 @@
+test_rejects_nonpositive_ids_and_existing_output (tests.test_d02.D02Test) ... ok
+test_ties_and_identical_rows_are_stable (tests.test_d02.D02Test) ... ok
+{"stage": "canonical", "status": "PASS", "exit_code": 0, "stop_reason": null, "wall_s": 0.0017244000009668525, "wall_cap_s": 1800, "peak_rss_bytes": 100, "min_host_available_bytes": 3221225472, "peak_disk_bytes": 0, "final_disk_bytes": 0, "sampled_peak_spill_bytes": 0, "sample_interval_s": 0.1, "duckdb_limit": "1GB"}
+{"stage": "canonical", "status": "STOPPED", "exit_code": 1, "stop_reason": null, "wall_s": 0.0010538999995333143, "wall_cap_s": 1800, "peak_rss_bytes": 100, "min_host_available_bytes": 3221225472, "peak_disk_bytes": 0, "final_disk_bytes": 0, "sampled_peak_spill_bytes": 0, "sample_interval_s": 0.1, "duckdb_limit": "1GB"}
+{"stage": "canonical", "status": "STOPPED", "exit_code": 0, "stop_reason": "CPU_AVAILABLE_BELOW_2_GIB", "wall_s": 0.001091500002075918, "wall_cap_s": 1800, "peak_rss_bytes": 100, "min_host_available_bytes": 1073741824, "peak_disk_bytes": 0, "final_disk_bytes": 0, "sampled_peak_spill_bytes": 0, "sample_interval_s": 0.1, "duckdb_limit": "1GB"}
+test_success_failure_and_low_memory_stop (tests.test_goal04_preflight.PreflightGuardTest) ... ok
+test_cohort_hash_and_semantic_mismatch_rejected (tests.test_model_replay.ModelReplayTest) ... ok
+test_exclusion_partition_ties_negative_events_and_empty_interval (tests.test_model_replay.ModelReplayTest) ... ok
+test_full_reference_equivalence_boundaries_and_snapshot_reload (tests.test_model_replay.ModelReplayTest) ... ok
+test_noncanonical_source_and_existing_database_rejected (tests.test_model_replay.ModelReplayTest) ... ok
+test_retry_rollback_and_invalid_boundary (tests.test_model_replay.ModelReplayTest) ... ok
+test_snapshot_mismatch_and_corrupt_normalization_rejected (tests.test_model_replay.ModelReplayTest) ... ok
+test_snapshot_temporal_provenance_and_file_integrity (tests.test_model_replay.ModelReplayTest) ... ok
+test_source_and_database_mapping_tampering_rejected (tests.test_model_replay.ModelReplayTest) ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 2.892s
+
+OK

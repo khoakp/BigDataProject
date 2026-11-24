@@ -1,0 +1,63 @@
+{
+  "status": "PASS",
+  "git_head": "1745739744f6f4aae0d97ddf83d03a7a80eacbb9",
+  "source_bundle_sha256": "4e3f3b830c0afd37b82770169014af987b5a517f3ed8134917c63ba849a207e1",
+  "environment": {
+    "python": "3.13.16",
+    "duckdb": "1.3.2",
+    "cpu_count": 4,
+    "physical_ram_bytes": 33658155008,
+    "cgroup_ram_limit_bytes": 32212254720,
+    "visible_gpus": 2,
+    "gpu_names": [
+      "Tesla T4",
+      "Tesla T4"
+    ],
+    "torch": "2.11.0+cu130",
+    "gpu_memory_bytes": [
+      15636037632,
+      15636037632
+    ]
+  },
+  "stages": [
+    {
+      "stage": "inputs",
+      "status": "PASS",
+      "exit_code": 0,
+      "stop_reason": null,
+      "wall_s": 12.073612327999996,
+      "peak_rss_bytes": 138133504,
+      "min_available_ram_bytes": 30832898048,
+      "peak_disk_bytes": 1734,
+      "min_free_disk_bytes": 20940304384,
+      "sampled_peak_spill_bytes": 0
+    },
+    {
+      "stage": "base",
+      "status": "PASS",
+      "exit_code": 0,
+      "stop_reason": null,
+      "wall_s": 196.924092131,
+      "peak_rss_bytes": 1813848064,
+      "min_available_ram_bytes": 26368679936,
+      "peak_disk_bytes": 333930265,
+      "min_free_disk_bytes": 19006078976,
+      "sampled_peak_spill_bytes": 18907136
+    },
+    {
+      "stage": "monthly",
+      "status": "PASS",
+      "exit_code": 0,
+      "stop_reason": null,
+      "wall_s": 161.345819725,
+      "peak_rss_bytes": 2064171008,
+      "min_available_ram_bytes": 27079917568,
+      "peak_disk_bytes": 636293347,
+      "min_free_disk_bytes": 20303970304,
+      "sampled_peak_spill_bytes": 0
+    }
+  ],
+  "gpu_optimizer_steps": 0,
+  "quality_evaluations": 0,
+  "elapsed_s": 379.0316866520001
+}

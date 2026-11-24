@@ -1,0 +1,19 @@
+{
+  "status": "PASS_AWAITING_PHASE_B_ACCEPTANCE",
+  "baseline_tests": 75,
+  "final_tests": 83,
+  "new_tests": 8,
+  "failures": 0,
+  "skips": 0,
+  "git_diff_check": "PASS",
+  "phase_c_gpu_authorized": false,
+  "full_5m_replay_measured": false,
+  "files_sha256": {
+    "src\\graph\\model_replay.py": "707277bd78db8636710a55f5c2f550ebfc4bbd3899fe9fd1421836bbb6ef0d72",
+    "tests\\test_model_replay.py": "636bbb8028d9e083905894846dc13b9068045cc7dbfe3a4ea1745ef1f190cfaf",
+    "docs\\current\\experiment-protocol.md": "9d8caa2feb773a6adf6f64d40b004319bf025804f10000064f46b984e912b7a1",
+    "results\\goal04_projection\\baseline.log": "9c939a31bf5e90618d5e6b2627ea3f24fb509bfaecf4db6fef2cee630f97d819",
+    "results\\goal04_projection\\regression.log": "fe272bb23a315cb451f9320695c5c8cd4173501a6079d7e8d5071e6935a734a7",
+    "results\\goal04_projection\\smoke.json": "dbea26104b8b13493c41cd5f4c6f5a91840d0cf553e80fa67c4bccb6b7bab66b"
+  }
+}

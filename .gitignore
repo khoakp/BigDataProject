@@ -11,6 +11,11 @@ __pycache__/
 /artifacts/checkpoints/
 /results/raw/
 /results/model_cohort_v2_final/
+/results/goal04_c3/**/base_snapshot/*.parquet
+/results/goal04_c3/**/monthly_snapshot/*.parquet
+/results/goal04_c4/**/candidates/*.pt
+/results/goal04_c5/**/download/goal04_c5_source/
+/results/goal04_c5/**/download/goal04_c5_source.zip
 *.duckdb
 *.duckdb.wal
 ~$*.docx

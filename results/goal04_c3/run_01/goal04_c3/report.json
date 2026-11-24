@@ -1,0 +1,38 @@
+{
+  "status": "FAIL",
+  "git_head": "1745739744f6f4aae0d97ddf83d03a7a80eacbb9",
+  "source_bundle_sha256": "b9501f6eefa3be725e79c173e5e6b831f282118770dd88cc60a4352e0574e7be",
+  "environment": {
+    "python": "3.13.16",
+    "duckdb": "1.3.2",
+    "cpu_count": 4,
+    "physical_ram_bytes": 33658155008,
+    "cgroup_ram_limit_bytes": 32212254720,
+    "visible_gpus": 2,
+    "gpu_names": [
+      "Tesla T4",
+      "Tesla T4"
+    ],
+    "torch": "2.11.0+cu130",
+    "gpu_memory_bytes": [
+      15636037632,
+      15636037632
+    ]
+  },
+  "stages": [
+    {
+      "stage": "inputs",
+      "status": "FAIL",
+      "exit_code": 1,
+      "stop_reason": null,
+      "wall_s": 0.20209942600001796,
+      "peak_rss_bytes": 2277376,
+      "min_available_ram_bytes": 31496204288,
+      "peak_disk_bytes": 609,
+      "min_free_disk_bytes": 20940312576,
+      "sampled_peak_spill_bytes": 0
+    }
+  ],
+  "gpu_optimizer_steps": 0,
+  "quality_evaluations": 0
+}

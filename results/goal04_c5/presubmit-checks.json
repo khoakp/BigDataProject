@@ -1,0 +1,23 @@
+{
+  "status": "PASS",
+  "package_manifest_sha256": "09eac43091982f1933c650741d8ccfe83b4d34918d9d37a5c8a6f8818c40890e",
+  "runner_sha256": "628d9e06c340597e7cd343c4874c16f3e6672a41d4cde07e27373e2cfdd82084",
+  "source_bundle_sha256": "c1ed73e464e0e210ee044721498eb04c2bc490c01ab8c2649459cde41fb889a9",
+  "budget_audit_sha256": "15367884211706b119b90faf081bef9cf46070612848a03f9e91271f872253a5",
+  "c3_verification": "PASS",
+  "c4_verification": "PASS",
+  "input_integrity": "PASS",
+  "windows": 12,
+  "catalog_movies": 40666,
+  "candidate_steps": [
+    0,
+    500,
+    1500,
+    3000,
+    5000
+  ],
+  "optimizer_updates": 0,
+  "maximum_propagation_forwards": 5,
+  "selected_c0": false,
+  "finalization_margin_s": 120
+}

@@ -37,6 +37,8 @@ class D02Test(unittest.TestCase):
             a = d02.run(source, base / "a", max_prefix=4)
             b = d02.run(source, base / "b", max_prefix=4)
             self.assertEqual(a["rows"], 4)
+            self.assertEqual(a['memory_limit'], '1GB')
+            self.assertTrue((base / 'a' / 'duckdb_profile.json').is_file())
             self.assertEqual(a["duplicate_pair_rows"], 2)
             self.assertEqual(a["timestamp_tie_rows"], 2)
             self.assertEqual(a["prefixes"]["4"]["sha256"], b["prefixes"]["4"]["sha256"])

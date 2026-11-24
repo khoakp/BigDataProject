@@ -1,0 +1,38 @@
+{
+  "status": "COUNTS_ONLY_NOT_APPROVED_PROTOCOL",
+  "source_sha256": "91159850e41ee59c86231165a688709647e2726cab2e7ba9faf04001bd5261ee",
+  "cohort_hashes": {
+    "nodes.parquet": "a2723792903893694cc708b65c85468180064a445dd949e321a24030f7dbb3d7",
+    "edges.parquet": "f697aa05eabab03db6b7bc72980229eeb157a42801c42597d92672df50e857f8"
+  },
+  "source_events": 32000204,
+  "min_ts": 789652004,
+  "max_ts": 1697164147,
+  "cutoff_ts": 1577836800,
+  "cold_reference": "pre-2020 positive graph; user then movie then seen",
+  "support_rule": {
+    "min_users": 100,
+    "min_labels": 500,
+    "min_dev_month_fraction": 0.8
+  },
+  "git_head": "1745739744f6f4aae0d97ddf83d03a7a80eacbb9",
+  "script_sha256": "d39e1c65f50f2e64a9200a2d8791504295b6b3285c6f35af3ef14c3e86f175ed",
+  "environment": {
+    "python": "3.10.11",
+    "duckdb": "1.5.6",
+    "threads": 2,
+    "memory_limit": "1GB"
+  },
+  "measured_utc": "2026-11-23T07:00:34.068435+00:00",
+  "monthly_sha256": "cd3cb7f2a2aef6c892167f5b8c560ac58ccf0d79539e00b8ba0af228c016a778",
+  "totals": {
+    "rating_events": 4635230,
+    "future_positive_pairs": 2293342,
+    "eligible_pairs": 268965,
+    "cold_user_pairs": 1948688,
+    "omitted_user_pairs": 23556,
+    "cold_movie_pairs": 52049,
+    "omitted_movie_pairs": 84,
+    "seen_pairs": 0
+  }
+}

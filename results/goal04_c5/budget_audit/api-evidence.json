@@ -1,0 +1,310 @@
+[
+  {
+    "phase": "c3",
+    "version": 1,
+    "ref": "khoakp/moviegraph-v2-c3-real-5m-preflight/1",
+    "status": "KernelWorkerStatus.CANCEL_ACKNOWLEDGED",
+    "failure_message": "",
+    "metadata_last_run_time": "2026-11-21 04:29:27.829000",
+    "metadata_current_version_number": 1,
+    "log": "",
+    "files": []
+  },
+  {
+    "phase": "c3",
+    "version": 2,
+    "ref": "khoakp/moviegraph-v2-c3-real-5m-preflight/2",
+    "status": "KernelWorkerStatus.ERROR",
+    "failure_message": "",
+    "metadata_last_run_time": "2026-11-21 04:29:31.771000",
+    "metadata_current_version_number": 2,
+    "log": "[{\"stream_name\":\"stdout\",\"time\":16.058273987,\"data\":\"{\\\"stage\\\": \\\"inputs\\\", \\\"status\\\": \\\"FAIL\\\", \\\"exit_code\\\": 1, \\\"stop_reason\\\": null, \\\"wall_s\\\": 0.20209942600001796, \\\"peak_rss_bytes\\\": 2277376, \\\"min_available_ram_bytes\\\": 31496204288, \\\"peak_disk_bytes\\\": 609, \\\"min_free_disk_bytes\\\": 20940312576, \\\"sampled_peak_spill_bytes\\\": 0}\\n\"}\n,{\"stream_name\":\"stderr\",\"time\":24.145331809,\"data\":\"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\\\|'\\n\"}\n,{\"stream_name\":\"stderr\",\"time\":24.145363364,\"data\":\"  cells[i][c] = re.sub('\\\\\\\\\\\\\\\\\\\\|', '|', cell)\\n\"}\n,{\"stream_name\":\"stderr\",\"time\":24.570925942,\"data\":\"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\\\_'\\n\"}\n,{\"stream_name\":\"stderr\",\"time\":24.570956328,\"data\":\"  text = re.sub(r'_', '\\\\_', text) # Escape underscores in display text\\n\"}\n,{\"stream_name\":\"stderr\",\"time\":25.527412944,\"data\":\"[NbConvertApp] Converting notebook __script__.ipynb to html\\n\"}\n,{\"stream_name\":\"stderr\",\"time\":26.904821713,\"data\":\"[NbConvertApp] Writing 295635 bytes to __results__.html\\n\"}\n]",
+    "files": [
+      {
+        "name": "inputs.log",
+        "creation_date": "5:19 pm, Monday 23 November 2026 UTC"
+      },
+      {
+        "name": "report.json",
+        "creation_date": "5:19 pm, Monday 23 November 2026 UTC"
+      },
+      {
+        "name": "goal04_c3_source.zip",
+        "creation_date": "5:19 pm, Monday 23 November 2026 UTC"
+      },
+      {
+        "name": "kaggle_c3_runner.cpython-313.pyc",
+        "creation_date": "5:19 pm, Monday 23 November 2026 UTC"
+      },
+      {
+        "name": "kaggle_c3_runner.py",
+        "creation_date": "5:19 pm, Monday 23 November 2026 UTC"
+      },
+      {
+        "name": "artifacts.cpython-313.pyc",
+        "creation_date": "5:19 pm, Monday 23 November 2026 UTC"
+      },
+      {
+        "name": "artifacts.py",
+        "creation_date": "5:19 pm, Monday 23 November 2026 UTC"
+      },
+      {
+        "name": "equivalence.cpython-313.pyc",
+        "creation_date": "5:19 pm, Monday 23 November 2026 UTC"
+      },
+      {
+        "name": "model_replay.cpython-313.pyc",
+        "creation_date": "5:19 pm, Monday 23 November 2026 UTC"
+      },
+      {
+        "name": "normalize.cpython-313.pyc",
+        "creation_date": "5:19 pm, Monday 23 November 2026 UTC"
+      },
+      {
+        "name": "equivalence.py",
+        "creation_date": "5:19 pm, Monday 23 November 2026 UTC"
+      },
+      {
+        "name": "model_replay.py",
+        "creation_date": "5:19 pm, Monday 23 November 2026 UTC"
+      },
+      {
+        "name": "normalize.py",
+        "creation_date": "5:19 pm, Monday 23 November 2026 UTC"
+      },
+      {
+        "name": "canonical.cpython-313.pyc",
+        "creation_date": "5:19 pm, Monday 23 November 2026 UTC"
+      },
+      {
+        "name": "replay.cpython-313.pyc",
+        "creation_date": "5:19 pm, Monday 23 November 2026 UTC"
+      },
+      {
+        "name": "canonical.py",
+        "creation_date": "5:19 pm, Monday 23 November 2026 UTC"
+      },
+      {
+        "name": "replay.py",
+        "creation_date": "5:19 pm, Monday 23 November 2026 UTC"
+      }
+    ]
+  },
+  {
+    "phase": "c3",
+    "version": 3,
+    "ref": "khoakp/moviegraph-v2-c3-real-5m-preflight/3",
+    "status": "KernelWorkerStatus.COMPLETE",
+    "failure_message": "",
+    "metadata_last_run_time": "2026-11-21 04:29:35.826000",
+    "metadata_current_version_number": 3,
+    "log": "[{\"stream_name\":\"stdout\",\"time\":22.345582475,\"data\":\"{\\\"stage\\\": \\\"inputs\\\", \\\"status\\\": \\\"PASS\\\", \\\"exit_code\\\": 0, \\\"stop_reason\\\": null, \\\"wall_s\\\": 12.073612327999996, \\\"peak_rss_bytes\\\": 138133504, \\\"min_available_ram_bytes\\\": 30832898048, \\\"peak_disk_bytes\\\": 1734, \\\"min_free_disk_bytes\\\": 20940304384, \\\"sampled_peak_spill_bytes\\\": 0}\\n\"}\n,{\"stream_name\":\"stdout\",\"time\":219.270082933,\"data\":\"{\\\"stage\\\": \\\"base\\\", \\\"status\\\": \\\"PASS\\\", \\\"exit_code\\\": 0, \\\"stop_reason\\\": null, \\\"wall_s\\\": 196.924092131, \\\"peak_rss_bytes\\\": 1813848064, \\\"min_available_ram_bytes\\\": 26368679936, \\\"peak_disk_bytes\\\": 333930265, \\\"min_free_disk_bytes\\\": 19006078976, \\\"sampled_peak_spill_bytes\\\": 18907136}\\n\"}\n,{\"stream_name\":\"stdout\",\"time\":380.616177933,\"data\":\"{\\\"stage\\\": \\\"monthly\\\", \\\"status\\\": \\\"PASS\\\", \\\"exit_code\\\": 0, \\\"stop_reason\\\": null, \\\"wall_s\\\": 161.345819725, \\\"peak_rss_bytes\\\": 2064171008, \\\"min_available_ram_bytes\\\": 27079917568, \\\"peak_disk_bytes\\\": 636293347, \\\"min_free_disk_bytes\\\": 20303970304, \\\"sampled_peak_spill_bytes\\\": 0}\\n\"}\n,{\"stream_name\":\"stdout\",\"time\":380.616362052,\"data\":\"{\\\"status\\\": \\\"PASS\\\", \\\"elapsed_s\\\": 379.0316866520001}\\n\"}\n,{\"stream_name\":\"stderr\",\"time\":385.95624228,\"data\":\"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\\\|'\\n\"}\n,{\"stream_name\":\"stderr\",\"time\":385.956274386,\"data\":\"  cells[i][c] = re.sub('\\\\\\\\\\\\\\\\\\\\|', '|', cell)\\n\"}\n,{\"stream_name\":\"stderr\",\"time\":386.251569421,\"data\":\"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\\\_'\\n\"}\n,{\"stream_name\":\"stderr\",\"time\":386.251646948,\"data\":\"  text = re.sub(r'_', '\\\\_', text) # Escape underscores in display text\\n\"}\n,{\"stream_name\":\"stderr\",\"time\":387.101612412,\"data\":\"[NbConvertApp] Converting notebook __script__.ipynb to html\\n\"}\n,{\"stream_name\":\"stderr\",\"time\":388.130548496,\"data\":\"[NbConvertApp] Writing 295879 bytes to __results__.html\\n\"}\n]",
+    "files": [
+      {
+        "name": "base.log",
+        "creation_date": "5:23 pm, Monday 23 November 2026 UTC"
+      },
+      {
+        "name": "base_result.json",
+        "creation_date": "5:23 pm, Monday 23 November 2026 UTC"
+      },
+      {
+        "name": "adjacency.parquet",
+        "creation_date": "5:23 pm, Monday 23 November 2026 UTC"
+      },
+      {
+        "name": "degrees.parquet",
+        "creation_date": "5:23 pm, Monday 23 November 2026 UTC"
+      },
+      {
+        "name": "edges.parquet",
+        "creation_date": "5:23 pm, Monday 23 November 2026 UTC"
+      },
+      {
+        "name": "manifest.json",
+        "creation_date": "5:23 pm, Monday 23 November 2026 UTC"
+      },
+      {
+        "name": "nodes.parquet",
+        "creation_date": "5:23 pm, Monday 23 November 2026 UTC"
+      },
+      {
+        "name": "inputs.log",
+        "creation_date": "5:23 pm, Monday 23 November 2026 UTC"
+      },
+      {
+        "name": "inputs_result.json",
+        "creation_date": "5:23 pm, Monday 23 November 2026 UTC"
+      },
+      {
+        "name": "monthly.log",
+        "creation_date": "5:23 pm, Monday 23 November 2026 UTC"
+      },
+      {
+        "name": "monthly_result.json",
+        "creation_date": "5:23 pm, Monday 23 November 2026 UTC"
+      },
+      {
+        "name": "adjacency.parquet",
+        "creation_date": "5:23 pm, Monday 23 November 2026 UTC"
+      },
+      {
+        "name": "degrees.parquet",
+        "creation_date": "5:23 pm, Monday 23 November 2026 UTC"
+      },
+      {
+        "name": "edges.parquet",
+        "creation_date": "5:23 pm, Monday 23 November 2026 UTC"
+      },
+      {
+        "name": "manifest.json",
+        "creation_date": "5:23 pm, Monday 23 November 2026 UTC"
+      },
+      {
+        "name": "nodes.parquet",
+        "creation_date": "5:23 pm, Monday 23 November 2026 UTC"
+      },
+      {
+        "name": "projection.duckdb",
+        "creation_date": "5:23 pm, Monday 23 November 2026 UTC"
+      },
+      {
+        "name": "report.json",
+        "creation_date": "5:23 pm, Monday 23 November 2026 UTC"
+      },
+      {
+        "name": "goal04_c3_source.zip",
+        "creation_date": "5:23 pm, Monday 23 November 2026 UTC"
+      },
+      {
+        "name": "kaggle_c3_runner.cpython-313.pyc",
+        "creation_date": "5:23 pm, Monday 23 November 2026 UTC"
+      }
+    ]
+  },
+  {
+    "phase": "c4",
+    "version": 1,
+    "ref": "khoakp/moviegraph-v2-c4-single-t4-training/1",
+    "status": "KernelWorkerStatus.CANCEL_ACKNOWLEDGED",
+    "failure_message": "",
+    "metadata_last_run_time": "2026-11-21 04:29:39.111000",
+    "metadata_current_version_number": 1,
+    "log": "",
+    "files": []
+  },
+  {
+    "phase": "c4",
+    "version": 2,
+    "ref": "khoakp/moviegraph-v2-c4-single-t4-training/2",
+    "status": "KernelWorkerStatus.CANCEL_ACKNOWLEDGED",
+    "failure_message": "",
+    "metadata_last_run_time": "2026-11-21 04:29:42.761000",
+    "metadata_current_version_number": 2,
+    "log": "",
+    "files": []
+  },
+  {
+    "phase": "c4",
+    "version": 3,
+    "ref": "khoakp/moviegraph-v2-c4-single-t4-training/3",
+    "status": "KernelWorkerStatus.CANCEL_ACKNOWLEDGED",
+    "failure_message": "",
+    "metadata_last_run_time": "2026-11-21 04:29:46.759000",
+    "metadata_current_version_number": 3,
+    "log": "",
+    "files": []
+  },
+  {
+    "phase": "c4",
+    "version": 4,
+    "ref": "khoakp/moviegraph-v2-c4-single-t4-training/4",
+    "status": "KernelWorkerStatus.COMPLETE",
+    "failure_message": "",
+    "metadata_last_run_time": "2026-11-21 04:29:50.682000",
+    "metadata_current_version_number": 4,
+    "log": "[{\"stream_name\":\"stdout\",\"time\":1976.84073705,\"data\":\"{\\\"status\\\": \\\"COMPLETE_CANDIDATES\\\", \\\"elapsed_s\\\": 1968.106322238, \\\"completed_step\\\": 5000}\\n\"}\n,{\"stream_name\":\"stderr\",\"time\":1979.603241661,\"data\":\"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\\\|'\\n\"}\n,{\"stream_name\":\"stderr\",\"time\":1979.603266425,\"data\":\"  cells[i][c] = re.sub('\\\\\\\\\\\\\\\\\\\\|', '|', cell)\\n\"}\n,{\"stream_name\":\"stderr\",\"time\":1979.880993797,\"data\":\"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\\\_'\\n\"}\n,{\"stream_name\":\"stderr\",\"time\":1979.881032231,\"data\":\"  text = re.sub(r'_', '\\\\_', text) # Escape underscores in display text\\n\"}\n,{\"stream_name\":\"stderr\",\"time\":1980.753116966,\"data\":\"[NbConvertApp] Converting notebook __script__.ipynb to html\\n\"}\n,{\"stream_name\":\"stderr\",\"time\":1981.7874807,\"data\":\"[NbConvertApp] Writing 314644 bytes to __results__.html\\n\"}\n]",
+    "files": [
+      {
+        "name": "candidate_0.pt",
+        "creation_date": "6:07 pm, Monday 23 November 2026 UTC"
+      },
+      {
+        "name": "candidate_1500.pt",
+        "creation_date": "6:07 pm, Monday 23 November 2026 UTC"
+      },
+      {
+        "name": "candidate_3000.pt",
+        "creation_date": "6:07 pm, Monday 23 November 2026 UTC"
+      },
+      {
+        "name": "candidate_500.pt",
+        "creation_date": "6:07 pm, Monday 23 November 2026 UTC"
+      },
+      {
+        "name": "candidate_5000.pt",
+        "creation_date": "6:07 pm, Monday 23 November 2026 UTC"
+      },
+      {
+        "name": "report.json",
+        "creation_date": "6:07 pm, Monday 23 November 2026 UTC"
+      },
+      {
+        "name": "steps.jsonl",
+        "creation_date": "6:07 pm, Monday 23 November 2026 UTC"
+      },
+      {
+        "name": "inputs.json",
+        "creation_date": "6:07 pm, Monday 23 November 2026 UTC"
+      },
+      {
+        "name": "report.json",
+        "creation_date": "6:07 pm, Monday 23 November 2026 UTC"
+      },
+      {
+        "name": "worker.log",
+        "creation_date": "6:07 pm, Monday 23 November 2026 UTC"
+      },
+      {
+        "name": "goal04_c4_source.zip",
+        "creation_date": "6:07 pm, Monday 23 November 2026 UTC"
+      },
+      {
+        "name": "kaggle_c3_runner.cpython-313.pyc",
+        "creation_date": "6:07 pm, Monday 23 November 2026 UTC"
+      },
+      {
+        "name": "kaggle_c4_runner.cpython-313.pyc",
+        "creation_date": "6:07 pm, Monday 23 November 2026 UTC"
+      },
+      {
+        "name": "kaggle_c3_runner.py",
+        "creation_date": "6:07 pm, Monday 23 November 2026 UTC"
+      },
+      {
+        "name": "kaggle_c4_runner.py",
+        "creation_date": "6:07 pm, Monday 23 November 2026 UTC"
+      },
+      {
+        "name": "artifacts.cpython-313.pyc",
+        "creation_date": "6:07 pm, Monday 23 November 2026 UTC"
+      },
+      {
+        "name": "artifacts.py",
+        "creation_date": "6:07 pm, Monday 23 November 2026 UTC"
+      },
+      {
+        "name": "c0_validation.cpython-313.pyc",
+        "creation_date": "6:07 pm, Monday 23 November 2026 UTC"
+      },
+      {
+        "name": "checkpoint_selection.cpython-313.pyc",
+        "creation_date": "6:07 pm, Monday 23 November 2026 UTC"
+      },
+      {
+        "name": "temporal.cpython-313.pyc",
+        "creation_date": "6:07 pm, Monday 23 November 2026 UTC"
+      }
+    ]
+  }
+]

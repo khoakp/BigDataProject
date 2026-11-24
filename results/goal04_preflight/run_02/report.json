@@ -1,0 +1,65 @@
+{
+  "status": "PASS",
+  "git_head": "1745739744f6f4aae0d97ddf83d03a7a80eacbb9",
+  "environment": {
+    "python": "3.10.11",
+    "duckdb": "1.5.6",
+    "physical_ram": 16780570624
+  },
+  "stages": [
+    {
+      "stage": "canonical",
+      "status": "PASS",
+      "exit_code": 0,
+      "stop_reason": null,
+      "wall_s": 2.1171292000035464,
+      "wall_cap_s": 1800,
+      "peak_rss_bytes": 56672256,
+      "min_host_available_bytes": 4936093696,
+      "peak_disk_bytes": 482545616,
+      "final_disk_bytes": 482545616,
+      "sampled_peak_spill_bytes": 0,
+      "sample_interval_s": 0.1,
+      "duckdb_limit": "1GB"
+    },
+    {
+      "stage": "base",
+      "status": "PASS",
+      "exit_code": 0,
+      "stop_reason": null,
+      "wall_s": 146.52323810000235,
+      "wall_cap_s": 300,
+      "peak_rss_bytes": 1412042752,
+      "min_host_available_bytes": 3140751360,
+      "peak_disk_bytes": 806765964,
+      "final_disk_bytes": 806765964,
+      "sampled_peak_spill_bytes": 58228736,
+      "sample_interval_s": 0.1,
+      "duckdb_limit": "1GB"
+    },
+    {
+      "stage": "monthly",
+      "status": "PASS",
+      "exit_code": 0,
+      "stop_reason": null,
+      "wall_s": 84.63724930000171,
+      "wall_cap_s": 300,
+      "peak_rss_bytes": 1428156416,
+      "min_host_available_bytes": 3631919104,
+      "peak_disk_bytes": 1099374471,
+      "final_disk_bytes": 1099015381,
+      "sampled_peak_spill_bytes": 0,
+      "sample_interval_s": 0.1,
+      "duckdb_limit": "1GB"
+    }
+  ],
+  "gpu_runs": 0,
+  "quality_evaluations": 0,
+  "source_sha256": {
+    "scripts/goal04_preflight.py": "ad7427e9c2d98255dce2c604b5cfa644eb52fc1b81e96cb372cb9c7503a897f8",
+    "src/graph/model_replay.py": "445cc7b63644992f31e9251deecd85bccbe9f091fe35cf74c731d407edb58fe1",
+    "src/graph/normalize.py": "8d1084519b622f30bca27fb3fe5d2012f7ac9794517881d78fed402b8a6ee2fa",
+    "src/ingest/d02_profile.py": "d6389bd21907cdfeca57a621ba8cce059f39859d4a016a93b8ab03b397c58c96",
+    "src/ingest/canonical.py": "47debae8d5984ddfdcb875d350990c358077d9f50ed898c8004c4267f1efc4fa"
+  }
+}

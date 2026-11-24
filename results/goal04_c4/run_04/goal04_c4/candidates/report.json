@@ -1,0 +1,85 @@
+{
+  "status": "COMPLETE_CANDIDATES",
+  "config": {
+    "dim": 64,
+    "layers": 3,
+    "batch_size": 1024,
+    "lr": 0.001,
+    "seed": 7,
+    "steps": [
+      0,
+      500,
+      1500,
+      3000,
+      5000
+    ]
+  },
+  "provenance": {
+    "mapping_sha256": "996848022d92e20ef63b498cfedb38b97545fb006da4c00fef9ed35d40dc90f9",
+    "cohort_manifest_sha256": "10411c083ec8076bf831e4cbf5c8180518fcd557feaa43898142547ced77929e",
+    "snapshot_manifest_sha256": "0feaa2c521b0adb364fa78468a86f8a39fac979d630053fe0cb8aff39910ebdb",
+    "snapshot_coo_sha256": "a5b430beadce8fd04671eb10f5d567130a1e1403b0c498a44d101e17c902b62d",
+    "source_sha256": "494a1e70e67a2d750297872020b3919da9e557dd68cb631f53d2c5cb9570f73e",
+    "c3_report_sha256": "29cc7adeb929b3b53a8ffdbb151c73acf28ba84430ff5d4026dca18ab224f26b",
+    "git_head": "1745739744f6f4aae0d97ddf83d03a7a80eacbb9",
+    "source_bundle_sha256": "4884205b49063cd12a9b277678f5d121161b33506cb323ffc7dc6be1f04c81a2",
+    "base_cutoff_ts": 1577836800,
+    "node_count": 90253,
+    "base_edge_count": 4999981,
+    "base_edges_sha256": "fb2c7fe7d64e018bebcd7101df41249dbfa57e1db5369fae01d023e9c2e5392a",
+    "base_degrees_sha256": "ee423151ba7070bc616b8a43475322410b759297c086b9331ba4f3318f49e2b4"
+  },
+  "device": "cuda:0",
+  "checkpoints": [
+    {
+      "step": 0,
+      "file": "candidate_0.pt",
+      "sha256": "514c2c072c2f9b8823dd280ef0b6a91f1414bfd14d286f3f73b0a9b9be9c991e",
+      "bytes": 23107653,
+      "training_loss": null
+    },
+    {
+      "step": 500,
+      "file": "candidate_500.pt",
+      "sha256": "33f7c28451635b3bc4723c114d1b98dfc63b9ac65dc2b0695af8d2840ee9a76e",
+      "bytes": 23107667,
+      "training_loss": 0.07697705924510956
+    },
+    {
+      "step": 1500,
+      "file": "candidate_1500.pt",
+      "sha256": "2bf073f328551561bf21941ee9fa7f3d239080139922de348f86426862a25e66",
+      "bytes": 23107674,
+      "training_loss": 0.0724291279911995
+    },
+    {
+      "step": 3000,
+      "file": "candidate_3000.pt",
+      "sha256": "9358d648e0ae7543d164bd831c0b986115940a4e5b86366c05b3c428ac06a7a2",
+      "bytes": 23107674,
+      "training_loss": 0.06061983481049538
+    },
+    {
+      "step": 5000,
+      "file": "candidate_5000.pt",
+      "sha256": "0e7c8dec7232c4b3ff3f9bd703250ba2a4963b9ca8a79ed2132f38feb8811b11",
+      "bytes": 23107674,
+      "training_loss": 0.07097768783569336
+    }
+  ],
+  "completed_step": 5000,
+  "optimizer_elapsed_s": 1847.1233403369893,
+  "selected_step": null,
+  "validation_quality_evaluations": 0,
+  "trajectory_wall_s": 1868.256914525,
+  "step_latency_s": {
+    "first": 1.0417156569999975,
+    "median": 0.3698164820000329,
+    "p95": 0.3713681589999851,
+    "max": 1.0417156569999975
+  },
+  "gpu_min_free_fraction": 0.9165168261472754,
+  "gpu_peak_allocated_bytes": 1001759744,
+  "gpu_peak_reserved_bytes": 1178599424,
+  "gpu_free_end_bytes": 14330691584
+}

@@ -1,0 +1,48 @@
+{
+  "kernel_id": "khoakp/moviegraph-v2-c5-validation",
+  "git_head": "1745739744f6f4aae0d97ddf83d03a7a80eacbb9",
+  "source_sha256": {
+    "scripts/kaggle_c3_runner.py": "da19cb66bf272d1eea3fe476dec4df41fd41aa03d95290b4907df563f85fea50",
+    "src/artifacts.py": "b4940e66158e429532fdea42c2a7ef44549748b25e510849556b39ecc65a9c23",
+    "src/graph/equivalence.py": "67661e3bf4be05876c45587a3b5fafd1930535bf56282707e7e62d3d4d441c7b",
+    "src/graph/model_replay.py": "445cc7b63644992f31e9251deecd85bccbe9f091fe35cf74c731d407edb58fe1",
+    "src/graph/normalize.py": "8d1084519b622f30bca27fb3fe5d2012f7ac9794517881d78fed402b8a6ee2fa",
+    "src/ingest/canonical.py": "47debae8d5984ddfdcb875d350990c358077d9f50ed898c8004c4267f1efc4fa",
+    "src/ingest/replay.py": "057b1d26227f4f1c7c385208e4f9314cb19d89195d96185cf4b7175de3c4ba5b",
+    "scripts/kaggle_c4_runner.py": "105e7d97e2aa3cf9a8379b92922ad707848449e6c6ea39a67c3d5659709d9701",
+    "src/evaluation/c0_validation.py": "a79b9ac59987eab2ee560d38ab34f3f2f543b5918d807ebc4394c4f35325a706",
+    "src/evaluation/checkpoint_selection.py": "a402d8c02e407a5647190a4449c971750d33643feda982c6e4105f0aea3e1dac",
+    "src/evaluation/temporal.py": "942fc577f70802dfcb603a425584c085491c69717c22728d646eeca005899d05",
+    "src/models/c0.py": "dc2b6b165169f144d32ac3eab1c2491f4a92c2642a66159ada7605b404f06b6c",
+    "src/models/lightgcn.py": "7edc8d9480409faea8f226117e9b60a470b0969fdcab35b8930879e591776d33",
+    "src/models/training.py": "9f2dd57708078aa27b58f88ae63b717bf3d1b4d23a84d62b497e0dbb08c1b888",
+    "scripts/verify_kaggle_c4.py": "28d17254ab95e137373f70a5796925d718dae53546e7b6eb95264d0d9092724d",
+    "scripts/kaggle_c5_runner.py": "2bf2a8d690c90e80d7c07fd060a8dcf7f56a7128de7341f6d0f9e4974e201b7e",
+    "results/goal04_c4/run_04/package-manifest.json": "455d6690da455c847b92694489220f02836fd6f07c6a93cb18458414fa336c91",
+    "results/goal04_protocol/monthly.csv": "cd3cb7f2a2aef6c892167f5b8c560ac58ccf0d79539e00b8ba0af228c016a778"
+  },
+  "source_bundle_sha256": "17e87d71aebd1446a9409aee241525e753e42ca6fe537b796c8ad71e5165f610",
+  "runner_sha256": "b06bef41a2beb03a6c9198d3535a55ae2d7d3739f382644a2c846a4062a1c6f4",
+  "status": "BLOCKED_BUDGET_AUDIT",
+  "verified_prior_phase_c_kaggle_elapsed_s": null,
+  "budget_audit_sha256": null,
+  "dataset_sources": [
+    "khoakp/moviegraph-v2-feasibility-input",
+    "khoakp/moviegraph-v2-c3-canonical"
+  ],
+  "kernel_sources": [
+    "khoakp/moviegraph-v2-c3-real-5m-preflight",
+    "khoakp/moviegraph-v2-c4-single-t4-training"
+  ],
+  "candidate_steps": [
+    0,
+    500,
+    1500,
+    3000,
+    5000
+  ],
+  "validation_windows": 12,
+  "catalog_movies": 40666,
+  "propagation_forward_limit": 5,
+  "optimizer_update_limit": 0
+}

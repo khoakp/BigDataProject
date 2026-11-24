@@ -1,0 +1,20 @@
+{
+  "status": "INCOMPLETE",
+  "kernel_ref": "khoakp/moviegraph-v2-c5-2020-validation/1",
+  "submission_count": 1,
+  "kaggle_status": "KernelWorkerStatus.ERROR",
+  "source_versions": {"c3": 3, "c4": 4},
+  "cause": "Generated wrapper assigned a float to os.environ['GOAL04_VERIFIED_PRIOR_PHASE_C_S']; Python raised TypeError before source extraction or runner startup.",
+  "last_log_relative_s": 6.824173807,
+  "terminal_job_elapsed_s": null,
+  "validation_matrix_records": 0,
+  "candidate_scores_available": false,
+  "selected_c0": false,
+  "model_forwards_executed": 0,
+  "optimizer_updates_executed": 0,
+  "c3_v3_c4_v4_owner_charged_s": 2369.918029196,
+  "c5_v1_additional_charged_s": null,
+  "note": "C5 v1 has no runner report or GPU resource metrics. Its final log at 6.824 s is an observed lower bound, not exact terminal elapsed. No retry is authorized automatically.",
+  "submitted_package_manifest_sha256": "09eac43091982f1933c650741d8ccfe83b4d34918d9d37a5c8a6f8818c40890e",
+  "kaggle_log_sha256": "91524bb7f34dfc40ed0ffdd3db9e97a1d5e03e25a7bebef72f2d4639f2f24c46"
+}

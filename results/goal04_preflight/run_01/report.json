@@ -1,0 +1,49 @@
+{
+  "status": "PREFLIGHT_STOPPED_NO_GPU_AUTHORIZATION",
+  "git_head": "1745739744f6f4aae0d97ddf83d03a7a80eacbb9",
+  "environment": {
+    "python": "3.10.11",
+    "duckdb": "1.5.6",
+    "physical_ram": 16780570624
+  },
+  "stages": [
+    {
+      "stage": "canonical",
+      "status": "PASS",
+      "exit_code": 0,
+      "stop_reason": null,
+      "wall_s": 104.02691400000185,
+      "wall_cap_s": 1800,
+      "peak_rss_bytes": 4395008,
+      "min_host_available_bytes": 2815516672,
+      "peak_disk_bytes": 3871906822,
+      "final_disk_bytes": 483758736,
+      "sampled_peak_spill_bytes": 3401547776,
+      "sample_interval_s": 0.1,
+      "duckdb_limit": "1GB"
+    },
+    {
+      "stage": "base",
+      "status": "STOPPED",
+      "exit_code": 1,
+      "stop_reason": "CPU_AVAILABLE_BELOW_2_GIB",
+      "wall_s": 85.12255379999988,
+      "wall_cap_s": 300,
+      "peak_rss_bytes": 4403200,
+      "min_host_available_bytes": 2135994368,
+      "peak_disk_bytes": 671728272,
+      "final_disk_bytes": 671728272,
+      "sampled_peak_spill_bytes": 57409536,
+      "sample_interval_s": 0.1,
+      "duckdb_limit": "1GB"
+    }
+  ],
+  "gpu_runs": 0,
+  "quality_evaluations": 0,
+  "source_sha256": {
+    "scripts/goal04_preflight.py": "423a6840b61acee3e6323df3dc7b8aa30c5b68919a59fd4eae56ec6b37040334",
+    "src/graph/model_replay.py": "707277bd78db8636710a55f5c2f550ebfc4bbd3899fe9fd1421836bbb6ef0d72",
+    "src/ingest/d02_profile.py": "d6389bd21907cdfeca57a621ba8cce059f39859d4a016a93b8ab03b397c58c96",
+    "src/ingest/canonical.py": "47debae8d5984ddfdcb875d350990c358077d9f50ed898c8004c4267f1efc4fa"
+  }
+}

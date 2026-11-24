@@ -1,0 +1,197 @@
+{
+  "inputs": {
+    "canonical_path": "/kaggle/input/datasets/khoakp/moviegraph-v2-c3-canonical/canonical_32000204.parquet",
+    "cohort_path": "/kaggle/input/datasets/khoakp/moviegraph-v2-feasibility-input/edges_5000000/edges_5000000",
+    "canonical_sha256": "494a1e70e67a2d750297872020b3919da9e557dd68cb631f53d2c5cb9570f73e",
+    "canonical_manifest_sha256": "be1d5264abcc7ead16964d86238b6a9944c72ffe1a80493f1d57551c5528c4f9",
+    "raw_source_sha256": "91159850e41ee59c86231165a688709647e2726cab2e7ba9faf04001bd5261ee",
+    "cohort_manifest_sha256": "10411c083ec8076bf831e4cbf5c8180518fcd557feaa43898142547ced77929e",
+    "cohort_nodes_sha256": "a2723792903893694cc708b65c85468180064a445dd949e321a24030f7dbb3d7",
+    "cohort_edges_sha256": "f697aa05eabab03db6b7bc72980229eeb157a42801c42597d92672df50e857f8",
+    "canonical_rows": 32000204,
+    "canonical_schema": [
+      [
+        "event_id",
+        "BIGINT"
+      ],
+      [
+        "event_ts",
+        "BIGINT"
+      ],
+      [
+        "user_raw_id",
+        "BIGINT"
+      ],
+      [
+        "movie_raw_id",
+        "BIGINT"
+      ],
+      [
+        "rating",
+        "FLOAT"
+      ],
+      [
+        "source_row_id",
+        "BIGINT"
+      ]
+    ]
+  },
+  "record": {
+    "schema_version": "fixed_cohort_projection_v1",
+    "projection_version": 1,
+    "observed_before_ts": 1580515200,
+    "canonical_graph_version": null,
+    "canonical_watermark_event_id": 27490902,
+    "last_canonical_order_key": [
+      1580515140,
+      155834,
+      183619,
+      24828840
+    ],
+    "mapping_sha256": "996848022d92e20ef63b498cfedb38b97545fb006da4c00fef9ed35d40dc90f9",
+    "source_sha256": "494a1e70e67a2d750297872020b3919da9e557dd68cb631f53d2c5cb9570f73e",
+    "cohort_manifest_sha256": "10411c083ec8076bf831e4cbf5c8180518fcd557feaa43898142547ced77929e",
+    "edge_count": 5014863,
+    "counts": {
+      "cold_user": 49539,
+      "omitted_user": 1004,
+      "cold_movie": 338,
+      "omitted_movie": 6,
+      "seen": 0,
+      "inserted": 14882,
+      "rating_events": 125929,
+      "positive_events": 65769,
+      "unique_positive_pairs": 65769,
+      "within_interval_repeat_events": 0
+    },
+    "registry_sha256": "066ecae1b8903f398b029f4093d077ded109552cc9e55c9b5383513dba6fe54b",
+    "edges_sha256": "c6a90a305ef9a5701a2c19fc909c0fdd3fc05899fd10169918afa094d02ee83a",
+    "degrees_sha256": "88080ea886e387b5e8d9c0a60236cfeb0b7113bb1a24963a9329ad340f0a6677"
+  },
+  "snapshot": {
+    "schema_version": "fixed_cohort_projection_v1",
+    "projection_version": 1,
+    "observed_before_ts": 1580515200,
+    "canonical_graph_version": null,
+    "canonical_watermark_event_id": 27490902,
+    "last_canonical_order_key": [
+      1580515140,
+      155834,
+      183619,
+      24828840
+    ],
+    "mapping_sha256": "996848022d92e20ef63b498cfedb38b97545fb006da4c00fef9ed35d40dc90f9",
+    "source_sha256": "494a1e70e67a2d750297872020b3919da9e557dd68cb631f53d2c5cb9570f73e",
+    "cohort_manifest_sha256": "10411c083ec8076bf831e4cbf5c8180518fcd557feaa43898142547ced77929e",
+    "edge_count": 5014863,
+    "counts": {
+      "cold_user": 49539,
+      "omitted_user": 1004,
+      "cold_movie": 338,
+      "omitted_movie": 6,
+      "seen": 0,
+      "inserted": 14882,
+      "rating_events": 125929,
+      "positive_events": 65769,
+      "unique_positive_pairs": 65769,
+      "within_interval_repeat_events": 0
+    },
+    "registry_sha256": "066ecae1b8903f398b029f4093d077ded109552cc9e55c9b5383513dba6fe54b",
+    "edges_sha256": "c6a90a305ef9a5701a2c19fc909c0fdd3fc05899fd10169918afa094d02ee83a",
+    "degrees_sha256": "88080ea886e387b5e8d9c0a60236cfeb0b7113bb1a24963a9329ad340f0a6677",
+    "snapshot_id": "projection-1-c6a90a305ef9a570",
+    "created_utc": "2026-11-23T17:27:25.139878+00:00",
+    "normalization": "symmetric_degree_v1",
+    "dtype": "float64",
+    "self_loops": false,
+    "shape": [
+      90253,
+      90253
+    ],
+    "nnz": 10029726,
+    "files_sha256": {
+      "nodes.parquet": "51d7cb9783f7df172d2c2b3d6f5ab357522d4f62682209d4f7186b0ae685e832",
+      "edges.parquet": "98b4133937942fe578174fc510b7dc4619098699cf897db05f2d8839f34b9901",
+      "degrees.parquet": "f6744a8a20f426550726f8338b484ad080433905cab83ace7f03354fb01bf3ae",
+      "adjacency.parquet": "0bdb75f2fb6437c3753e6522c0f4e375ea4b8f009003e30869cf7bf536fe7a72"
+    },
+    "coo_sha256": "b35358112d48da1e9b03052a7cbcf5f636a47cdded2fe1dc6da426476aea70ac",
+    "python_coo_sha256": "b35358112d48da1e9b03052a7cbcf5f636a47cdded2fe1dc6da426476aea70ac",
+    "normalization_max_abs_diff": 0.0,
+    "normalization_atol": 1e-12
+  },
+  "reload_verified": true,
+  "duckdb_memory": [
+    [
+      "BASE_TABLE",
+      20709376,
+      0
+    ],
+    [
+      "HASH_TABLE",
+      0,
+      0
+    ],
+    [
+      "PARQUET_READER",
+      0,
+      0
+    ],
+    [
+      "CSV_READER",
+      0,
+      0
+    ],
+    [
+      "ORDER_BY",
+      0,
+      0
+    ],
+    [
+      "ART_INDEX",
+      155975680,
+      0
+    ],
+    [
+      "COLUMN_DATA",
+      0,
+      0
+    ],
+    [
+      "METADATA",
+      0,
+      0
+    ],
+    [
+      "OVERFLOW_STRINGS",
+      0,
+      0
+    ],
+    [
+      "IN_MEMORY_TABLE",
+      19103744,
+      0
+    ],
+    [
+      "ALLOCATOR",
+      0,
+      0
+    ],
+    [
+      "EXTENSION",
+      0,
+      0
+    ],
+    [
+      "TRANSACTION",
+      0,
+      0
+    ],
+    [
+      "EXTERNAL_FILE_CACHE",
+      0,
+      0
+    ]
+  ],
+  "future_edge_in_g0": null
+}

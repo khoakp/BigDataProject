@@ -1,0 +1,45 @@
+{
+  "status": "INCOMPLETE",
+  "kernel": "khoakp/moviegraph-v2-c4-single-t4-training/1",
+  "observed_kernel_status": "CANCEL_ACKNOWLEDGED",
+  "reason": "Kaggle acknowledged cancellation; no execution log or output files available",
+  "git_head": "1745739744f6f4aae0d97ddf83d03a7a80eacbb9",
+  "source_bundle_sha256": "4884205b49063cd12a9b277678f5d121161b33506cb323ffc7dc6be1f04c81a2",
+  "config": {
+    "dim": 64,
+    "layers": 3,
+    "batch_size": 1024,
+    "lr": 0.001,
+    "seed": 7,
+    "steps": [
+      0,
+      500,
+      1500,
+      3000,
+      5000
+    ],
+    "device": "cuda:0"
+  },
+  "private_kernel": true,
+  "input_sources": {
+    "datasets": [
+      "khoakp/moviegraph-v2-c3-canonical",
+      "khoakp/moviegraph-v2-feasibility-input"
+    ],
+    "kernel_sources": [
+      "khoakp/moviegraph-v2-c3-real-5m-preflight"
+    ]
+  },
+  "submitted_training_trajectories": 1,
+  "additional_trajectories_submitted": 0,
+  "checkpoint_candidates_verified": [],
+  "selected_step": null,
+  "optimizer_steps_verified": null,
+  "optimizer_elapsed_s": null,
+  "kaggle_elapsed_s": null,
+  "cpu_rss_bytes": null,
+  "gpu_memory_bytes": null,
+  "validation_quality_evaluations_verified": null,
+  "c3_preflight_status": "PASS",
+  "next_action": "Stop under C4 no-rerun rule; Owner decision required for any new trajectory"
+}

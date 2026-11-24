@@ -1,0 +1,223 @@
+{
+    "cumulative_cardinality": 40451113,
+    "attach_load_storage_latency": 0.0,
+    "attach_replay_wal_latency": 0.0,
+    "blocked_thread_time": 0.0,
+    "checkpoint_latency": 0.0,
+    "cumulative_rows_scanned": 9999962,
+    "commit_local_storage_latency": 0.0,
+    "cpu_time": 0.13638309999999992,
+    "extra_info": {},
+    "latency": 0.1698953,
+    "query_name": "SELECT node_id,count(*) FROM (\n                        SELECT user_node_id node_id FROM edges UNION ALL\n                        SELECT movie_node_id FROM edges) GROUP BY 1 ORDER BY 1",
+    "result_set_size": 1444048,
+    "rows_returned": 90253,
+    "system_peak_buffer_memory": 157109928,
+    "system_peak_temp_dir_size": 0,
+    "total_bytes_read": 0,
+    "total_bytes_written": 0,
+    "total_memory_allocated": 7340032,
+    "waiting_to_attach_latency": 0.0,
+    "wal_replay_entry_count": 0,
+    "write_to_wal_latency": 0.0,
+    "children": [
+        {
+            "cumulative_cardinality": 40451113,
+            "cumulative_rows_scanned": 9999962,
+            "cpu_time": 0.13606649999999992,
+            "extra_info": {
+                "Projections": [
+                    "__internal_decompress_integral_bigint(#0, 0)",
+                    "#1"
+                ],
+                "Estimated Cardinality": "33081"
+            },
+            "operator_cardinality": 90253,
+            "operator_name": "PROJECTION",
+            "operator_rows_scanned": 0,
+            "operator_timing": 0.00006219999999999997,
+            "operator_type": "PROJECTION",
+            "result_set_size": 1444048,
+            "system_peak_buffer_memory": 0,
+            "system_peak_temp_dir_size": 0,
+            "children": [
+                {
+                    "cumulative_cardinality": 40360860,
+                    "cumulative_rows_scanned": 9999962,
+                    "cpu_time": 0.1360042999999999,
+                    "extra_info": {
+                        "Order By": "node_id ASC"
+                    },
+                    "operator_cardinality": 90253,
+                    "operator_name": "ORDER_BY",
+                    "operator_rows_scanned": 0,
+                    "operator_timing": 0.004688600000000001,
+                    "operator_type": "ORDER_BY",
+                    "result_set_size": 1083036,
+                    "system_peak_buffer_memory": 0,
+                    "system_peak_temp_dir_size": 0,
+                    "children": [
+                        {
+                            "cumulative_cardinality": 40270607,
+                            "cumulative_rows_scanned": 9999962,
+                            "cpu_time": 0.13131569999999992,
+                            "extra_info": {
+                                "Projections": [
+                                    "__internal_compress_integral_uinteger(#0, 0)",
+                                    "#1"
+                                ],
+                                "Estimated Cardinality": "33081"
+                            },
+                            "operator_cardinality": 90253,
+                            "operator_name": "PROJECTION",
+                            "operator_rows_scanned": 0,
+                            "operator_timing": 0.00005489999999999999,
+                            "operator_type": "PROJECTION",
+                            "result_set_size": 1083036,
+                            "system_peak_buffer_memory": 0,
+                            "system_peak_temp_dir_size": 0,
+                            "children": [
+                                {
+                                    "cumulative_cardinality": 40180354,
+                                    "cumulative_rows_scanned": 9999962,
+                                    "cpu_time": 0.13126079999999993,
+                                    "extra_info": {
+                                        "Projections": [
+                                            "__internal_decompress_integral_bigint(#0, 0)",
+                                            "#1"
+                                        ],
+                                        "Estimated Cardinality": "33081"
+                                    },
+                                    "operator_cardinality": 90253,
+                                    "operator_name": "PROJECTION",
+                                    "operator_rows_scanned": 0,
+                                    "operator_timing": 0.00008499999999999997,
+                                    "operator_type": "PROJECTION",
+                                    "result_set_size": 1444048,
+                                    "system_peak_buffer_memory": 0,
+                                    "system_peak_temp_dir_size": 0,
+                                    "children": [
+                                        {
+                                            "cumulative_cardinality": 40090101,
+                                            "cumulative_rows_scanned": 9999962,
+                                            "cpu_time": 0.13117579999999993,
+                                            "extra_info": {
+                                                "Groups": "#0",
+                                                "Aggregates": "count_star()",
+                                                "Estimated Cardinality": "33081"
+                                            },
+                                            "operator_cardinality": 90253,
+                                            "operator_name": "HASH_GROUP_BY",
+                                            "operator_rows_scanned": 0,
+                                            "operator_timing": 0.10807819999999978,
+                                            "operator_type": "HASH_GROUP_BY",
+                                            "result_set_size": 1083036,
+                                            "system_peak_buffer_memory": 0,
+                                            "system_peak_temp_dir_size": 0,
+                                            "children": [
+                                                {
+                                                    "cumulative_cardinality": 39999848,
+                                                    "cumulative_rows_scanned": 9999962,
+                                                    "cpu_time": 0.02309760000000014,
+                                                    "extra_info": {
+                                                        "Projections": "node_id",
+                                                        "Estimated Cardinality": "9999962"
+                                                    },
+                                                    "operator_cardinality": 9999962,
+                                                    "operator_name": "PROJECTION",
+                                                    "operator_rows_scanned": 0,
+                                                    "operator_timing": 0.0006233000000000124,
+                                                    "operator_type": "PROJECTION",
+                                                    "result_set_size": 39999848,
+                                                    "system_peak_buffer_memory": 0,
+                                                    "system_peak_temp_dir_size": 0,
+                                                    "children": [
+                                                        {
+                                                            "cumulative_cardinality": 29999886,
+                                                            "cumulative_rows_scanned": 9999962,
+                                                            "cpu_time": 0.022474300000000128,
+                                                            "extra_info": {
+                                                                "Projections": "__internal_compress_integral_uinteger(#0, 0)",
+                                                                "Estimated Cardinality": "9999962"
+                                                            },
+                                                            "operator_cardinality": 9999962,
+                                                            "operator_name": "PROJECTION",
+                                                            "operator_rows_scanned": 0,
+                                                            "operator_timing": 0.006296200000000108,
+                                                            "operator_type": "PROJECTION",
+                                                            "result_set_size": 39999848,
+                                                            "system_peak_buffer_memory": 0,
+                                                            "system_peak_temp_dir_size": 0,
+                                                            "children": [
+                                                                {
+                                                                    "cumulative_cardinality": 19999924,
+                                                                    "cumulative_rows_scanned": 9999962,
+                                                                    "cpu_time": 0.01617810000000002,
+                                                                    "extra_info": {},
+                                                                    "operator_cardinality": 9999962,
+                                                                    "operator_name": "UNION",
+                                                                    "operator_rows_scanned": 0,
+                                                                    "operator_timing": 0.0,
+                                                                    "operator_type": "UNION",
+                                                                    "result_set_size": 0,
+                                                                    "system_peak_buffer_memory": 0,
+                                                                    "system_peak_temp_dir_size": 0,
+                                                                    "children": [
+                                                                        {
+                                                                            "cumulative_cardinality": 4999981,
+                                                                            "cumulative_rows_scanned": 4999981,
+                                                                            "cpu_time": 0.008457200000000095,
+                                                                            "extra_info": {
+                                                                                "Table": "projection.main.edges",
+                                                                                "Type": "Sequential Scan",
+                                                                                "Projections": "user_node_id",
+                                                                                "Estimated Cardinality": "4999981"
+                                                                            },
+                                                                            "operator_cardinality": 4999981,
+                                                                            "operator_name": "SEQ_SCAN",
+                                                                            "operator_rows_scanned": 4999981,
+                                                                            "operator_timing": 0.008457200000000095,
+                                                                            "operator_type": "TABLE_SCAN",
+                                                                            "result_set_size": 39999848,
+                                                                            "system_peak_buffer_memory": 0,
+                                                                            "system_peak_temp_dir_size": 0,
+                                                                            "children": []
+                                                                        },
+                                                                        {
+                                                                            "cumulative_cardinality": 4999981,
+                                                                            "cumulative_rows_scanned": 4999981,
+                                                                            "cpu_time": 0.007720899999999927,
+                                                                            "extra_info": {
+                                                                                "Table": "projection.main.edges",
+                                                                                "Type": "Sequential Scan",
+                                                                                "Projections": "movie_node_id",
+                                                                                "Estimated Cardinality": "4999981"
+                                                                            },
+                                                                            "operator_cardinality": 4999981,
+                                                                            "operator_name": "SEQ_SCAN",
+                                                                            "operator_rows_scanned": 4999981,
+                                                                            "operator_timing": 0.007720899999999927,
+                                                                            "operator_type": "TABLE_SCAN",
+                                                                            "result_set_size": 39999848,
+                                                                            "system_peak_buffer_memory": 0,
+                                                                            "system_peak_temp_dir_size": 0,
+                                                                            "children": []
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

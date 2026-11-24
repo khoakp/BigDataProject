@@ -1,0 +1,14 @@
+{
+  "status": "SUBMITTED_RUNNING",
+  "kernel_ref": "khoakp/moviegraph-v2-c5-2020-validation/2",
+  "submission_count_including_c5_v1": 2,
+  "additional_submissions_after_owner_approval": 1,
+  "package_directory": "data/processed/goal04_c5_retry_official_v4",
+  "package_manifest_sha256": "71875e57d683c036c0d3491e58bd194ce3b7624cbc58d98fe8f48d51c9c6f846",
+  "source_bundle_sha256": "c1ed73e464e0e210ee044721498eb04c2bc490c01ab8c2649459cde41fb889a9",
+  "budget_audit_sha256": "f7685072f69b3f2725cd9f8968210b109e75565d009452621de9ba219eaedd73",
+  "accelerator": "NvidiaTeslaT4",
+  "kaggle_timeout_s": 11800,
+  "source_versions": {"c3":3,"c4":4},
+  "note": "The preceding 409 Conflict did not create a kernel version. No further submission is authorized automatically."
+}

@@ -1,0 +1,10 @@
+{
+  "status": "SUBMITTED_RUNNING",
+  "actual_kernel_ref": "khoakp/moviegraph-v2-c5-2020-validation/1",
+  "requested_manifest_id": "khoakp/moviegraph-v2-c5-validation",
+  "submission_count": 1,
+  "accelerator": "NvidiaTeslaT4",
+  "kaggle_timeout_s": 11980,
+  "package_manifest_sha256": "09eac43091982f1933c650741d8ccfe83b4d34918d9d37a5c8a6f8818c40890e",
+  "note": "Kaggle derived the actual slug from the title. Track version 1 only; no automatic resubmission."
+}

@@ -13,6 +13,11 @@ class SparseAdjacency:
     entries: tuple[tuple[int, int, float], ...]
 
 
+def normalized_weight(source_degree: int, target_degree: int) -> float:
+    """Shared float64 reference formula, also used for streamed snapshot checks."""
+    return 1.0 / sqrt(source_degree * target_degree)
+
+
 def normalize_state(state: dict) -> SparseAdjacency:
     """Materialize D^-1/2 A D^-1/2 from validated binary bipartite state.
 
@@ -43,7 +48,7 @@ def normalize_state(state: dict) -> SparseAdjacency:
         raise ValueError("Orphan registry node")
     entries = []
     for user, movie, _ in edges:
-        weight = 1.0 / sqrt(degrees[user] * degrees[movie])
+        weight = normalized_weight(degrees[user], degrees[movie])
         entries.extend(((user, movie, weight), (movie, user, weight)))
     return SparseAdjacency((len(registry), len(registry)), tuple(sorted(entries)))
 

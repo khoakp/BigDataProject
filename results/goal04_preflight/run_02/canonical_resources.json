@@ -1,0 +1,15 @@
+{
+  "stage": "canonical",
+  "status": "PASS",
+  "exit_code": 0,
+  "stop_reason": null,
+  "wall_s": 2.1171292000035464,
+  "wall_cap_s": 1800,
+  "peak_rss_bytes": 56672256,
+  "min_host_available_bytes": 4936093696,
+  "peak_disk_bytes": 482545616,
+  "final_disk_bytes": 482545616,
+  "sampled_peak_spill_bytes": 0,
+  "sample_interval_s": 0.1,
+  "duckdb_limit": "1GB"
+}

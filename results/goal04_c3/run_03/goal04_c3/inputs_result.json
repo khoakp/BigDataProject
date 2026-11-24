@@ -1,0 +1,37 @@
+{
+  "canonical_path": "/kaggle/input/datasets/khoakp/moviegraph-v2-c3-canonical/canonical_32000204.parquet",
+  "cohort_path": "/kaggle/input/datasets/khoakp/moviegraph-v2-feasibility-input/edges_5000000/edges_5000000",
+  "canonical_sha256": "494a1e70e67a2d750297872020b3919da9e557dd68cb631f53d2c5cb9570f73e",
+  "canonical_manifest_sha256": "be1d5264abcc7ead16964d86238b6a9944c72ffe1a80493f1d57551c5528c4f9",
+  "raw_source_sha256": "91159850e41ee59c86231165a688709647e2726cab2e7ba9faf04001bd5261ee",
+  "cohort_manifest_sha256": "10411c083ec8076bf831e4cbf5c8180518fcd557feaa43898142547ced77929e",
+  "cohort_nodes_sha256": "a2723792903893694cc708b65c85468180064a445dd949e321a24030f7dbb3d7",
+  "cohort_edges_sha256": "f697aa05eabab03db6b7bc72980229eeb157a42801c42597d92672df50e857f8",
+  "canonical_rows": 32000204,
+  "canonical_schema": [
+    [
+      "event_id",
+      "BIGINT"
+    ],
+    [
+      "event_ts",
+      "BIGINT"
+    ],
+    [
+      "user_raw_id",
+      "BIGINT"
+    ],
+    [
+      "movie_raw_id",
+      "BIGINT"
+    ],
+    [
+      "rating",
+      "FLOAT"
+    ],
+    [
+      "source_row_id",
+      "BIGINT"
+    ]
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "stage": "base",
+  "status": "STOPPED",
+  "exit_code": 1,
+  "stop_reason": "CPU_AVAILABLE_BELOW_2_GIB",
+  "wall_s": 85.12255379999988,
+  "wall_cap_s": 300,
+  "peak_rss_bytes": 4403200,
+  "min_host_available_bytes": 2135994368,
+  "peak_disk_bytes": 671728272,
+  "final_disk_bytes": 671728272,
+  "sampled_peak_spill_bytes": 57409536,
+  "sample_interval_s": 0.1,
+  "duckdb_limit": "1GB"
+}

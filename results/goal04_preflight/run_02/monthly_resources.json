@@ -1,0 +1,15 @@
+{
+  "stage": "monthly",
+  "status": "PASS",
+  "exit_code": 0,
+  "stop_reason": null,
+  "wall_s": 84.63724930000171,
+  "wall_cap_s": 300,
+  "peak_rss_bytes": 1428156416,
+  "min_host_available_bytes": 3631919104,
+  "peak_disk_bytes": 1099374471,
+  "final_disk_bytes": 1099015381,
+  "sampled_peak_spill_bytes": 0,
+  "sample_interval_s": 0.1,
+  "duckdb_limit": "1GB"
+}

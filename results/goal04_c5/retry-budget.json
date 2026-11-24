@@ -1,0 +1,16 @@
+{
+  "status": "READY_WITH_LIMITATION",
+  "authorization": "Project Owner 2026-11-24: one additional Kaggle C5 submission for the corrected package",
+  "accounting_scope": "C3 version 3, C4 version 4, C5 version 1 final observed log; earlier queued/cancelled versions excluded",
+  "hard_phase_c_budget_s": 14400,
+  "owner_charged_c3_v3_c4_v4_s": 2369.918029196,
+  "c5_v1_last_observed_log_s": 6.824173807,
+  "c5_v1_terminal_elapsed_s": null,
+  "observed_prior_subtotal_s": 2376.742203003,
+  "additional_kaggle_kernel_timeout_s": 11800,
+  "observed_subtotal_plus_timeout_s": 14176.742203003,
+  "unallocated_budget_margin_s": 223.257796997,
+  "limitation": "The C5 v1 terminal duration is unavailable; its 6.824 s last-log timestamp is a lower bound. The 223.258 s margin covers unknown teardown and artifact persistence, but exact terminal accounting cannot be proved.",
+  "package_manifest_sha256": "71875e57d683c036c0d3491e58bd194ce3b7624cbc58d98fe8f48d51c9c6f846",
+  "submission_limit": 1
+}

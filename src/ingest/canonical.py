@@ -11,6 +11,7 @@ def validate_events(path: Path, *, start_id: int = 0) -> int:
     """Validate one ordered, contiguous canonical Parquet range."""
     with duckdb.connect() as con:
         con.execute("SET threads=1")
+        con.execute("SET memory_limit='1GB'")
         schema = {name: dtype for name, dtype, *_ in con.execute(
             "DESCRIBE SELECT * FROM read_parquet(?)", [str(path)]).fetchall()}
         if any(name not in schema for name in FIELDS):

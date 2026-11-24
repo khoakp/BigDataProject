@@ -1,0 +1,15 @@
+{
+  "status": "OWNER_APPROVED_ACCOUNTING",
+  "owner_decision_reference": "Owner 2026-11-24: C3 v3 and C4 v4 last-log accounting; one additional C5 submission authorized after C5 v1 ERROR. C5 v1 is added using the same last-log convention.",
+  "accounting_scope": "C3 v3, C4 v4, C5 v1 final observed log only",
+  "hard_budget_s": 14400,
+  "included_versions": [
+    {"phase":"c3","version":3,"charged_elapsed_s":388.130548496},
+    {"phase":"c4","version":4,"charged_elapsed_s":1981.7874807},
+    {"phase":"c5","version":1,"status":"KernelWorkerStatus.ERROR","charged_elapsed_s":6.824173807,"terminal_job_elapsed_s":null}
+  ],
+  "cumulative_phase_c_kaggle_elapsed_s": 2376.742203003,
+  "remaining_budget_s": 12023.257796997,
+  "measurement_limit": "C5 v1 final log at 6.824 s is a lower bound; terminal teardown is unavailable. This extends the Owner-approved last-log accounting method, not an exact terminal-duration claim.",
+  "additional_submission_limit": 1
+}

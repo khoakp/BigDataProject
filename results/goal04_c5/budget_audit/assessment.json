@@ -1,0 +1,106 @@
+{
+  "status": "INCOMPLETE",
+  "hard_budget_s": 14400,
+  "versions": [
+    {
+      "phase": "c3",
+      "version": 1,
+      "status": "KernelWorkerStatus.CANCEL_ACKNOWLEDGED",
+      "start_utc": null,
+      "end_utc": null,
+      "elapsed_s": null,
+      "report_file_creation_utc_minute": null,
+      "last_log_relative_s": null,
+      "metadata_last_run_time_untrusted": "2026-11-21 04:29:27.829000",
+      "reason_elapsed_unverified": "Kaggle API has no version start/end or duration; canceled jobs have no log"
+    },
+    {
+      "phase": "c3",
+      "version": 2,
+      "status": "KernelWorkerStatus.ERROR",
+      "start_utc": null,
+      "end_utc": null,
+      "elapsed_s": null,
+      "report_file_creation_utc_minute": "5:19 pm, Monday 23 November 2026 UTC",
+      "last_log_relative_s": 26.904821713,
+      "metadata_last_run_time_untrusted": "2026-11-21 04:29:31.771000",
+      "reason_elapsed_unverified": "Log timestamp is a lower bound, not terminal job duration"
+    },
+    {
+      "phase": "c3",
+      "version": 3,
+      "status": "KernelWorkerStatus.COMPLETE",
+      "start_utc": null,
+      "end_utc": null,
+      "elapsed_s": null,
+      "report_file_creation_utc_minute": "5:23 pm, Monday 23 November 2026 UTC",
+      "last_log_relative_s": 388.130548496,
+      "metadata_last_run_time_untrusted": "2026-11-21 04:29:35.826000",
+      "reason_elapsed_unverified": "Log timestamp is a lower bound, not terminal job duration"
+    },
+    {
+      "phase": "c4",
+      "version": 1,
+      "status": "KernelWorkerStatus.CANCEL_ACKNOWLEDGED",
+      "start_utc": null,
+      "end_utc": null,
+      "elapsed_s": null,
+      "report_file_creation_utc_minute": null,
+      "last_log_relative_s": null,
+      "metadata_last_run_time_untrusted": "2026-11-21 04:29:39.111000",
+      "reason_elapsed_unverified": "Kaggle API has no version start/end or duration; canceled jobs have no log"
+    },
+    {
+      "phase": "c4",
+      "version": 2,
+      "status": "KernelWorkerStatus.CANCEL_ACKNOWLEDGED",
+      "start_utc": null,
+      "end_utc": null,
+      "elapsed_s": null,
+      "report_file_creation_utc_minute": null,
+      "last_log_relative_s": null,
+      "metadata_last_run_time_untrusted": "2026-11-21 04:29:42.761000",
+      "reason_elapsed_unverified": "Kaggle API has no version start/end or duration; canceled jobs have no log"
+    },
+    {
+      "phase": "c4",
+      "version": 3,
+      "status": "KernelWorkerStatus.CANCEL_ACKNOWLEDGED",
+      "start_utc": null,
+      "end_utc": null,
+      "elapsed_s": null,
+      "report_file_creation_utc_minute": null,
+      "last_log_relative_s": null,
+      "metadata_last_run_time_untrusted": "2026-11-21 04:29:46.759000",
+      "reason_elapsed_unverified": "Kaggle API has no version start/end or duration; canceled jobs have no log"
+    },
+    {
+      "phase": "c4",
+      "version": 4,
+      "status": "KernelWorkerStatus.COMPLETE",
+      "start_utc": null,
+      "end_utc": null,
+      "elapsed_s": null,
+      "report_file_creation_utc_minute": "6:07 pm, Monday 23 November 2026 UTC",
+      "last_log_relative_s": 1981.7874807,
+      "metadata_last_run_time_untrusted": "2026-11-21 04:29:50.682000",
+      "reason_elapsed_unverified": "Log timestamp is a lower bound, not terminal job duration"
+    }
+  ],
+  "latest_kernel_list_rows": [
+    "khoakp/moviegraph-v2-c4-single-t4-training,MovieGraph v2 C4 Single T4 Training,khoakp,2026-11-23 18:07:54.373000,0",
+    "khoakp/moviegraph-v2-c3-real-5m-preflight,MovieGraph v2 C3 Real 5M Preflight,khoakp,2026-11-23 17:23:00.593000,0"
+  ],
+  "repeated_c4_v4_metadata_last_run_time": "2026-11-21 04:40:43.420000",
+  "verified_runner_elapsed_s": {
+    "c3_v3": 379.0316866520001,
+    "c4_v4": 1968.106322238
+  },
+  "verified_runner_subtotal_s": 2347.13800889,
+  "observed_log_lower_bound_s": 2396.822850909,
+  "remaining_budget_s": null,
+  "maximum_possible_remaining_from_log_lower_bound_s": 12003.177149091,
+  "codex_preparation_elapsed_s": "excluded from Kaggle job budget",
+  "metadata_warning": "Version metadata last_run_time says 21 Nov while report files were created 23 Nov; C4 v4 changed from the first saved 04:29:50 to the repeated 04:40:43, so it cannot establish version start/end.",
+  "submission_gate": "BLOCKED: Owner decision required because cumulative Kaggle elapsed is unverified"
+}

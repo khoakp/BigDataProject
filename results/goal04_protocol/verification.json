@@ -1,0 +1,21 @@
+{
+  "baseline_head": "1745739744f6f4aae0d97ddf83d03a7a80eacbb9",
+  "baseline_tests": 74,
+  "monthly_reference_matches": 46,
+  "reference_fields": [
+    "rating_events",
+    "positive_events",
+    "new_positive_edges"
+  ],
+  "cohort_partition_matches": true,
+  "development_support_pass": 24,
+  "development_windows": 24,
+  "quality_computed": false,
+  "gpu_training_run": false,
+  "final_tests": 75,
+  "failures": 0,
+  "skips": 0,
+  "full_regression_log_sha256": "43abb0e313ef36d9118e65b777741a2618fef1c8ec0f903a1674d38c082f9ee4",
+  "git_diff_check": "PASS",
+  "protocol_status": "DRAFT_AWAITING_OWNER_APPROVAL"
+}

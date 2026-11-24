@@ -1,0 +1,24 @@
+{
+  "id": "khoakp/moviegraph-v2-c4-single-t4-training",
+  "id_no": 146936766,
+  "title": "MovieGraph v2 C4 Single T4 Training",
+  "code_file": "moviegraph-v2-c4-single-t4-training.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "keywords": [],
+  "dataset_sources": [
+    "khoakp/moviegraph-v2-c3-canonical",
+    "khoakp/moviegraph-v2-feasibility-input"
+  ],
+  "kernel_sources": [
+    "khoakp/moviegraph-v2-c3-real-5m-preflight"
+  ],
+  "competition_sources": [],
+  "model_sources": [],
+  "docker_image": "",
+  "machine_shape": "NvidiaTeslaT4"
+}

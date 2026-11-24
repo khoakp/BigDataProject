@@ -1,0 +1,123 @@
+test_approved_calendar_has_twelve_half_open_windows (test_c0.C0Test) ... ok
+test_boundary_mask_dedup_and_partition_equivalence (test_c0.C0Test) ... ok
+test_leakage_and_checkpoint_selection (test_c0.C0Test) ... ok
+test_toy_single_trajectory_reload_and_mismatch (test_c0.C0Test) ... ok
+test_ndcg_then_recall_then_earliest_step (test_checkpoint_selection.CheckpointSelectionTest) ... ok
+test_rejects_missing_nonfinite_and_out_of_range_metrics (test_checkpoint_selection.CheckpointSelectionTest) ... ok
+test_rejects_test_fields_invalid_steps_and_empty_input (test_checkpoint_selection.CheckpointSelectionTest) ... ok
+test_rejects_nonpositive_ids_and_existing_output (test_d02.D02Test) ... ok
+test_ties_and_identical_rows_are_stable (test_d02.D02Test) ... ok
+test_chunked_matches_independent_full_score_reference (test_d09_pipeline.D09Test) ... ok
+test_left_lookup_preserves_rows_and_rejects_duplicate_keys (test_d09_pipeline.D09Test) ... ok
+test_missing_metadata_fields_do_not_drop_or_reorder (test_d09_pipeline.D09Test) ... ok
+test_nonempty_output_is_not_a_clean_rerun (test_d10_mvp.D10Test) ... ok
+test_oom_then_failed_fallback_keeps_both_attempts (test_d10_mvp.D10Test) ... ok
+test_detects_same_count_but_different_state (test_equivalence.EquivalenceTest) ... ok
+test_full_rebuild_all_negative_prefix (test_equivalence.EquivalenceTest) ... ok
+test_full_and_incremental_same_export_at_boundary (test_exp01.Exp01Test) ... ok
+toy measured rep=1 R=1 v=1 update=0.020s normalize=0.010s export=0.019s
+toy measured rep=1 R=1 v=2 update=0.023s normalize=0.010s export=0.022s
+toy measured rep=1 R=1 v=3 update=0.022s normalize=0.009s export=0.020s
+toy measured rep=1 R=1 v=4 update=0.023s normalize=0.009s export=0.020s
+toy measured rep=1 R=1 v=5 update=0.020s normalize=0.010s export=0.019s
+toy measured rep=1 R=5 v=1 update=0.020s normalize=0.000s export=0.000s
+toy measured rep=1 R=5 v=2 update=0.022s normalize=0.000s export=0.000s
+toy measured rep=1 R=5 v=3 update=0.021s normalize=0.000s export=0.000s
+toy measured rep=1 R=5 v=4 update=0.020s normalize=0.000s export=0.000s
+toy measured rep=1 R=5 v=5 update=0.020s normalize=0.010s export=0.019s
+test_eager_deferred_freshness_and_common_snapshot (test_exp02.Exp02Test) ... ok
+test_positive_dedup_registry_and_degrees (test_full_builder.FullBuilderTest) ... ok
+test_rejects_duplicate_event_id_and_existing_output (test_full_builder.FullBuilderTest) ... ok
+test_locked_manifest_rejects_wrong_selected_step (test_goal04_c6.C6SelectionTest) ... ok
+test_missing_row_and_incompatible_mapping (test_goal04_c6.C6SelectionTest) ... ok
+test_recomputed_selection_and_exact_ties (test_goal04_c6.C6SelectionTest) ... ok
+test_selected_original_bytes_step_and_provenance (test_goal04_c6.C6SelectionTest) ... ok
+{"stage": "canonical", "status": "PASS", "exit_code": 0, "stop_reason": null, "wall_s": 0.0027984000043943524, "wall_cap_s": 1800, "peak_rss_bytes": 600, "min_host_available_bytes": 3221225472, "peak_disk_bytes": 0, "final_disk_bytes": 0, "sampled_peak_spill_bytes": 0, "sample_interval_s": 0.1, "duckdb_limit": "1GB"}
+{"stage": "canonical", "status": "STOPPED", "exit_code": 1, "stop_reason": null, "wall_s": 0.0027616000006673858, "wall_cap_s": 1800, "peak_rss_bytes": 600, "min_host_available_bytes": 3221225472, "peak_disk_bytes": 0, "final_disk_bytes": 0, "sampled_peak_spill_bytes": 0, "sample_interval_s": 0.1, "duckdb_limit": "1GB"}
+{"stage": "canonical", "status": "STOPPED", "exit_code": 0, "stop_reason": "CPU_AVAILABLE_BELOW_2_GIB", "wall_s": 0.00265360000776127, "wall_cap_s": 1800, "peak_rss_bytes": 600, "min_host_available_bytes": 1073741824, "peak_disk_bytes": 0, "final_disk_bytes": 0, "sampled_peak_spill_bytes": 0, "sample_interval_s": 0.1, "duckdb_limit": "1GB"}
+test_success_failure_and_low_memory_stop (test_goal04_preflight.PreflightGuardTest) ... ok
+test_boundary_duplicates_cold_omitted_seen_and_empty_month (test_goal04_protocol_profile.ProtocolProfileTest) ... ok
+test_cgroup_limit_caps_effective_available_memory (test_gpu_feasibility_probe.GpuFeasibilityProbeTest) ... ok
+test_cpu_probe_records_all_phases_and_fresh_output (test_gpu_feasibility_probe.GpuFeasibilityProbeTest) ... ok
+test_dedup_ids_noop_conflict_and_reopen (test_incremental.IncrementalTest) ... ok
+test_reject_invalid_batches_without_mutation (test_incremental.IncrementalTest) ... ok
+test_transaction_rolls_back_partial_writes (test_incremental.IncrementalTest) ... ok
+test_discovers_exact_c3_snapshot_and_passing_report (test_kaggle_c4.KaggleC4Test) ... ok
+test_one_toy_trajectory_saves_and_reloads_without_quality (test_kaggle_c4.KaggleC4Test) ... ok
+test_2020_only_and_approved_profile_counts (test_kaggle_c5.C5PreparationTest) ... ok
+test_artifact_verifier_requires_full_matrix_and_no_selection (test_kaggle_c5.C5PreparationTest) ... ok
+test_c5_package_rejects_incomplete_budget_audit (test_kaggle_c5.C5PreparationTest) ... ok
+test_c5_package_writes_string_budget_environment_value (test_kaggle_c5.C5PreparationTest) ... ok
+test_exact_top20_ties_mask_and_dual_partition (test_kaggle_c5.C5PreparationTest) ... ok
+test_matrix_row_has_provenance_without_selection (test_kaggle_c5.C5PreparationTest) ... ok
+test_score_inputs_reject_invalid_and_nonfinite (test_kaggle_c5.C5PreparationTest) ... ok
+test_exit_status_takes_precedence_over_partial_report (test_kaggle_runner_status.KaggleRunnerStatusTest) ... ok
+test_cuda_unavailable_and_model_oom_are_distinct_csv_statuses (test_lightgcn.LightGCNTest) ... ok
+test_sampler_uses_positive_and_unobserved_movies (test_lightgcn.LightGCNTest) ... ok
+test_sparse_values_and_gradient_match_independent_dense_example (test_lightgcn.LightGCNTest) ... ok
+test_budget_ties_and_coverage_partition (test_model_cohort.ModelCohortTest) ... ok
+test_future_changes_do_not_affect_selected_graph (test_model_cohort.ModelCohortTest) ... ok
+test_cohort_hash_and_semantic_mismatch_rejected (test_model_replay.ModelReplayTest) ... ok
+test_exclusion_partition_ties_negative_events_and_empty_interval (test_model_replay.ModelReplayTest) ... ok
+test_full_reference_equivalence_boundaries_and_snapshot_reload (test_model_replay.ModelReplayTest) ... ok
+test_noncanonical_source_and_existing_database_rejected (test_model_replay.ModelReplayTest) ... ok
+test_retry_rollback_and_invalid_boundary (test_model_replay.ModelReplayTest) ... ok
+test_rounding_tolerance_preserves_exported_file_integrity (test_model_replay.ModelReplayTest) ... ok
+test_snapshot_mismatch_and_corrupt_normalization_rejected (test_model_replay.ModelReplayTest) ... ok
+test_snapshot_temporal_provenance_and_file_integrity (test_model_replay.ModelReplayTest) ... ok
+test_source_and_database_mapping_tampering_rejected (test_model_replay.ModelReplayTest) ... ok
+test_streaming_hash_matches_existing_checksum (test_model_replay.ModelReplayTest) ... ok
+test_reject_bad_header_duplicate_and_null_keys (test_movie_validation.MovieValidationTest) ... ok
+test_reject_noninteger_movie_id (test_movie_validation.MovieValidationTest) ... ok
+test_valid_metadata_missing_values_are_reported (test_movie_validation.MovieValidationTest) ... ok
+test_comparison_detects_shape_coordinates_and_weights (test_normalization.NormalizationTest) ... ok
+test_empty_graph_and_corrupt_degree (test_normalization.NormalizationTest) ... ok
+test_sparse_equals_independent_dense_reference (test_normalization.NormalizationTest) ... ok
+test_rejects_future_catalog_or_invalid_k (test_popularity_baseline.PopularityBaselineTest) ... ok
+test_ties_use_raw_movie_id_and_duplicate_edge_does_not_inflate (test_popularity_baseline.PopularityBaselineTest) ... ok
+test_train_counts_mask_and_shared_metric_contract (test_popularity_baseline.PopularityBaselineTest) ... ok
+test_optional_probe_plan_is_bounded_and_subset_only (test_prepare_kaggle_feasibility.KaggleFeasibilityBundleTest) ... ok
+test_private_t4_bundle_has_verified_inputs (test_prepare_kaggle_feasibility.KaggleFeasibilityBundleTest) ... ok
+test_both_methods_use_same_twenty_unseen_train_movies (test_rec01_evaluator.Rec01EvaluatorTest) ... ok
+test_comparison_uses_one_warm_cohort_and_rejects_future_graph_edge (test_rec01_evaluator.Rec01EvaluatorTest) ... ok
+test_checkpoint_hash_rejects_tampering (test_rec01_inference.Rec01InferenceTest) ... ok
+test_checkpoint_shape_and_config_rejected_after_hash_update (test_rec01_inference.Rec01InferenceTest) ... ok
+test_cold_user_gets_train_only_popularity_and_exhausted_warm_user_is_empty (test_rec01_inference.Rec01InferenceTest) ... ok
+test_graph_version_must_match_selected_checkpoint (test_rec01_inference.Rec01InferenceTest) ... ok
+test_historical_source_hashes_are_provenance_not_runtime_pin (test_rec01_inference.Rec01InferenceTest) ... ok
+test_model_ids_must_match_graph_even_if_report_hash_is_updated (test_rec01_inference.Rec01InferenceTest) ... ok
+test_normalization_policy_rejected_after_outer_hash_update (test_rec01_inference.Rec01InferenceTest) ... ok
+test_portable_top20_masks_train_seen_then_enriches (test_rec01_inference.Rec01InferenceTest) ... ok
+test_protocol_config_hash_must_match_its_contents (test_rec01_inference.Rec01InferenceTest) ... ok
+test_selected_checkpoint_must_still_win_validation (test_rec01_inference.Rec01InferenceTest) ... ok
+test_unknown_artifact_schema_is_rejected (test_rec01_inference.Rec01InferenceTest) ... ok
+test_sealed_output_detects_transfer_tampering (test_rec01_kaggle_prep.Rec01KagglePrepTest) ... ok
+test_source_archive_is_deterministic (test_rec01_kaggle_prep.Rec01KagglePrepTest) ... ok
+test_source_protocol_check_on_toy_canonical_parquet (test_rec01_kaggle_prep.Rec01KagglePrepTest) ... ok
+test_cached_sampler_preserves_d08_sequence (test_rec01_train.Rec01TrainTest) ... ok
+test_toy_run_selects_before_test_and_reloads (test_rec01_train.Rec01TrainTest) ... ok
+test_wrong_source_hash_fails_before_graph_build (test_rec01_train.Rec01TrainTest) ... ok
+test_only_train_and_validation_rows_are_loaded (test_s02_probe.S02ProbeTest) ... ok
+test_warm_and_cold_ui_from_verified_artifact (test_s09_app.S09AppTest) ... 2026-11-24 14:05:43.292 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok
+test_catalog_is_train_movie_set_with_deterministic_order (test_s09_view.S09ViewTest) ... ok
+test_train_history_cutoff_order_and_metadata (test_s09_view.S09ViewTest) ... ok
+test_batch_replay_recovery_and_stale_checkpoint (test_s10_feedback.S10FeedbackTest) ... ok
+test_streamlit_rating_batch_updates_graph_only (test_s10_feedback.S10FeedbackTest) ... 2026-11-24 14:05:51.651 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok
+test_crash_after_intent_then_reopen_applies_once (test_s11_feedback_failures.S11FeedbackFailureTest) ... ok
+test_invalid_payload_and_tampered_intent_rejected (test_s11_feedback_failures.S11FeedbackFailureTest) ... ok
+test_two_threads_get_contiguous_versions_and_event_ids (test_s11_feedback_failures.S11FeedbackFailureTest) ... ok
+test_deferred_versions_and_export_survive_reopen (test_snapshots.SnapshotTest) ... ok
+test_empty_snapshot_and_failed_materialization_rollback (test_snapshots.SnapshotTest) ... ok
+test_chunked_ranking_and_metrics (test_temporal_leakage.TemporalTest) ... ok
+test_cutoff_and_cold_exclusions (test_temporal_leakage.TemporalTest) ... ok
+test_future_events_never_enter_graph_or_negatives (test_temporal_leakage.TemporalTest) ... ok
+test_small_timestamp_cutoffs_stay_distinct (test_temporal_leakage.TemporalTest) ... ok
+test_half_open_cutoff_new_entities_and_positive_edge_dedup (test_temporal_profile.TemporalProfileTest) ... ok
+test_refuses_existing_output_and_invalid_source (test_temporal_profile.TemporalProfileTest) ... ok
+
+----------------------------------------------------------------------
+Ran 103 tests in 35.051s
+
+OK

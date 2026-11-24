@@ -9,14 +9,17 @@ import duckdb
 from src.artifacts import file_sha256 as sha256
 
 
-def run(source: Path, out: Path, *, max_prefix: int = 1_000_000) -> dict:
+def run(source: Path, out: Path, *, max_prefix: int = 1_000_000,
+        memory_limit: str = "1GB") -> dict:
     if out.exists() and any(out.iterdir()):
         raise FileExistsError("Canonical output directory must be fresh")
     out.mkdir(parents=True, exist_ok=True)
-    con = duckdb.connect()
+    con = duckdb.connect(config={"memory_limit": memory_limit})
     con.execute("SET threads=1")
     con.execute("SET preserve_insertion_order=true")
     con.execute(f"SET temp_directory='{(out / 'tmp').as_posix()}'")
+    con.execute("PRAGMA enable_profiling='json'")
+    con.execute("SET profiling_output=?", [str(out / 'duckdb_profile.json')])
     source_sql = str(source.resolve()).replace("'", "''").replace("\\", "/")
     with source.open("r", encoding="utf-8-sig") as stream:
         header = stream.readline().strip()
@@ -79,6 +82,9 @@ def run(source: Path, out: Path, *, max_prefix: int = 1_000_000) -> dict:
     profile["transform"] = {"version": "d02-v1", "threads": 1, "source_row_id_base": 0,
                             "order_by": ["event_ts", "user_raw_id", "movie_raw_id", "source_row_id"],
                             "event_id_base": 0, "rating_dtype": "FLOAT", "positive_threshold": 4.0}
+    profile["memory_limit"] = memory_limit
+    con.execute('SELECT count(*) FROM canonical_prefix').fetchall()
+    con.close()
     (out / "manifest.json").write_text(json.dumps(profile, indent=2), encoding="utf-8")
     return profile
 

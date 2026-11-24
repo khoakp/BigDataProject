@@ -1,0 +1,142 @@
+{
+  "status": "PASS",
+  "workload": "toy_only_not_5M_performance",
+  "git_head": "1745739744f6f4aae0d97ddf83d03a7a80eacbb9",
+  "dirty_worktree": true,
+  "environment": {
+    "python": "3.10.11",
+    "duckdb": "1.5.6"
+  },
+  "cpu_smoke_elapsed_s": 1.2983499000001757,
+  "boundaries": [
+    {
+      "boundary": 10,
+      "projection_version": 0,
+      "canonical_watermark": 3,
+      "edges": 2,
+      "counts": {},
+      "snapshot_id": "projection-0-bfede9bef35a7f2d",
+      "mapping_sha256": "4a315ecbd2b625f8310e356bde11f78a3dd28748091bb95b5ec3bbf5bd98995d",
+      "coo_sha256": "daaf2176f12845154fc67eb382bc05fb4eb8fae08000cc5f6d8d461234dc3085",
+      "full_reference_equal": true
+    },
+    {
+      "boundary": 11,
+      "projection_version": 1,
+      "canonical_watermark": 11,
+      "edges": 3,
+      "counts": {
+        "cold_user": 1,
+        "omitted_user": 1,
+        "cold_movie": 1,
+        "omitted_movie": 1,
+        "seen": 1,
+        "inserted": 1,
+        "rating_events": 8,
+        "positive_events": 7,
+        "unique_positive_pairs": 6,
+        "within_interval_repeat_events": 1
+      },
+      "snapshot_id": "projection-1-083d67456032dbb1",
+      "mapping_sha256": "4a315ecbd2b625f8310e356bde11f78a3dd28748091bb95b5ec3bbf5bd98995d",
+      "coo_sha256": "658bc1110624635cab042408e1d172d1b6e5a2703cf0292bd16475e184d77ef4",
+      "full_reference_equal": true
+    },
+    {
+      "boundary": 12,
+      "projection_version": 2,
+      "canonical_watermark": 12,
+      "edges": 3,
+      "counts": {
+        "cold_user": 0,
+        "omitted_user": 0,
+        "cold_movie": 0,
+        "omitted_movie": 0,
+        "seen": 0,
+        "inserted": 0,
+        "rating_events": 1,
+        "positive_events": 0,
+        "unique_positive_pairs": 0,
+        "within_interval_repeat_events": 0
+      },
+      "snapshot_id": "projection-2-083d67456032dbb1",
+      "mapping_sha256": "4a315ecbd2b625f8310e356bde11f78a3dd28748091bb95b5ec3bbf5bd98995d",
+      "coo_sha256": "658bc1110624635cab042408e1d172d1b6e5a2703cf0292bd16475e184d77ef4",
+      "full_reference_equal": true
+    },
+    {
+      "boundary": 13,
+      "projection_version": 3,
+      "canonical_watermark": 13,
+      "edges": 4,
+      "counts": {
+        "cold_user": 0,
+        "omitted_user": 0,
+        "cold_movie": 0,
+        "omitted_movie": 0,
+        "seen": 0,
+        "inserted": 1,
+        "rating_events": 1,
+        "positive_events": 1,
+        "unique_positive_pairs": 1,
+        "within_interval_repeat_events": 0
+      },
+      "snapshot_id": "projection-3-af70bdf3f5e07a35",
+      "mapping_sha256": "4a315ecbd2b625f8310e356bde11f78a3dd28748091bb95b5ec3bbf5bd98995d",
+      "coo_sha256": "8795816a5c1735cd483546ad523876ccda08aa59b3006899a19779d84e6dcfd2",
+      "full_reference_equal": true
+    },
+    {
+      "boundary": 15,
+      "projection_version": 4,
+      "canonical_watermark": 13,
+      "edges": 4,
+      "counts": {
+        "cold_user": 0,
+        "omitted_user": 0,
+        "cold_movie": 0,
+        "omitted_movie": 0,
+        "seen": 0,
+        "inserted": 0,
+        "rating_events": 0,
+        "positive_events": 0,
+        "unique_positive_pairs": 0,
+        "within_interval_repeat_events": 0
+      },
+      "snapshot_id": "projection-4-af70bdf3f5e07a35",
+      "mapping_sha256": "4a315ecbd2b625f8310e356bde11f78a3dd28748091bb95b5ec3bbf5bd98995d",
+      "coo_sha256": "8795816a5c1735cd483546ad523876ccda08aa59b3006899a19779d84e6dcfd2",
+      "full_reference_equal": true
+    },
+    {
+      "boundary": 16,
+      "projection_version": 5,
+      "canonical_watermark": 14,
+      "edges": 4,
+      "counts": {
+        "cold_user": 0,
+        "omitted_user": 0,
+        "cold_movie": 0,
+        "omitted_movie": 0,
+        "seen": 0,
+        "inserted": 0,
+        "rating_events": 1,
+        "positive_events": 0,
+        "unique_positive_pairs": 0,
+        "within_interval_repeat_events": 0
+      },
+      "snapshot_id": "projection-5-af70bdf3f5e07a35",
+      "mapping_sha256": "4a315ecbd2b625f8310e356bde11f78a3dd28748091bb95b5ec3bbf5bd98995d",
+      "coo_sha256": "8795816a5c1735cd483546ad523876ccda08aa59b3006899a19779d84e6dcfd2",
+      "full_reference_equal": true
+    }
+  ],
+  "reopen_idempotency": true,
+  "lightgcn_forward_calls": 0,
+  "optimizer_steps": 0,
+  "source_sha256": {
+    "src/graph/model_replay.py": "707277bd78db8636710a55f5c2f550ebfc4bbd3899fe9fd1421836bbb6ef0d72",
+    "tests/test_model_replay.py": "636bbb8028d9e083905894846dc13b9068045cc7dbfe3a4ea1745ef1f190cfaf",
+    "docs/current/experiment-protocol.md": "9d8caa2feb773a6adf6f64d40b004319bf025804f10000064f46b984e912b7a1"
+  }
+}

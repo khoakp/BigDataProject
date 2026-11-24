@@ -1,0 +1,17 @@
+{
+  "status": "C2_TOY_CPU_PASS_AWAITING_OWNER_REVIEW",
+  "tests": 90,
+  "failures": 0,
+  "gpu_training_runs": 0,
+  "real_c0": false,
+  "holdout_quality_runs": 0,
+  "git_head": "1745739744f6f4aae0d97ddf83d03a7a80eacbb9",
+  "files_sha256": {
+    "src/models/c0.py": "dc2b6b165169f144d32ac3eab1c2491f4a92c2642a66159ada7605b404f06b6c",
+    "src/evaluation/c0_validation.py": "cacdd025cd72746766cac7c5579bfe30d823aaaf096f04fc55daadf9fc5a1cf6",
+    "tests/test_c0.py": "5b89145e667405740ce4f7d04538ed90dce55eb2e93eca42c9b40e71a3b72115",
+    "docs/current/architecture.md": "94f65f274b970adeae8c5ec68336f89eba8d437c82aed196c5affc3aa823820b",
+    "docs/current/progress-and-evidence.md": "315894331f4330108069f851e528420a8b9e7d831ee4478fad1bad17e82984e0"
+  },
+  "regression_sha256": "8f421b54c0d0251878b9d7cd788d34de5f8857b0ed9ff55785cfd62d099e71e1"
+}

@@ -1,0 +1,21 @@
+{
+  "kernel_id": "khoakp/moviegraph-v2-c3-real-5m-preflight",
+  "git_head": "1745739744f6f4aae0d97ddf83d03a7a80eacbb9",
+  "source_sha256": {
+    "scripts/kaggle_c3_runner.py": "da19cb66bf272d1eea3fe476dec4df41fd41aa03d95290b4907df563f85fea50",
+    "src/artifacts.py": "b4940e66158e429532fdea42c2a7ef44549748b25e510849556b39ecc65a9c23",
+    "src/graph/equivalence.py": "67661e3bf4be05876c45587a3b5fafd1930535bf56282707e7e62d3d4d441c7b",
+    "src/graph/model_replay.py": "445cc7b63644992f31e9251deecd85bccbe9f091fe35cf74c731d407edb58fe1",
+    "src/graph/normalize.py": "8d1084519b622f30bca27fb3fe5d2012f7ac9794517881d78fed402b8a6ee2fa",
+    "src/ingest/canonical.py": "47debae8d5984ddfdcb875d350990c358077d9f50ed898c8004c4267f1efc4fa",
+    "src/ingest/replay.py": "057b1d26227f4f1c7c385208e4f9314cb19d89195d96185cf4b7175de3c4ba5b"
+  },
+  "source_bundle_sha256": "4e3f3b830c0afd37b82770169014af987b5a517f3ed8134917c63ba849a207e1",
+  "runner_sha256": "bae7419068ddad2074ea3c05b11ab7709f8bf2087daf8870d5a6aaa13156c4c3",
+  "dataset_sources": [
+    "khoakp/moviegraph-v2-feasibility-input",
+    "khoakp/moviegraph-v2-c3-canonical"
+  ],
+  "optimizer_steps": 0,
+  "quality_evaluations": 0
+}

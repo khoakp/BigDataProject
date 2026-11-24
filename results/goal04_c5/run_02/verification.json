@@ -1,0 +1,20 @@
+{
+  "status": "PASS",
+  "matrix_rows": 60,
+  "candidate_steps": [
+    0,
+    500,
+    1500,
+    3000,
+    5000
+  ],
+  "propagation_forwards": 5,
+  "optimizer_updates": 0,
+  "selected_step": null,
+  "job_elapsed_s": 147.303616516,
+  "cumulative_phase_c_kaggle_elapsed_s": 2524.0458195190004,
+  "artifact_sha256": {
+    "validation-matrix.json": "e88170c851dd1658fd31491a83eb11dcac8b6276e7e87cf4904928df5bceb138",
+    "candidate-comparison.csv": "f3976b773c4c2c19d1345763743a9d5916eb8f6c951995d745ddb028ea96a88b"
+  }
+}

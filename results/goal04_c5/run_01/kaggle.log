@@ -1,0 +1,14 @@
+[{"stream_name":"stderr","time":1.142427895,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":1.142723883,"data":"  File \"/kaggle/src/script.py\", line 5, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":1.142738261,"data":"    os.environ['GOAL04_VERIFIED_PRIOR_PHASE_C_S'] = 2369.918029196\n"}
+,{"stream_name":"stderr","time":1.142742734,"data":"    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":1.1427463389999999,"data":"  File \"\u003cfrozen os\u003e\", line 722, in __setitem__\n"}
+,{"stream_name":"stderr","time":1.142750164,"data":"  File \"\u003cfrozen os\u003e\", line 796, in encode\n"}
+,{"stream_name":"stderr","time":1.142753825,"data":"TypeError: str expected, not float\n"}
+,{"stream_name":"stderr","time":3.6439725960000002,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":3.6440025990000002,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":3.973740984,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":3.973772474,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":5.7809173959999995,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":6.824173807,"data":"[NbConvertApp] Writing 333737 bytes to __results__.html\n"}
+]

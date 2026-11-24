@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "processes": [
+    {
+      "pid": 11400,
+      "rss": 4399104
+    },
+    {
+      "pid": 33340,
+      "rss": 18382848
+    }
+  ],
+  "tree_rss": 22781952,
+  "workload": "8MiB allocation; no data or GPU"
+}

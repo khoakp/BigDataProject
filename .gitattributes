@@ -1,2 +1,4 @@
 # Preserve exact bytes of the published profiling CSVs and their SHA-256 hashes.
 results/temporal_profile_v2/*.csv -text
+# Research evidence manifests record file-byte SHA-256; keep these bytes exact.
+results/goal04*/** -text whitespace=cr-at-eol

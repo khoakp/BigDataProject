@@ -1,0 +1,25 @@
+{
+  "status": "INCOMPLETE_AWAITING_RESOURCE_DECISION",
+  "baseline_tests": 83,
+  "regression_tests": 84,
+  "preflight_pass": false,
+  "gpu_runs": 0,
+  "c0_available": false,
+  "phase_d_authorized": false,
+  "git_diff_check": "PASS",
+  "current_files_sha256": {
+    "scripts/goal04_preflight.py": "40184b58ea663cbd0f18839d6ef337c5049bc579ffcdd5e0520618aa3dfc60dc",
+    "src/ingest/d02_profile.py": "d6389bd21907cdfeca57a621ba8cce059f39859d4a016a93b8ab03b397c58c96",
+    "src/ingest/canonical.py": "47debae8d5984ddfdcb875d350990c358077d9f50ed898c8004c4267f1efc4fa",
+    "tests/test_goal04_preflight.py": "806fa40ce5495d611990edf780daa4c3da0430a2be3c2f25b88db3e01d5e9cb5",
+    "tests/test_d02.py": "36b8c46746f6f3a5a48373417d13e2f8dbd467d6ea01ca2febde1b7a4141eef3",
+    "docs/current/experiment-protocol.md": "31edc6af8f7fee18eacccc69e1ddb10789fd258fc4b3505a599d0edf276580c0",
+    "docs/research/goal04-phase-c-preflight.md": "609ed4cb7a50e83e052de03d39e168fc4b3d4d69709c8a8296edb9a3f8cb67ea"
+  },
+  "evidence_sha256": {
+    "results\\goal04_preflight\\regression.log": "13c274c4f2dd410dc5acee37fb6af2cc7c397b8d6f052bd55f039a0174ef3e0c",
+    "results\\goal04_preflight\\run_01\\report.json": "00f93a3782a2b6079d225aac1d1126bcffa6cc8ce319d12fc89c78d2b8db28a9",
+    "results\\goal04_preflight\\run_01\\assessment.json": "b944431d31c19fb61e08caeab86b8d8b440b63b2318e073289b2d34a09aea697",
+    "results\\goal04_preflight\\rss_tree_smoke.json": "49415fa005ff02bab367d428d0f86706a9d97ca77dc0cd01417d687bd32ee246"
+  }
+}

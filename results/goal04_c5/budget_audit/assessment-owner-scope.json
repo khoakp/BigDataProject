@@ -1,0 +1,37 @@
+{
+  "status": "OWNER_APPROVED_ACCOUNTING",
+  "owner_decision_reference": "Owner chat 2026-11-24: count C3 v3 and C4 v4 only; earlier queued/canceled save versions excluded",
+  "accounting_scope": "C3 v3 and C4 v4 only",
+  "hard_budget_s": 14400,
+  "included_versions": [
+    {
+      "phase": "c3",
+      "version": 3,
+      "status": "KernelWorkerStatus.COMPLETE",
+      "kaggle_list_last_run_time_utc": "2026-11-23T17:23:00.593000+00:00",
+      "last_log_observed_utc_inferred": "2026-11-23T17:29:28.723548+00:00",
+      "runner_elapsed_s": 379.0316866520001,
+      "last_log_relative_s": 388.130548496,
+      "charged_elapsed_s": 388.130548496,
+      "terminal_job_elapsed_s": null
+    },
+    {
+      "phase": "c4",
+      "version": 4,
+      "status": "KernelWorkerStatus.COMPLETE",
+      "kaggle_list_last_run_time_utc": "2026-11-23T18:07:54.373000+00:00",
+      "last_log_observed_utc_inferred": "2026-11-23T18:40:56.160481+00:00",
+      "runner_elapsed_s": 1968.106322238,
+      "last_log_relative_s": 1981.7874807,
+      "charged_elapsed_s": 1981.7874807,
+      "terminal_job_elapsed_s": null
+    }
+  ],
+  "runner_subtotal_s": 2347.13800889,
+  "cumulative_phase_c_kaggle_elapsed_s": 2369.918029196,
+  "remaining_budget_s": 12030.081970804,
+  "codex_preparation_elapsed_s": "excluded; local work, not a Kaggle job",
+  "measurement_limit": "Charged elapsed reaches each version\u2019s final Kaggle log event, including notebook rendering. Terminal teardown after the last log is not exposed by the API; this is an Owner-scope accounting figure, not an exact terminal-duration claim.",
+  "excluded_version_note": "Raw seven-version evidence remains in api-evidence.json. C3 v2 has ERROR and a 26.90 s log, so it is excluded by the Owner scope decision, not reclassified as a zero-execution queued job.",
+  "submission_gate": "Owner scope budget accounting complete; C5 official submit remains a separate stop gate after local preparation report."
+}

@@ -1,0 +1,8 @@
+[{"stream_name":"stdout","time":148.085762783,"data":"{\"status\": \"COMPLETE_VALIDATION\", \"job_elapsed_s\": 147.303616516, \"matrix_rows\": 60, \"propagation_forwards\": 5}\n"}
+,{"stream_name":"stderr","time":150.581029359,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":150.581058224,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":150.801019329,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":150.801045674,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":151.579959933,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":152.504325135,"data":"[NbConvertApp] Writing 333739 bytes to __results__.html\n"}
+]

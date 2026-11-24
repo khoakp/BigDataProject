@@ -1,0 +1,13 @@
+test_cohort_hash_and_semantic_mismatch_rejected (tests.test_model_replay.ModelReplayTest) ... ok
+test_exclusion_partition_ties_negative_events_and_empty_interval (tests.test_model_replay.ModelReplayTest) ... ok
+test_full_reference_equivalence_boundaries_and_snapshot_reload (tests.test_model_replay.ModelReplayTest) ... ok
+test_noncanonical_source_and_existing_database_rejected (tests.test_model_replay.ModelReplayTest) ... ok
+test_retry_rollback_and_invalid_boundary (tests.test_model_replay.ModelReplayTest) ... ok
+test_snapshot_mismatch_and_corrupt_normalization_rejected (tests.test_model_replay.ModelReplayTest) ... ok
+test_snapshot_temporal_provenance_and_file_integrity (tests.test_model_replay.ModelReplayTest) ... ok
+test_source_and_database_mapping_tampering_rejected (tests.test_model_replay.ModelReplayTest) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 2.534s
+
+OK
