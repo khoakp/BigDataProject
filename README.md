@@ -16,6 +16,8 @@ Luồng chính: MovieLens CSV → canonical events → Full Rebuild/Incremental 
 - [Kiến trúc và version contract](docs/current/architecture.md)
 - [Protocol thực nghiệm](docs/current/experiment-protocol.md)
 - [Tiến độ và bằng chứng](docs/current/progress-and-evidence.md)
+- [Khôi phục C0/G0 artifacts](docs/current/artifact-recovery.md)
+- [Reporting workspace v2](docs/reporting-v2/claim-evidence-map.md)
 - [Architecture Walkthrough tiếng Việt](docs/current/architecture-walkthrough-vi.md)
 - [Bảo trì tài liệu](docs/current/documentation-maintenance.md)
 - [Chỉ mục nghiên cứu](docs/research/README.md)
