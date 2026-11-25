@@ -5,9 +5,15 @@ import base64
 import hashlib
 import io
 import json
+import platform
 import subprocess
+import sys
 import zipfile
 from pathlib import Path
+
+import duckdb
+import psutil
+import torch
 
 from scripts.prepare_kaggle_c3 import SOURCES as C3_SOURCES
 from src.artifacts import file_sha256
@@ -37,6 +43,8 @@ def prepare(output: Path) -> dict:
             archive.writestr(info, raw)
     bundle = content.getvalue()
     bundle_sha = hashlib.sha256(bundle).hexdigest()
+    selection = json.loads((ROOT / 'results/goal04_training/selection.json').read_text(
+        encoding='utf-8'))
     git_head = subprocess.check_output(['git', 'rev-parse', 'HEAD'],
                                        cwd=ROOT, text=True).strip()
     script = (
@@ -72,6 +80,15 @@ def prepare(output: Path) -> dict:
                 'source_bundle_sha256': bundle_sha, 'source_sha256': hashes,
                 'runner_sha256': file_sha256(output / 'runner.py'),
                 'selection_sha256': hashes['results/goal04_training/selection.json'],
+                'input_sha256': {
+                    'c0': selection['checkpoint']['sha256'],
+                    'g0_manifest': selection['g0_snapshot_manifest_sha256'],
+                    'canonical': selection['canonical_source_sha256'],
+                    'cohort_manifest': selection['cohort_manifest_sha256']},
+                'build_environment': {
+                    'python': sys.version.split()[0], 'platform': platform.platform(),
+                    'torch': str(torch.__version__), 'duckdb': duckdb.__version__,
+                    'psutil': psutil.__version__},
                 'boundary': 1609459200, 'device': 'cuda:0',
                 'proposed_forward_attempts': 2, 'optimizer_updates': 0,
                 'owner_decision_reference': None,

@@ -7,13 +7,14 @@ from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import patch
 
-from scripts.kaggle_d4_runner import _unique_file, approval_gate, run
+from scripts.kaggle_d4_runner import (INPUT_SOURCES, SELECTION, _phase_resource,
+                                     _unique_file, approval_gate, run)
 from scripts.prepare_kaggle_d4 import prepare as prepare_package
 from scripts.verify_kaggle_d4 import verify
 from src.benchmarking.common import PreflightSampler
 from src.evaluation.baselines import popularity_counts, popularity_counts_snapshot
 from src.evaluation.refresh_strategies import _device, _environment, _gpu_headroom
-from src.evaluation.refresh_strategies import prepare, rank_users
+from src.evaluation.refresh_strategies import ForwardLedger, create_p0, prepare, rank_users
 from src.evaluation.refresh_boundary import RankRequest, freeze_boundary
 from tests.test_goal04_refresh_toy import toy, ts
 from src.graph.model_replay import ModelGraphReplay, load_projection_snapshot
@@ -54,6 +55,16 @@ class D4LocalTest(unittest.TestCase):
             gpu.sample()
         self.assertEqual(gpu.record()['gpu_peak_reserved_bytes'], 20)
         self.assertEqual(gpu.record()['gpu_min_free_fraction'], .6)
+        with patch('torch.cuda.mem_get_info', return_value=(60, 100)), \
+             patch('torch.cuda.memory_allocated', return_value=12), \
+             patch('torch.cuda.memory_reserved', return_value=20), \
+             patch('scripts.kaggle_d4_runner.available_ram', return_value=300), \
+             patch('scripts.kaggle_d4_runner.shutil.disk_usage',
+                   return_value=SimpleNamespace(free=400)):
+            phase = _phase_resource(SimpleNamespace(sample=lambda: None,
+                                                     peak_rss_bytes=500))
+        self.assertEqual(phase['gpu_allocated_bytes_at_end'], 12)
+        self.assertEqual(phase['effective_host_available_bytes_at_end'], 300)
 
     def test_snapshot_counts_match_existing_cpu_counts(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -95,6 +106,39 @@ class D4LocalTest(unittest.TestCase):
             request = RankRequest(history, (1, 2), 'serving_like')
             self.assertEqual(rank_users(cpu, request), rank_users(streamed, request))
 
+    def test_mock_device_adapter_matches_cpu_rankings_and_separates_cache_identity(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            cohort, events, checkpoint, _, g0, _ = toy(root)
+            with ModelGraphReplay.create(root / 'd4-adapter.duckdb', cohort, events) as graph:
+                history = freeze_boundary(graph, ts(2021, 1), root / 'snapshot')
+            args = dict(base_boundary=ts(2020, 1),
+                        mapping_sha256=checkpoint.provenance['mapping_sha256'],
+                        source_sha256=checkpoint.provenance['source_sha256'])
+            cpu_id, cpu_sha = create_p0(checkpoint, g0, cache_path=root / 'p0-cpu',
+                                        ledger=ForwardLedger(), **args)
+            cpu_s1 = prepare('S1', history, checkpoint, repetition=1,
+                             cache_path=root / 's1-cpu', ledger=ForwardLedger())
+            cpu_s0 = prepare('S0', history, checkpoint, repetition=1,
+                             p0_path=root / 'p0-cpu', p0_identity=cpu_id,
+                             p0_manifest_sha256=cpu_sha)
+            with patch('src.evaluation.refresh_strategies._device',
+                       return_value=torch.device('cpu')), \
+                 patch('src.evaluation.refresh_strategies._environment',
+                       return_value='mock-cuda'):
+                mock_id, mock_sha = create_p0(checkpoint, g0,
+                    cache_path=root / 'p0-mock', ledger=ForwardLedger(),
+                    device='cuda:0', **args)
+                mock_s1 = prepare('S1', history, checkpoint, repetition=1,
+                    cache_path=root / 's1-mock', ledger=ForwardLedger(), device='cuda:0')
+                mock_s0 = prepare('S0', history, checkpoint, repetition=1,
+                    p0_path=root / 'p0-mock', p0_identity=mock_id,
+                    p0_manifest_sha256=mock_sha, device='cuda:0')
+            self.assertNotEqual(cpu_id, mock_id)
+            request = RankRequest(history, (1, 2), 'serving_like')
+            self.assertEqual(rank_users(cpu_s0, request), rank_users(mock_s0, request))
+            self.assertEqual(rank_users(cpu_s1, request), rank_users(mock_s1, request))
+
     def test_package_is_private_and_approval_blocked(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -105,8 +149,23 @@ class D4LocalTest(unittest.TestCase):
             check = verify(package)
             self.assertEqual(check['status'], 'PASS_BLOCKED_PENDING_OWNER')
             self.assertEqual(manifest['status'], 'BLOCKED_OWNER_APPROVAL')
+            self.assertEqual(len(manifest['input_sha256']), 4)
+            self.assertIn('torch', manifest['build_environment'])
             self.assertFalse(any(name.endswith('.pt') or name.endswith('.parquet')
                                  for name in manifest['source_sha256']))
+            altered = dict(manifest)
+            altered['input_sha256'] = dict(manifest['input_sha256'], c0='wrong')
+            (package / 'package-manifest.json').write_text(json.dumps(altered), encoding='utf-8')
+            with self.assertRaisesRegex(ValueError, 'provenance mismatch'):
+                verify(package)
+            (package / 'package-manifest.json').write_text(json.dumps(manifest), encoding='utf-8')
+            metadata_path = package / 'kernel-metadata.json'
+            metadata = json.loads(metadata_path.read_text(encoding='utf-8'))
+            metadata_path.write_text(json.dumps(dict(metadata, kernel_sources=[])),
+                                     encoding='utf-8')
+            with self.assertRaisesRegex(ValueError, 'metadata'):
+                verify(package)
+            metadata_path.write_text(json.dumps(metadata), encoding='utf-8')
             (package / 'runner.py').write_text('modified', encoding='utf-8')
             with self.assertRaises(ValueError):
                 verify(package)
@@ -117,7 +176,10 @@ class D4LocalTest(unittest.TestCase):
             with patch('scripts.kaggle_d4_runner.INPUT', root), \
                  patch('scripts.kaggle_d4_runner.OUTPUT', root / 'output'), \
                  patch('torch.cuda.is_available') as cuda:
-                self.assertEqual(run()['status'], 'INCOMPLETE')
+                blocked = run()
+                self.assertEqual(blocked['status'], 'INCOMPLETE')
+                self.assertIsNone(blocked['resources'])
+                self.assertIsNotNone(blocked['resources_unavailable_reason'])
                 self.assertFalse((root / 'output').exists())
                 cuda.assert_not_called()
                 with self.assertRaises(ValueError):
@@ -126,9 +188,16 @@ class D4LocalTest(unittest.TestCase):
     def test_approval_requires_exact_package_and_budget(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
+            selection = json.loads(SELECTION.read_text(encoding='utf-8'))
             decision = dict(approved_source_bundle_sha256='bundle', approved_git_head='head',
                 owner_decision_reference='owner-d4b-1', approved_boundary=1609459200,
                 approved_device='cuda:0', approved_job_count=1, approved_forward_attempts=2,
+                approved_input_sources=INPUT_SOURCES,
+                approved_input_sha256={
+                    'c0': selection['checkpoint']['sha256'],
+                    'g0_manifest': selection['g0_snapshot_manifest_sha256'],
+                    'canonical': selection['canonical_source_sha256'],
+                    'cohort_manifest': selection['cohort_manifest_sha256']},
                 p0_accounting='official_setup_1_of_100',
                 s1_accounting='official_rep1_boundary1_1_of_99',
                 s1_reuse_authorized=True, max_wall_s=1800,
@@ -139,6 +208,11 @@ class D4LocalTest(unittest.TestCase):
                 approval_gate(root, bundle_sha256='other', git_head='head')
             self.assertEqual(approval_gate(root, bundle_sha256='bundle', git_head='head'),
                              decision)
+            decision['approved_input_sha256']['c0'] = 'wrong'
+            (root / 'd4-owner-approval.json').write_text(json.dumps(decision), encoding='utf-8')
+            with self.assertRaises(PermissionError):
+                approval_gate(root, bundle_sha256='bundle', git_head='head')
+            decision['approved_input_sha256']['c0'] = selection['checkpoint']['sha256']
             decision['approved_forward_attempts'] = 3
             (root / 'd4-owner-approval.json').write_text(json.dumps(decision), encoding='utf-8')
             with self.assertRaises(PermissionError):

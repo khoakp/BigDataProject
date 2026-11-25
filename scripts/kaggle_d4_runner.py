@@ -3,13 +3,17 @@ from __future__ import annotations
 
 import json
 import os
+import platform
 import signal
 import shutil
+import sys
 import time
 from contextlib import contextmanager
 from pathlib import Path
 
 import torch
+import duckdb
+import psutil
 
 from scripts.kaggle_c3_runner import available_ram, disk_bytes, verify_inputs
 from src.artifacts import file_sha256
@@ -25,15 +29,27 @@ OUTPUT = Path('/kaggle/working/goal04_d4')
 BOUNDARY = 1609459200
 C3_REPORT_SHA = '29cc7adeb929b3b53a8ffdbb151c73acf28ba84430ff5d4026dca18ab224f26b'
 SELECTION = Path(__file__).resolve().parents[1] / 'results/goal04_training/selection.json'
+INPUT_SOURCES = [
+    'khoakp/moviegraph-v2-feasibility-input',
+    'khoakp/moviegraph-v2-c3-canonical',
+    'khoakp/moviegraph-v2-c3-real-5m-preflight',
+    'khoakp/moviegraph-v2-c4-single-t4-training']
 
 
-def approval_gate(root: Path = INPUT, *, bundle_sha256: str | None = None,
+def approval_gate(root: Path | None = None, *, bundle_sha256: str | None = None,
                   git_head: str | None = None) -> dict:
     """A private Owner decision must name the exact package and two forward attempts."""
+    root = root if root is not None else INPUT
     matches = list(root.rglob('d4-owner-approval.json')) if root.is_dir() else []
     if len(matches) != 1:
         raise PermissionError('D4 GPU blocked: expected one private Owner approval')
     decision = json.loads(matches[0].read_text(encoding='utf-8'))
+    selection = json.loads(SELECTION.read_text(encoding='utf-8'))
+    expected_inputs = {
+        'c0': selection['checkpoint']['sha256'],
+        'g0_manifest': selection['g0_snapshot_manifest_sha256'],
+        'canonical': selection['canonical_source_sha256'],
+        'cohort_manifest': selection['cohort_manifest_sha256']}
     if (not bundle_sha256 or not git_head or
             decision.get('approved_source_bundle_sha256') != bundle_sha256 or
             decision.get('approved_git_head') != git_head or
@@ -41,6 +57,8 @@ def approval_gate(root: Path = INPUT, *, bundle_sha256: str | None = None,
             not decision['owner_decision_reference'].strip() or
             decision.get('approved_boundary') != BOUNDARY or
             decision.get('approved_device') != 'cuda:0' or
+            decision.get('approved_input_sha256') != expected_inputs or
+            decision.get('approved_input_sources') != INPUT_SOURCES or
             type(decision.get('approved_job_count')) is not int or
             decision['approved_job_count'] != 1 or
             type(decision.get('approved_forward_attempts')) is not int or
@@ -88,6 +106,17 @@ def _limits(decision: dict, start: float, stage: str) -> None:
     free, total = torch.cuda.mem_get_info(0)
     if free / total < decision['min_gpu_free_fraction']:
         raise MemoryError(f'GPU headroom below approved minimum at {stage}')
+
+
+def _phase_resource(sampler: PreflightSampler) -> dict:
+    sampler.sample()
+    free, total = torch.cuda.mem_get_info(0)
+    return {'gpu_allocated_bytes_at_end': torch.cuda.memory_allocated(0),
+            'gpu_reserved_bytes_at_end': torch.cuda.memory_reserved(0),
+            'gpu_free_bytes_at_end': free, 'gpu_total_bytes': total,
+            'effective_host_available_bytes_at_end': available_ram(),
+            'disk_free_bytes_at_end': shutil.disk_usage(OUTPUT.parent).free,
+            'cumulative_process_tree_peak_rss_bytes': sampler.peak_rss_bytes}
 
 
 @contextmanager
@@ -148,7 +177,18 @@ def run() -> dict:
               'cpu_s': {}, 'phase_resources': {},
               'gpu_executed': False, 'duckdb_memory': None,
               'duckdb_unavailable_reason': 'Replay has not completed',
-              'input_bytes': None, 'resources': None}
+              'input_bytes': None,
+              'input_bytes_unavailable_reason': 'Input verification has not completed',
+              'snapshot_bytes': None,
+              'snapshot_bytes_unavailable_reason': 'Snapshot has not completed',
+              'cache_bytes': None,
+              'cache_bytes_unavailable_reason': 'Caches have not completed',
+              'gpu_device': None,
+              'gpu_device_unavailable_reason': 'Device verification has not completed',
+              'resources': None,
+              'resources_unavailable_reason': 'Resource sampling has not started',
+              'output_bytes': None,
+              'output_bytes_unavailable_reason': 'Output has not been created'}
     cpu_start = time.process_time()
     sampler = None
     owned_output = False
@@ -156,6 +196,11 @@ def run() -> dict:
     try:
         decision = approval_gate(bundle_sha256=os.environ.get('GOAL04_D4_BUNDLE_SHA256'),
                                  git_head=os.environ.get('GOAL04_D4_GIT_HEAD'))
+        report['approval_reference'] = decision['owner_decision_reference']
+        report['source_bundle_sha256'] = os.environ['GOAL04_D4_BUNDLE_SHA256']
+        report['git_head'] = os.environ['GOAL04_D4_GIT_HEAD']
+        report['approved_input_sources'] = decision['approved_input_sources']
+        report['approved_input_sha256'] = decision['approved_input_sha256']
         OUTPUT.mkdir(parents=True, exist_ok=False)
         owned_output = True
         _write(report)
@@ -164,6 +209,17 @@ def run() -> dict:
                 torch.cuda.get_device_name(0) != 'Tesla T4'):
             raise ValueError('Unsupported GPU: Tesla T4 at cuda:0 required')
         report['gpu_device'] = torch.cuda.get_device_name(0)
+        report['gpu_device_unavailable_reason'] = None
+        properties = torch.cuda.get_device_properties(0)
+        report['runtime_environment'] = {
+            'python': sys.version.split()[0], 'platform': platform.platform(),
+            'torch': str(torch.__version__), 'torch_cuda': torch.version.cuda,
+            'duckdb': duckdb.__version__, 'psutil': psutil.__version__,
+            'device_name': properties.name,
+            'device_total_memory_bytes': properties.total_memory,
+            'device_capability': [properties.major, properties.minor],
+            'visible_cuda_devices': torch.cuda.device_count(),
+            'compute_device': 'cuda:0'}
         _limits(decision, start, 'input_verification')
         spill = OUTPUT / 'spill'
         with PreflightSampler(interval=.1, device='cuda:0', spill_dir=spill) as sampler:
@@ -191,6 +247,7 @@ def run() -> dict:
             report['input_bytes'] = (c0_file.stat().st_size +
                 Path(inputs['canonical_path']).stat().st_size +
                 disk_bytes(Path(inputs['cohort_path'])) + disk_bytes(g0_manifest.parent))
+            report['input_bytes_unavailable_reason'] = None
             _limits(decision, start, 'replay_initialization')
             report['stage'] = 'replay_initialization'
             _write(report)
@@ -225,6 +282,8 @@ def run() -> dict:
                 benchmark = select_serving_users(replay, history)
                 if len(history.user_ids) != 49587 or len(history.movie_ids) != 40666:
                     raise ValueError('Fixed cohort/catalog mismatch')
+                if not benchmark.selected:
+                    raise ValueError('No eligible serving users; ranking feasibility unavailable')
                 report['benchmark'] = {'eligible_pool': benchmark.eligible_pool_count,
                                        'selected_count': len(benchmark.selected),
                                        'selected_sha256': benchmark.selected_sha256}
@@ -245,8 +304,7 @@ def run() -> dict:
                 if p0_timing.get('propagation_s', 0) > 60:
                     raise TimeoutError('P0 propagation exceeded proposed 60 s cap')
                 report['cpu_s']['p0'] = time.process_time() - cpu_tick
-                sampler.sample()
-                report['phase_resources']['p0'] = sampler.record()
+                report['phase_resources']['p0'] = _phase_resource(sampler)
                 report['stage'] = 'strategy_preparation'
                 _limits(decision, start, report['stage'])
                 _write(report)
@@ -265,8 +323,7 @@ def run() -> dict:
                     if strategy == 'S1':
                         report['s1_manifest_sha256'] = state.cache_manifest_sha256
                     report['cpu_s'][strategy] = time.process_time() - cpu_tick
-                    sampler.sample()
-                    report['phase_resources'][f'{strategy}_prepare'] = sampler.record()
+                    report['phase_resources'][f'{strategy}_prepare'] = _phase_resource(sampler)
                     if strategy == 'S1' and timing.get('propagation_s', 0) > 60:
                         raise TimeoutError('S1 propagation exceeded 60 s')
                     if strategy == 'S1' and (
@@ -285,17 +342,19 @@ def run() -> dict:
                     torch.cuda.synchronize(0)
                     report['timings_s'][strategy]['serving_like_rank_s'] = time.monotonic() - tick
                     report['cpu_s'][f'{strategy}_serving_like_rank'] = time.process_time() - cpu_tick
-                    sampler.sample()
-                    report['phase_resources'][f'{strategy}_rank'] = sampler.record()
+                    report['phase_resources'][f'{strategy}_rank'] = _phase_resource(sampler)
                     if report['timings_s'][strategy]['serving_like_rank_s'] > 300:
                         raise TimeoutError('Serving ranking exceeded 300 s')
+                    _limits(decision, start, f'{strategy}_rank_complete')
                     rankings[strategy] = {'users': len(ranked),
                         'top20_sha256': __import__('hashlib').sha256(
                             json.dumps(ranked, sort_keys=True).encode()).hexdigest()}
                     _write(report)
                 report['rankings'] = rankings
                 report['snapshot_bytes'] = disk_bytes(OUTPUT / 'snapshot')
+                report['snapshot_bytes_unavailable_reason'] = None
                 report['cache_bytes'] = disk_bytes(OUTPUT / 'p0') + disk_bytes(OUTPUT / 's1')
+                report['cache_bytes_unavailable_reason'] = None
                 report['duckdb_memory'] = replay.con.execute('SELECT * FROM duckdb_memory()').fetchall()
                 report['duckdb_unavailable_reason'] = None
                 report['duckdb_memory_limit'] = '1GB'
@@ -317,8 +376,10 @@ def run() -> dict:
         report['process_exit_code'] = 0 if report['status'] == 'COMPLETE_PREFLIGHT' else 1
         if sampler is not None:
             report['resources'] = sampler.record()
+            report['resources_unavailable_reason'] = None
         if owned_output:
             report['output_bytes'] = disk_bytes(OUTPUT)
+            report['output_bytes_unavailable_reason'] = None
             _write(report)
     return report
 

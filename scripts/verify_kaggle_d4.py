@@ -23,6 +23,8 @@ def verify(package: Path) -> dict:
             metadata['is_private'] is not True or metadata['enable_internet'] is not False or
             metadata['enable_gpu'] is not True or metadata['machine_shape'] != 'NvidiaTeslaT4' or
             metadata['code_file'] != 'runner.py' or
+            manifest['private_input_sources'] !=
+            metadata['dataset_sources'] + metadata['kernel_sources'] or
             manifest['boundary'] != 1609459200 or
             manifest['proposed_forward_attempts'] != 2):
         raise ValueError('D4 package metadata or approval gate mismatch')
@@ -38,6 +40,17 @@ def verify(package: Path) -> dict:
         for name, expected in manifest['source_sha256'].items():
             if hashlib.sha256(archive.read(name)).hexdigest() != expected:
                 raise ValueError(f'Source SHA mismatch: {name}')
+        selection_raw = archive.read('results/goal04_training/selection.json')
+        selection = json.loads(selection_raw)
+        if (hashlib.sha256(selection_raw).hexdigest() != manifest['selection_sha256'] or
+                manifest.get('input_sha256') != {
+                    'c0': selection['checkpoint']['sha256'],
+                    'g0_manifest': selection['g0_snapshot_manifest_sha256'],
+                    'canonical': selection['canonical_source_sha256'],
+                    'cohort_manifest': selection['cohort_manifest_sha256']} or
+                set(manifest.get('build_environment', {})) !=
+                {'python', 'platform', 'torch', 'duckdb', 'psutil'}):
+            raise ValueError('D4 input/environment provenance mismatch')
         runner = archive.read('scripts/kaggle_d4_runner.py').decode('utf-8')
         if 'approval_gate(' not in runner or "if __name__ == '__main__':" not in runner:
             raise ValueError('Approval gate source missing')
