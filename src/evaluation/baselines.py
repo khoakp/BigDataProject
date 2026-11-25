@@ -2,6 +2,9 @@
 from __future__ import annotations
 
 from collections import defaultdict
+from pathlib import Path
+
+import duckdb
 
 
 def popularity_counts(state: dict, movie_ids: dict[int, int]) -> dict[int, int]:
@@ -16,6 +19,18 @@ def popularity_counts(state: dict, movie_ids: dict[int, int]) -> dict[int, int]:
     for user_node, movie_node, *_ in state['edges']:
         users_by_movie[movie_node].add(user_node)
     return {raw_id: len(users_by_movie[node_id]) for raw_id, node_id in movie_ids.items()}
+
+
+def popularity_counts_snapshot(snapshot: Path, movie_ids: dict[int, int]) -> dict[int, int]:
+    """Exact unique-user counts from a verified fixed-cohort snapshot."""
+    with duckdb.connect(config={'memory_limit': '1GB', 'threads': '1'}) as con:
+        rows = con.execute('''SELECT movie_node_id,count(DISTINCT user_node_id)
+            FROM read_parquet(?) GROUP BY movie_node_id''',
+            [str(snapshot / 'edges.parquet')]).fetchall()
+    by_node = dict(rows)
+    if len(by_node) != len(rows) or not set(by_node) <= set(movie_ids.values()):
+        raise ValueError('Popularity count movie nodes differ from fixed catalog')
+    return {raw: by_node.get(node, 0) for raw, node in movie_ids.items()}
 
 
 def popularity_topk(state: dict, user_ids: dict[int, int], movie_ids: dict[int, int],

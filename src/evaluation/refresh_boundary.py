@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+from time import perf_counter
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -134,17 +135,25 @@ def _mask_hash(snapshot: Path) -> str:
     return digest.hexdigest()
 
 
-def freeze_boundary(replay: ModelGraphReplay, b: int, snapshot: Path) -> BoundaryHistory:
+def freeze_boundary(replay: ModelGraphReplay, b: int, snapshot: Path,
+                    *, profile_timings: dict | None = None) -> BoundaryHistory:
     if type(b) is not int:
         raise ValueError('UTC boundary must be integer seconds')
+    tick = perf_counter()
     version = replay.advance(b)
+    if profile_timings is not None:
+        profile_timings['canonical_replay_s'] = perf_counter() - tick
     if version['observed_before_ts'] != b:
         raise ValueError('Replay did not freeze requested boundary')
+    tick = perf_counter()
     replay.export_snapshot(snapshot, expected_version=version['projection_version'])
+    if profile_timings is not None:
+        profile_timings['snapshot_export_s'] = perf_counter() - tick
     manifest, _, _ = load_projection_snapshot(
         snapshot, expected_mapping=replay.meta['mapping_sha256'],
         expected_version=version['projection_version'], expected_boundary=b,
-        expected_source=replay.meta['source_sha256'], materialize=False)
+        expected_source=replay.meta['source_sha256'], materialize=False,
+        profile_timings=profile_timings)
     if manifest['last_canonical_order_key'][0] >= b:
         raise ValueError('Future event in projection')
     with duckdb.connect() as con:
@@ -155,7 +164,10 @@ def freeze_boundary(replay: ModelGraphReplay, b: int, snapshot: Path) -> Boundar
     if len(users) + len(movies) != len(rows):
         raise ValueError('Invalid fixed mapping')
     manifest_sha = file_sha256(snapshot / 'manifest.json')
+    tick = perf_counter()
     mask_sha = _mask_hash(snapshot)
+    if profile_timings is not None:
+        profile_timings['mask_hash_s'] = perf_counter() - tick
     mask = MaskRef(snapshot, manifest_sha, manifest['mapping_sha256'],
                    manifest['source_sha256'], manifest['projection_version'], b, mask_sha)
     fields = [b, manifest['source_sha256'], manifest['cohort_manifest_sha256'],

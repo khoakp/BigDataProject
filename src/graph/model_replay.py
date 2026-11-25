@@ -9,6 +9,7 @@ from __future__ import annotations
 import json
 import hashlib
 import math
+from time import perf_counter
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -42,7 +43,9 @@ class ModelGraphReplay:
             raise
 
     @classmethod
-    def create(cls, database: Path, cohort: Path, events: Path):
+    def create(cls, database: Path, cohort: Path, events: Path,
+               *, duckdb_config: dict | None = None,
+               profile_timings: dict | None = None):
         """Verify cohort hashes and exact base projection before creating v0.
 
         Cohort edges contain first_event_ts; runtime edges retain canonical
@@ -62,7 +65,8 @@ class ModelGraphReplay:
         source_hash = file_sha256(events)
         validate_events(events)
         obj = cls.__new__(cls)
-        obj.con = duckdb.connect(str(database))
+        obj.con = duckdb.connect(str(database), config=duckdb_config or {})
+        obj.profile_timings = profile_timings
         obj.meta = dict(schema_version=SCHEMA, source_path=str(events.resolve()),
                         source_sha256=source_hash, cohort_manifest=manifest,
                         cohort_manifest_sha256=file_sha256(cohort / 'manifest.json'),
@@ -120,12 +124,19 @@ class ModelGraphReplay:
         return obj
 
     def _attach_source(self):
+        tick = perf_counter()
         source = Path(self.meta['source_path'])
         if file_sha256(source) != self.meta['source_sha256']:
             raise ValueError('Canonical source changed')
         self.con.execute('SET threads=1')
         self.con.execute("SET memory_limit='1GB'")
         self.con.execute(f"CREATE OR REPLACE TEMP VIEW events AS SELECT * FROM read_parquet('{sql_path(source)}')")
+        self._profile('_attach_source_s', tick)
+
+    def _profile(self, key: str, tick: float):
+        timings = getattr(self, 'profile_timings', None)
+        if timings is not None:
+            timings[key] = timings.get(key, 0.0) + perf_counter() - tick
 
     def close(self):
         self.con.close()
@@ -148,14 +159,17 @@ class ModelGraphReplay:
         return json.loads(self.con.execute('SELECT payload FROM versions ORDER BY version DESC LIMIT 1').fetchone()[0])
 
     def _check_state(self):
+        tick = perf_counter()
         state = self.state()
         current = self.current()
         if checksum([r[:3] for r in state['registry']]) != self.meta['mapping_sha256']:
             raise ValueError('Fixed mapping changed')
         if any(checksum(state[k]) != current[k+'_sha256'] for k in ('registry','edges','degrees')):
             raise ValueError('Projection state does not match version ledger')
+        self._profile('_check_state_s', tick)
 
     def _record(self, version, boundary, counts):
+        tick = perf_counter()
         state = self.state()
         last = self.con.execute('''SELECT event_id,event_ts,user_raw_id,movie_raw_id,source_row_id
             FROM events WHERE event_ts<? ORDER BY event_id DESC LIMIT 1''', [boundary]).fetchone()
@@ -169,6 +183,7 @@ class ModelGraphReplay:
                        edge_count=len(state['edges']), counts=counts,
                        **{k+'_sha256':checksum(state[k]) for k in ('registry','edges','degrees')})
         self.con.execute('INSERT INTO versions VALUES (?,?,?)', [version,boundary,json.dumps(payload)])
+        self._profile('_record_s', tick)
         return payload
 
     def advance(self, boundary: int):
@@ -261,7 +276,8 @@ class ModelGraphReplay:
 
 
 def load_projection_snapshot(path: Path, *, expected_mapping: str, expected_version: int,
-                             expected_boundary: int, expected_source: str, materialize: bool = True):
+                             expected_boundary: int, expected_source: str, materialize: bool = True,
+                             profile_timings: dict | None = None):
     """Validate file integrity, provenance and normalization before use by a model."""
     m = json.loads((path/'manifest.json').read_text(encoding='utf-8'))
     if (m['schema_version'] != SCHEMA or m['mapping_sha256'] != expected_mapping or
@@ -275,17 +291,23 @@ def load_projection_snapshot(path: Path, *, expected_mapping: str, expected_vers
         m['canonical_watermark_event_id'] < 0 or
         m['snapshot_id'] != f"projection-{expected_version}-{m['edges_sha256'][:16]}"):
         raise ValueError('Snapshot temporal/version provenance mismatch')
+    tick = perf_counter()
     verified = _verify_payload(path,m)
+    if profile_timings is not None:
+        profile_timings['snapshot_verify_s'] = profile_timings.get('snapshot_verify_s', 0.0) + perf_counter() - tick
     if verified['coo_sha256'] != m['coo_sha256']:
         raise ValueError('Snapshot normalization checksum mismatch')
     if 'python_coo_sha256' in m and verified['python_coo_sha256'] != m['python_coo_sha256']:
         raise ValueError('Snapshot Python reference checksum mismatch')
     if not materialize:
         return m,None,None
+    tick = perf_counter()
     with duckdb.connect(config={'memory_limit':'1GB','threads':'1'}) as con:
         tables = {n:con.execute('SELECT * FROM read_parquet(?) ORDER BY ALL', [str(path/(n+'.parquet'))]).fetchall()
                   for n in ('nodes','edges','degrees','adjacency')}
     state = dict(registry=tables['nodes'],edges=tables['edges'],degrees=tables['degrees'])
+    if profile_timings is not None:
+        profile_timings['snapshot_materialize_s'] = profile_timings.get('snapshot_materialize_s', 0.0) + perf_counter() - tick
     return m,state,SparseAdjacency(tuple(m['shape']),tuple(tables['adjacency']))
 
 
