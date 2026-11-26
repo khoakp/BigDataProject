@@ -7,7 +7,8 @@ from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import patch
 
-from scripts.kaggle_d4_runner import (INPUT_SOURCES, SELECTION, _phase_resource,
+from scripts.kaggle_d4_runner import (INPUT_SOURCES, INPUT_VERSIONS, PHASE_CAPS_S,
+                                     SELECTION, _phase_resource,
                                      _unique_file, approval_gate, run)
 from scripts.prepare_kaggle_d4 import prepare as prepare_package
 from scripts.verify_kaggle_d4 import verify
@@ -189,10 +190,14 @@ class D4LocalTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             selection = json.loads(SELECTION.read_text(encoding='utf-8'))
-            decision = dict(approved_source_bundle_sha256='bundle', approved_git_head='head',
+            decision = dict(status='OWNER_APPROVED_D4_B',
+                approved_kernel_id='khoakp/moviegraph-v2-d4-resource-preflight',
+                approved_source_bundle_sha256='bundle', approved_git_head='head',
                 owner_decision_reference='owner-d4b-1', approved_boundary=1609459200,
                 approved_device='cuda:0', approved_job_count=1, approved_forward_attempts=2,
                 approved_input_sources=INPUT_SOURCES,
+                approved_input_versions=INPUT_VERSIONS,
+                approved_phase_caps_s=PHASE_CAPS_S,
                 approved_input_sha256={
                     'c0': selection['checkpoint']['sha256'],
                     'g0_manifest': selection['g0_snapshot_manifest_sha256'],
@@ -201,6 +206,9 @@ class D4LocalTest(unittest.TestCase):
                 p0_accounting='official_setup_1_of_100',
                 s1_accounting='official_rep1_boundary1_1_of_99',
                 s1_reuse_authorized=True, max_wall_s=1800,
+                failed_forward_counts=True, retry_policy='none',
+                output_policy='private_fresh_output_then_independent_hash_verification',
+                quality_evaluation=False, holdout_access=False,
                 min_host_available_bytes=8 * 1024**3,
                 min_disk_free_bytes=10 * 1024**3, min_gpu_free_fraction=.30)
             (root / 'd4-owner-approval.json').write_text(json.dumps(decision), encoding='utf-8')
@@ -208,6 +216,11 @@ class D4LocalTest(unittest.TestCase):
                 approval_gate(root, bundle_sha256='other', git_head='head')
             self.assertEqual(approval_gate(root, bundle_sha256='bundle', git_head='head'),
                              decision)
+            decision['status'] = 'DRAFT_NOT_APPROVED'
+            (root / 'd4-owner-approval.json').write_text(json.dumps(decision), encoding='utf-8')
+            with self.assertRaises(PermissionError):
+                approval_gate(root, bundle_sha256='bundle', git_head='head')
+            decision['status'] = 'OWNER_APPROVED_D4_B'
             decision['approved_input_sha256']['c0'] = 'wrong'
             (root / 'd4-owner-approval.json').write_text(json.dumps(decision), encoding='utf-8')
             with self.assertRaises(PermissionError):

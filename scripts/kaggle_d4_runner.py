@@ -34,6 +34,12 @@ INPUT_SOURCES = [
     'khoakp/moviegraph-v2-c3-canonical',
     'khoakp/moviegraph-v2-c3-real-5m-preflight',
     'khoakp/moviegraph-v2-c4-single-t4-training']
+INPUT_VERSIONS = {'canonical_dataset': 1, 'cohort_dataset': 2,
+                  'c3_kernel': 3, 'c4_kernel': 4}
+PHASE_CAPS_S = {'input_verification': 900, 'replay_initialization': 300,
+                'boundary_freeze': 300, 'p0_setup': 300,
+                'strategy_preparation': 300, 'serving_ranking': 300,
+                'propagation': 60, 'graph_setup': 300}
 
 
 def approval_gate(root: Path | None = None, *, bundle_sha256: str | None = None,
@@ -51,6 +57,9 @@ def approval_gate(root: Path | None = None, *, bundle_sha256: str | None = None,
         'canonical': selection['canonical_source_sha256'],
         'cohort_manifest': selection['cohort_manifest_sha256']}
     if (not bundle_sha256 or not git_head or
+            decision.get('status') != 'OWNER_APPROVED_D4_B' or
+            decision.get('approved_kernel_id') !=
+            'khoakp/moviegraph-v2-d4-resource-preflight' or
             decision.get('approved_source_bundle_sha256') != bundle_sha256 or
             decision.get('approved_git_head') != git_head or
             not isinstance(decision.get('owner_decision_reference'), str) or
@@ -59,6 +68,8 @@ def approval_gate(root: Path | None = None, *, bundle_sha256: str | None = None,
             decision.get('approved_device') != 'cuda:0' or
             decision.get('approved_input_sha256') != expected_inputs or
             decision.get('approved_input_sources') != INPUT_SOURCES or
+            decision.get('approved_input_versions') != INPUT_VERSIONS or
+            decision.get('approved_phase_caps_s') != PHASE_CAPS_S or
             type(decision.get('approved_job_count')) is not int or
             decision['approved_job_count'] != 1 or
             type(decision.get('approved_forward_attempts')) is not int or
@@ -66,6 +77,12 @@ def approval_gate(root: Path | None = None, *, bundle_sha256: str | None = None,
             decision.get('p0_accounting') != 'official_setup_1_of_100' or
             decision.get('s1_accounting') != 'official_rep1_boundary1_1_of_99' or
             decision.get('s1_reuse_authorized') is not True or
+            decision.get('failed_forward_counts') is not True or
+            decision.get('retry_policy') != 'none' or
+            decision.get('output_policy') !=
+            'private_fresh_output_then_independent_hash_verification' or
+            decision.get('quality_evaluation') is not False or
+            decision.get('holdout_access') is not False or
             type(decision.get('max_wall_s')) is not int or
             not 0 < decision['max_wall_s'] <= 3600 or
             type(decision.get('min_host_available_bytes')) is not int or
